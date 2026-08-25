@@ -1,0 +1,208 @@
+{
+  "__meta__": {
+    "version": 1,
+    "lang": "es"
+  },
+  "status": {
+    "active": "🟢 Activa",
+    "inactive": "🔴 Inactiva"
+  },
+  "welcome": {
+    "body": "<b>⚡ The Claimers</b>\n<i>Reclamo automático de códigos de Stake — rápido, sin intervención, 24×7.</i>\n━━━━━━━━━━━━━━━\n👤 ID de usuario  <code>{user_id}</code>\n🔑 Licencia  <code>{license_key}</code>\n📶 Estado  <b>{status}</b>\n👥 Claimers  <b>{active_now}/{maximum_usernames}</b>",
+    "inactive_extra": "\n\n<b>🔴 Tu licencia aún no está activa.</b>\nToca <b>💳 Top Up</b> para añadir saldo y activarla al instante, o contáctanos a través de <b>🛟 Support</b>.",
+    "active_extra": "\n\n<i>Puedes conectar hasta <b>{maximum_usernames}</b> nombres de usuario únicos. ¿Necesitas un límite mayor? Toca 🛟 Support.</i>",
+    "footer": "\n\n👇 <b>Elige una opción abajo para empezar.</b>"
+  },
+  "rate_limit": {
+    "body": "⏳ <b>¡Con calma!</b>\n━━━━━━━━━━━━━━━\n<code>/{command}</code> está limitado a <b>{limit_desc}</b>.\nInténtalo de nuevo en <b>{wait_secs}s</b>.",
+    "limits": {
+      "drop": "5 por minuto",
+      "reload": "1 cada 10 s",
+      "connected": "5 por minuto",
+      "license": "5 por minuto",
+      "start": "5 por minuto",
+      "balance": "5 por minuto",
+      "topup": "5 por minuto",
+      "default": "el límite"
+    }
+  },
+  "license_status": {
+    "inactive": "🔴 <b>Licencia inactiva</b>\n━━━━━━━━━━━━━━━\nTu licencia aún no está activa. Toca <b>💳 Top Up</b> para añadir saldo y activarla al instante, o contáctanos a través de <b>🛟 Support</b> (@adityaofficial96).",
+    "no_license": "👋 <b>¡Bienvenido!</b>\n━━━━━━━━━━━━━━━\nAún no tienes una licencia. Envía /start para crear una en segundos."
+  },
+  "errors": {
+    "generic": "⚠️ <b>Algo salió mal</b>\n━━━━━━━━━━━━━━━\n{reason}\nInténtalo de nuevo en un momento.",
+    "default_reason": "No pudimos conectar con el servicio."
+  },
+  "start": {
+    "create_failed": "No se pudo crear tu licencia. Intenta /start de nuevo.",
+    "welcome": "🎰 <b>Welcome to the Stake Code Claimer for .com — Subscription Bot!</b>\n\n📱 <b>Use the Mini App</b>\nFor the easiest setup, tap <b>Open Mini App</b> below. It's your all-in-one dashboard to manage your subscription, change your username, and configure your API keys.\n\n🔒 <b>Security &amp; Setup</b>\nTo activate the system, you must link an active Stake API key. Your credentials are locked safely inside our highly encrypted, restricted-access database.\n\n🛡️ <b>100% Safe Assets</b>\nYour balance stays completely secure. The system can never process any tips or withdrawals without your personal 2FA code.\n\n⚡ <b>Server Status</b>\nWe strictly cap our user limit to guarantee lightning-fast claim speeds and rock-solid stability.\n\n🟢 <b>Only {slots} slots remaining!</b>",
+    "open_prompt": "👇 Please tap the button below to open your dashboard."
+  },
+  "drop": {
+    "prompt": "🎟 <b>Enviar un código</b>\n━━━━━━━━━━━━━━━\nResponde a este mensaje con el código que quieres difundir.",
+    "invalid_wrap": "❌ {err}",
+    "invalid_empty": "El código no puede estar vacío.",
+    "invalid_too_long": "El código es demasiado largo (máx. 64 caracteres).",
+    "invalid_reserved": "El código contiene una palabra reservada: <code>{kw}</code>.",
+    "backend_unreachable": "Envío fallido — backend inaccesible.",
+    "no_claimers": "⚠️ <b>No hay Claimers conectados</b>\n━━━━━━━━━━━━━━━\nInicia el script de Tampermonkey en Stake y vuelve a intentarlo. Usa /connected para ver quién está en línea.",
+    "success": "⚡ <b>Código enviado</b>\n━━━━━━━━━━━━━━━\n🎟 Código  <code>{code}</code>\n📡 Enviado a  <b>{count}</b> Claimers\n\n<i>Los resultados llegan en unos 5 segundos…</i>"
+  },
+  "reload": {
+    "checking": "🔄 <i>Comprobando el estado de reload…</i>",
+    "no_response_reason": "No hay respuesta de tus Claimers.",
+    "no_response": "⚠️ <b>Sin respuesta</b>\n━━━━━━━━━━━━━━━\nNinguno de tus Claimers respondió. Asegúrate de que el script esté en ejecución.",
+    "available": "✅  <code>{username}</code>  ·  {time_left}",
+    "not_yet": "⏳  <code>{username}</code>  ·  aún no",
+    "header": "🔄 <b>Estado de reload</b>\n━━━━━━━━━━━━━━━\n{lines}"
+  },
+  "connected": {
+    "fetching": "👥 <i>Obteniendo Claimers conectados…</i>",
+    "no_response_reason": "No hay respuesta de los Claimers.",
+    "no_claimers": "⚠️ <b>No hay Claimers conectados</b>\n━━━━━━━━━━━━━━━\nLicencia  <code>{license}</code>\nInicia el script de Tampermonkey en Stake para conectarte.",
+    "account": "•  <code>{username}</code>  ·  <b>{tokens}</b> tokens  ·  <b>{claims}</b>/10",
+    "header": "👥 <b>Claimers conectados</b>\n━━━━━━━━━━━━━━━\n🔑 Licencia  <code>{license}</code>\n🖥️ Navegadores  <b>{browsers}</b>\n\n{accounts}"
+  },
+  "license": {
+    "body": "🔑 <b>Tu licencia</b>\n━━━━━━━━━━━━━━━\nClave  <code>{license_key}</code>\nEstado  <b>{status}</b>\nClaimers  <b>{active_now}/{maximum_usernames}</b>",
+    "inactive_extra": "\n\n<i>Aún no está activa — toca 💳 Top Up para activarla, o 🛟 Support para obtener ayuda.</i>"
+  },
+  "fee": {
+    "notice": "💡 <i>Nuestra tarifa habitual es del 4% diario, pero cada sábado solo pagas el 3,5% sobre los códigos reclamados. ¡No te lo pierdas!</i>"
+  },
+  "buttons": {
+    "cancel": "❌ Cancelar",
+    "check_status": "🔄 Check Status",
+    "pay_now": "💳 Pay Now",
+    "open_app": "🚀 Abrir app",
+    "install": "📥 Instalar",
+    "commands": "📋 Comandos",
+    "license": "🔑 Licencia",
+    "my_claims": "📊 Mis reclamos",
+    "balance": "💰 Saldo",
+    "topup": "💳 Top Up",
+    "support": "🛟 Support",
+    "channel": "📣 Canal",
+    "install_userscript": "📜 Install Userscript",
+    "copy_link": "📋 Copiar enlace",
+    "stake_offers": "🎁 Stake Offers",
+    "vip_club": "👑 VIP Club",
+    "choose_language": "🌐 Idioma",
+    "count_stream": "🎬 Stream Special (6:00–9:30)",
+    "count_1d": "📅 1 día",
+    "count_7d": "📆 7 días",
+    "count_custom": "✏️ Rango personalizado",
+    "by_license": "🔑 Por licencia",
+    "by_username": "👤 Por nombre de usuario"
+  },
+  "count": {
+    "rate_limit": "⏳ Vas un poco rápido. Intenta /count de nuevo en <b>{secs}s</b>.",
+    "admin_header": "📊 <b>Ranking de reclamos</b>\n━━━━━━━━━━━━━━━\nMira quién reclamó cuánto. ¿Cómo quieres consultarlo?\n\n🔑 <b>Por licencia</b> — todas las cuentas bajo una clave\n👤 <b>Por nombre de usuario</b> — una sola cuenta de Stake\n\n<i>El historial se guarda 30 días · todas las horas en IST.</i>",
+    "user_header": "📊 <b>Tus totales de reclamos</b>\n━━━━━━━━━━━━━━━\n¿Hasta cuándo debo sumar tus ganancias?\n\n<i>El historial se guarda 30 días · todas las horas en IST.</i>",
+    "cancelled": "❎ Cancelado.",
+    "expired": "⚠️ Tu solicitud anterior de /count expiró. Ejecuta /count de nuevo.",
+    "admin_lic_prompt": "🔑 Envíame la <b>clave de licencia</b> a consultar.\n<i>(Clave completa, p. ej. THECLAIMERS-…)</i>",
+    "admin_user_prompt": "👤 Envíame el <b>nombre de usuario de Stake</b> a consultar.",
+    "range_invalid": "⚠️ Envía dos fechas como <code>2026-05-28 to 2026-06-02</code> (<b>YYYY-MM-DD</b>).",
+    "error_wrap": "⚠️ {error}.\nInténtalo de nuevo.",
+    "key_empty": "⚠️ La clave de licencia no puede estar vacía.",
+    "key_got": "🔑 Entendido: <code>{key}</code>\n\nElige un rango de tiempo:",
+    "name_empty": "⚠️ El nombre de usuario no puede estar vacío.",
+    "name_got": "👤 Entendido: <code>{name}</code>\n\nElige un rango de tiempo:",
+    "server_error": "⚠️ No se puede conectar con el servidor ahora. Intenta /count de nuevo en un momento.",
+    "unknown_type": "⚠️ Tipo de consulta desconocido. Ejecuta /count de nuevo.",
+    "title_user": "📊 Tus reclamos · {label}",
+    "title_license": "📊 Reclamos de licencia · {label}",
+    "title_username": "📊 Reclamos de usuario · {label}",
+    "subtitle_license": "🔑 <code>{value}</code>",
+    "subtitle_username": "👤 <code>{value}</code>",
+    "label_custom": "{d_from} → {d_to} (IST)",
+    "win_stream": "Stream Special (06:00–09:30 IST)",
+    "win_1d": "último 1 día",
+    "win_7d": "últimos 7 días",
+    "custom_prompt": "✏️ <b>Rango de fechas personalizado</b>\n━━━━━━━━━━━━━━━\nEnvíame tu rango como dos fechas, por ejemplo:\n\n<code>{ex_from} to {ex_to}</code>\n\n• Formato: <b>YYYY-MM-DD to YYYY-MM-DD</b>\n• Hasta <b>{max} días</b> de diferencia\n• Todas las horas en <b>IST</b>\n• El historial llega hasta <b>{oldest}</b> (últimos {retention} días)",
+    "err_date_format": "las fechas deben tener el formato YYYY-MM-DD",
+    "err_to_before_from": "la fecha 'to' es anterior a la fecha 'from'",
+    "err_range_too_long": "ese rango es de {gap} días — el máximo es {max} días",
+    "err_too_old": "'from' es anterior al límite de historial de {days} días",
+    "err_future": "la fecha 'from' está en el futuro",
+    "empty_personal": "<i>Aún no has reclamado nada en este período — envía un código y aparecerá aquí. 🚀</i>",
+    "empty_other": "<i>No hay reclamos registrados en este período.</i>",
+    "updated_suffix": "\n\n🕐 Actualizado hace un momento",
+    "footer": "━━━━━━━━━━━━━━━\n💰 <b>{usd}</b> reclamados  •  📦 <b>{claims}</b> {claim_word}  •  👥 <b>{users}</b> {user_word}",
+    "block_personal": "👤 <b>{uname}</b>\n   💰 <b>{amt}</b>  •  {claims_txt}",
+    "block_ranked": "{rank}  <b>{uname}</b>\n      💰 <b>{amt}</b>  •  {claims_txt}",
+    "part_header": "<b>{title} — Parte {idx}/{total}</b>\n━━━━━━━━━━━━━━━\n",
+    "word_claim_one": "reclamo",
+    "word_claim_other": "reclamos",
+    "word_account_one": "cuenta",
+    "word_account_other": "cuentas",
+    "claims_count_one": "{n} reclamo",
+    "claims_count_other": "{n} reclamos"
+  },
+  "install": {
+    "setup": "📥 <b>Guía de configuración</b>\n<i>Tarda unos 2 minutos — sigue los pasos.</i>\n━━━━━━━━━━━━━━━\n\n<b>1️⃣ Instala Tampermonkey</b>\nAñade la extensión <b>Tampermonkey</b> desde la tienda de tu navegador (Chrome, Brave, Edge o cualquier navegador Chromium). Luego habilita el acceso de desarrollador:\n• Abre <b>Administrar extensiones</b>\n• Abre <b>Tampermonkey → Detalles</b>\n• Activa <b>Permitir secuencias de comandos de usuario</b>\n\n<b>2️⃣ Instala el userscript</b>\nToca <b>📜 Install Userscript</b> abajo y luego haz clic en <b>Install</b> en la página de Tampermonkey que se abre.\n\n<b>3️⃣ Conecta tu licencia</b>\n• Abre <b>Stake</b> en tu navegador\n• Introduce tu clave de licencia en la ventana de Tampermonkey\n• Ejecuta /connected para confirmar que estás en línea\n\n<b>4️⃣ Inicia sesión en Stake</b>\n• Inicio de sesión normal → página <b>Offers</b>\n• Inicio de sesión por API → página <b>VIP Club</b>\n<i>(cualquier mirror de Stake compatible también funciona)</i>",
+    "optimize": "⚙️ <b>Optimización &amp; buenas prácticas</b>\n<i>Recomendado para un reclamo estable 24×7.</i>\n━━━━━━━━━━━━━━━\n\n<b>🚀 Rendimiento del navegador</b>\nAbre <code>chrome://settings/performance</code> (Navegador → Configuración → Rendimiento), luego:\n• Añade cada pestaña de Stake en <b>Mantener siempre estos sitios activos</b>\n• Desactiva el <b>Ahorro de memoria</b> para las pestañas de Stake\n\n<b>🌐 DNS (recomendado)</b>\nAbre <code>chrome://settings/security</code> (Navegador → Configuración → Privacidad y seguridad → Seguridad) y, en <b>Usar DNS seguro</b>, selecciona <b>Cloudflare (1.1.1.1)</b>.\n\n<b>🖥️ Ejecutar muchos nombres de usuario</b>\nSi ejecutas más de <b>5</b> nombres de usuario, distribúyelos en varios perfiles de navegador, PC, portátiles o RDP. Para la mejor velocidad y estabilidad, mantén un <b>máximo de 3 nombres de usuario por perfil de navegador</b>.\n\n¿Necesitas ayuda? Toca <b>🛟 Support</b> cuando quieras."
+  },
+  "commands": {
+    "list": "📋 <b>Comandos</b>\n━━━━━━━━━━━━━━━\n/start — abre tu panel\n/drop <code>[code]</code> — difunde un código a tus Claimers\n/reload — comprueba la disponibilidad de reload\n/connected — ver navegadores &amp; tokens conectados\n/count — tus totales de reclamos (últimas 24 h)\n/balance — saldo prepago &amp; uso\n/topup — recarga tu saldo\n/license — tu licencia &amp; estado\n/language — cambia tu idioma\n\n<i>Consejo: la mayoría de las acciones están a un toque desde /start.</i>"
+  },
+  "language": {
+    "header": "🌐 <b>Idioma</b>\n━━━━━━━━━━━━━━━\nActual: <b>{current}</b>\n\nElige tu idioma:",
+    "saved": "✅ <b>Idioma actualizado</b>\nLos mensajes ahora estarán en <b>{name}</b>.",
+    "error": "⚠️ No se pudo guardar tu idioma ahora. Inténtalo de nuevo en un momento."
+  },
+  "cmd_desc": {
+    "start": "Abre tu panel",
+    "drop": "Difunde un código a tus Claimers",
+    "reload": "Comprueba la disponibilidad de reload",
+    "connected": "Ver navegadores y tokens conectados",
+    "count": "Tus totales de reclamos (últimas 24 h)",
+    "balance": "Saldo prepago y uso",
+    "topup": "Recarga tu saldo",
+    "license": "Tu licencia y estado",
+    "language": "Cambia tu idioma"
+  },
+  "license_changed": {
+    "body": "🔑 <b>Clave de licencia actualizada</b>\n━━━━━━━━━━━━━━━\nAntigua  <code>{old}</code>\nNueva  <code>{new}</code>\n\nAbre la ventana de Tampermonkey y reemplaza tu clave por la nueva para seguir reclamando sin interrupción."
+  },
+  "balance": {
+    "after_claims": "💰 <b>Tu saldo</b>\n━━━━━━━━━━━━━━━\n🔑 <code>{license_key}</code>\n💳 Plan  <b>Pago tras reclamos</b>\n📶 Estado  <b>{status}</b>\n\n<i>Estás en el plan de pago tras reclamos, así que no hay saldo prepago que seguir aquí. 🎉</i>",
+    "header": "💰 <b>Tu saldo</b>\n━━━━━━━━━━━━━━━\n🔑 <code>{license_key}</code>\n💵 Disponible  <b>${amount}</b>\n📉 Tarifa por reclamo  <b>{pct}%</b>\n📶 Estado  <b>{status}</b>",
+    "claimable": "\n\n🎯 Con este saldo puedes reclamar aproximadamente <b>${claimable}</b> más en códigos de bonificación.",
+    "below_zero": "\n\n🪫 <b>Saldo por debajo de $0 — licencia pausada.</b>\nToca <b>💳 Top Up</b> para reactivarla al instante.",
+    "running_low": "\n\n⚠️ <b>Se está agotando.</b> Toca pronto <b>💳 Top Up</b> para que tus reclamos nunca se interrumpan."
+  },
+  "topup": {
+    "prompt": "💳 <b>Recargar saldo</b>\n━━━━━━━━━━━━━━━\n¿Cuánto quieres añadir?\nIntroduce una cantidad de <b>${min}</b> a <b>${max}</b> (USD).\n\n💡 <i>Ejemplo:</i> <code>10</code>\n🔒 Pago seguro en cripto vía OxaPay.{fee_line}",
+    "parse_not_number": "Envía solo un número, p. ej. <code>10</code>.",
+    "parse_invalid": "Eso no parece una cantidad válida.",
+    "parse_too_small": "La recarga mínima es <b>${min}</b>.",
+    "parse_too_large": "La recarga máxima es <b>${max}</b>.",
+    "retry_wrap": "⚠️ {err}\n\nIntroduce una cantidad de <b>${min}</b> a <b>${max}</b>.",
+    "error_wrap": "⚠️ {msg}",
+    "pay_reason": "No se pudo conectar con el servicio de pago.",
+    "status_reason": "No pudimos conectar con el servicio de pago.",
+    "not_found": "⚠️ <b>No encontramos ese pago.</b>",
+    "cancelled": "❎ <b>Recarga cancelada.</b> Ejecuta /topup cuando estés listo.",
+    "reuse": "🧾 <b>Ya tienes una recarga pendiente</b>\n━━━━━━━━━━━━━━━\n💵 Importe  <b>${amount}</b>\n\nComplétala con <b>💳 Pay Now</b> abajo — o déjala expirar y luego ejecuta /topup de nuevo para otra cantidad.\n\n<i>Tu saldo se acredita automáticamente una vez confirmado.</i>",
+    "invoice": "🧾 <b>Factura lista</b>\n━━━━━━━━━━━━━━━\n💵 Importe  <b>${amount}</b>\n\nToca <b>💳 Pay Now</b> para completar el pago en cripto.\nTu saldo se acredita <b>automáticamente</b> en cuanto se confirma — recibirás un mensaje aquí mismo.\n\n<i>Usa 🔄 Check Status cuando quieras.</i>",
+    "confirmed": "✅ <b>Pago confirmado</b>\n━━━━━━━━━━━━━━━\n💵 <b>${amount}</b> se ha añadido a tu saldo.\nRevisa /balance para ver tu total actualizado. 🚀",
+    "expired": "⌛ <b>Factura expirada</b>\n━━━━━━━━━━━━━━━\nEsta ventana de pago se ha cerrado. Ejecuta /topup para iniciar una nueva.",
+    "pay_cancelled": "❌ <b>Pago cancelado</b>\n━━━━━━━━━━━━━━━\nNo se realizó ningún cargo. Ejecuta /topup para intentarlo de nuevo.",
+    "waiting": "⏳ <b>Esperando el pago</b>\n━━━━━━━━━━━━━━━\n💵 Importe  <b>${amount}</b>\n\nCompleta el pago y luego toca <b>🔄 Check Status</b> para actualizar.",
+    "errors": {
+      "amount_not_number": "Eso no parece una cantidad válida.",
+      "amount_too_small": "La recarga mínima es <b>${min}</b>.",
+      "amount_too_large": "La recarga máxima es <b>${max}</b>.",
+      "no_license": "Aún no tienes una licencia — envía /start primero.",
+      "license_banned": "Esta licencia no se puede recargar. Contacta con @adityaofficial96.",
+      "payments_unavailable": "Las recargas no están disponibles temporalmente. Inténtalo de nuevo en breve.",
+      "invoice_failed": "No se pudo crear tu pago ahora. Inténtalo de nuevo en un momento.",
+      "db_error": "Algo salió mal de nuestro lado. Inténtalo de nuevo en breve.",
+      "backend_unreachable": "No se pudo conectar con el servicio de pago. Inténtalo de nuevo en breve.",
+      "default": "No se pudo iniciar el pago. Inténtalo de nuevo."
+    }
+  }
+}

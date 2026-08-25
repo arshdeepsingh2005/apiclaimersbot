@@ -1,0 +1,208 @@
+{
+  "__meta__": {
+    "version": 1,
+    "lang": "tr"
+  },
+  "status": {
+    "active": "🟢 Aktif",
+    "inactive": "🔴 Pasif"
+  },
+  "welcome": {
+    "body": "<b>⚡ The Claimers</b>\n<i>Otomatik Stake kodu toplama — hızlı, elden bağımsız, 24×7.</i>\n━━━━━━━━━━━━━━━\n👤 Kullanıcı ID  <code>{user_id}</code>\n🔑 Lisans  <code>{license_key}</code>\n📶 Durum  <b>{status}</b>\n👥 Claimers  <b>{active_now}/{maximum_usernames}</b>",
+    "inactive_extra": "\n\n<b>🔴 Lisansınız henüz etkin değil.</b>\nBakiye eklemek ve anında etkinleştirmek için <b>💳 Top Up</b> öğesine dokunun ya da <b>🛟 Support</b> üzerinden bize ulaşın.",
+    "active_extra": "\n\n<i>En fazla <b>{maximum_usernames}</b> benzersiz kullanıcı adı bağlayabilirsiniz. Daha yüksek bir limite mi ihtiyacınız var? 🛟 Support öğesine dokunun.</i>",
+    "footer": "\n\n👇 <b>Başlamak için aşağıdan bir seçenek seçin.</b>"
+  },
+  "rate_limit": {
+    "body": "⏳ <b>Sakin ol!</b>\n━━━━━━━━━━━━━━━\n<code>/{command}</code> <b>{limit_desc}</b> ile sınırlıdır.\nLütfen <b>{wait_secs}sn</b> sonra tekrar deneyin.",
+    "limits": {
+      "drop": "dakikada 5",
+      "reload": "10 sn'de 1",
+      "connected": "dakikada 5",
+      "license": "dakikada 5",
+      "start": "dakikada 5",
+      "balance": "dakikada 5",
+      "topup": "dakikada 5",
+      "default": "limit"
+    }
+  },
+  "license_status": {
+    "inactive": "🔴 <b>Lisans Pasif</b>\n━━━━━━━━━━━━━━━\nLisansınız henüz etkin değil. Bakiye eklemek ve anında etkinleştirmek için <b>💳 Top Up</b> öğesine dokunun ya da <b>🛟 Support</b> (@adityaofficial96) üzerinden bize ulaşın.",
+    "no_license": "👋 <b>Hoş geldiniz!</b>\n━━━━━━━━━━━━━━━\nHenüz bir lisansınız yok. Saniyeler içinde bir tane oluşturmak için /start gönderin."
+  },
+  "errors": {
+    "generic": "⚠️ <b>Bir şeyler ters gitti</b>\n━━━━━━━━━━━━━━━\n{reason}\nLütfen birazdan tekrar deneyin.",
+    "default_reason": "Hizmete ulaşamadık."
+  },
+  "start": {
+    "create_failed": "Lisansınız oluşturulamadı. /start komutunu tekrar deneyin.",
+    "welcome": "🎰 <b>Welcome to the Stake Code Claimer for .com — Subscription Bot!</b>\n\n📱 <b>Use the Mini App</b>\nFor the easiest setup, tap <b>Open Mini App</b> below. It's your all-in-one dashboard to manage your subscription, change your username, and configure your API keys.\n\n🔒 <b>Security &amp; Setup</b>\nTo activate the system, you must link an active Stake API key. Your credentials are locked safely inside our highly encrypted, restricted-access database.\n\n🛡️ <b>100% Safe Assets</b>\nYour balance stays completely secure. The system can never process any tips or withdrawals without your personal 2FA code.\n\n⚡ <b>Server Status</b>\nWe strictly cap our user limit to guarantee lightning-fast claim speeds and rock-solid stability.\n\n🟢 <b>Only {slots} slots remaining!</b>",
+    "open_prompt": "👇 Please tap the button below to open your dashboard."
+  },
+  "drop": {
+    "prompt": "🎟 <b>Kod Yayınla</b>\n━━━━━━━━━━━━━━━\nYayınlamak istediğiniz kodu bu mesajı yanıtlayarak gönderin.",
+    "invalid_wrap": "❌ {err}",
+    "invalid_empty": "Kod boş olamaz.",
+    "invalid_too_long": "Kod çok uzun (en fazla 64 karakter).",
+    "invalid_reserved": "Kod ayrılmış bir sözcük içeriyor: <code>{kw}</code>.",
+    "backend_unreachable": "Yayın başarısız — arka uca ulaşılamıyor.",
+    "no_claimers": "⚠️ <b>Bağlı Claimer yok</b>\n━━━━━━━━━━━━━━━\nStake üzerinde Tampermonkey betiğini başlatın, ardından tekrar deneyin. Kimin çevrimiçi olduğunu görmek için /connected kullanın.",
+    "success": "⚡ <b>Kod Yayınlandı</b>\n━━━━━━━━━━━━━━━\n🎟 Kod  <code>{code}</code>\n📡 Gönderildi  <b>{count}</b> Claimer'a\n\n<i>Sonuçlar yaklaşık 5 saniyede gelir…</i>"
+  },
+  "reload": {
+    "checking": "🔄 <i>reload durumu kontrol ediliyor…</i>",
+    "no_response_reason": "Claimer'larınızdan yanıt yok.",
+    "no_response": "⚠️ <b>Yanıt Yok</b>\n━━━━━━━━━━━━━━━\nClaimer'larınızın hiçbiri yanıt vermedi. Betiğin çalıştığından emin olun.",
+    "available": "✅  <code>{username}</code>  ·  {time_left}",
+    "not_yet": "⏳  <code>{username}</code>  ·  henüz değil",
+    "header": "🔄 <b>Reload Durumu</b>\n━━━━━━━━━━━━━━━\n{lines}"
+  },
+  "connected": {
+    "fetching": "👥 <i>Bağlı Claimer'lar getiriliyor…</i>",
+    "no_response_reason": "Claimer'lardan yanıt yok.",
+    "no_claimers": "⚠️ <b>Bağlı Claimer yok</b>\n━━━━━━━━━━━━━━━\nLisans  <code>{license}</code>\nBağlanmak için Stake üzerinde Tampermonkey betiğini başlatın.",
+    "account": "•  <code>{username}</code>  ·  <b>{tokens}</b> jeton  ·  <b>{claims}</b>/10",
+    "header": "👥 <b>Bağlı Claimer'lar</b>\n━━━━━━━━━━━━━━━\n🔑 Lisans  <code>{license}</code>\n🖥️ Tarayıcılar  <b>{browsers}</b>\n\n{accounts}"
+  },
+  "license": {
+    "body": "🔑 <b>Lisansınız</b>\n━━━━━━━━━━━━━━━\nAnahtar  <code>{license_key}</code>\nDurum  <b>{status}</b>\nClaimers  <b>{active_now}/{maximum_usernames}</b>",
+    "inactive_extra": "\n\n<i>Henüz etkin değil — etkinleştirmek için 💳 Top Up öğesine dokunun ya da yardım için 🛟 Support.</i>"
+  },
+  "fee": {
+    "notice": "💡 <i>Normal oranımız günlük %4'tür, ancak her Cumartesi toplanan kodlar üzerinden yalnızca %3,5 ödersiniz. Kaçırmayın!</i>"
+  },
+  "buttons": {
+    "cancel": "❌ İptal",
+    "check_status": "🔄 Check Status",
+    "pay_now": "💳 Pay Now",
+    "open_app": "🚀 Uygulamayı Aç",
+    "install": "📥 Yükle",
+    "commands": "📋 Komutlar",
+    "license": "🔑 Lisans",
+    "my_claims": "📊 Toplamalarım",
+    "balance": "💰 Bakiye",
+    "topup": "💳 Top Up",
+    "support": "🛟 Support",
+    "channel": "📣 Kanal",
+    "install_userscript": "📜 Install Userscript",
+    "copy_link": "📋 Bağlantıyı Kopyala",
+    "stake_offers": "🎁 Stake Offers",
+    "vip_club": "👑 VIP Club",
+    "choose_language": "🌐 Dil",
+    "count_stream": "🎬 Stream Special (6:00–9:30)",
+    "count_1d": "📅 1 Gün",
+    "count_7d": "📆 7 Gün",
+    "count_custom": "✏️ Özel aralık",
+    "by_license": "🔑 Lisansa göre",
+    "by_username": "👤 Kullanıcı adına göre"
+  },
+  "count": {
+    "rate_limit": "⏳ Biraz hızlısınız. <b>{secs}sn</b> sonra /count komutunu tekrar deneyin.",
+    "admin_header": "📊 <b>Toplama Sıralaması</b>\n━━━━━━━━━━━━━━━\nKimin ne kadar topladığını görün. Nasıl sorgulamak istersiniz?\n\n🔑 <b>Lisansa göre</b> — bir anahtar altındaki tüm hesaplar\n👤 <b>Kullanıcı adına göre</b> — tek bir Stake hesabı\n\n<i>Geçmiş 30 gün saklanır · tüm saatler IST.</i>",
+    "user_header": "📊 <b>Toplama Toplamlarınız</b>\n━━━━━━━━━━━━━━━\nKazançlarınızı ne kadar geriye dönük toplayayım?\n\n<i>Geçmiş 30 gün saklanır · tüm saatler IST.</i>",
+    "cancelled": "❎ İptal edildi.",
+    "expired": "⚠️ Önceki /count isteğinizin süresi doldu. Lütfen /count komutunu tekrar çalıştırın.",
+    "admin_lic_prompt": "🔑 Sorgulanacak <b>lisans anahtarını</b> gönderin.\n<i>(Tam anahtar, örn. THECLAIMERS-…)</i>",
+    "admin_user_prompt": "👤 Sorgulanacak <b>Stake kullanıcı adını</b> gönderin.",
+    "range_invalid": "⚠️ Lütfen <code>2026-05-28 to 2026-06-02</code> gibi iki tarih gönderin (<b>YYYY-MM-DD</b>).",
+    "error_wrap": "⚠️ {error}.\nLütfen tekrar deneyin.",
+    "key_empty": "⚠️ Lisans anahtarı boş olamaz.",
+    "key_got": "🔑 Alındı: <code>{key}</code>\n\nBir zaman aralığı seçin:",
+    "name_empty": "⚠️ Kullanıcı adı boş olamaz.",
+    "name_got": "👤 Alındı: <code>{name}</code>\n\nBir zaman aralığı seçin:",
+    "server_error": "⚠️ Sunucuya şu anda ulaşılamıyor. Lütfen birazdan /count komutunu tekrar deneyin.",
+    "unknown_type": "⚠️ Bilinmeyen sorgu türü. Lütfen /count komutunu tekrar çalıştırın.",
+    "title_user": "📊 Toplamalarınız · {label}",
+    "title_license": "📊 Lisans Toplamaları · {label}",
+    "title_username": "📊 Kullanıcı Toplamaları · {label}",
+    "subtitle_license": "🔑 <code>{value}</code>",
+    "subtitle_username": "👤 <code>{value}</code>",
+    "label_custom": "{d_from} → {d_to} (IST)",
+    "win_stream": "Stream Special (06:00–09:30 IST)",
+    "win_1d": "son 1 gün",
+    "win_7d": "son 7 gün",
+    "custom_prompt": "✏️ <b>Özel tarih aralığı</b>\n━━━━━━━━━━━━━━━\nAralığınızı iki tarih olarak gönderin, örneğin:\n\n<code>{ex_from} to {ex_to}</code>\n\n• Biçim: <b>YYYY-MM-DD to YYYY-MM-DD</b>\n• En fazla <b>{max} gün</b> arayla\n• Tüm saatler <b>IST</b>\n• Geçmiş <b>{oldest}</b> tarihine kadar gider (son {retention} gün)",
+    "err_date_format": "tarihler YYYY-MM-DD biçiminde olmalıdır",
+    "err_to_before_from": "'to' tarihi 'from' tarihinden önce",
+    "err_range_too_long": "bu aralık {gap} gün — en fazla {max} gündür",
+    "err_too_old": "'from' {days} günlük geçmiş sınırından daha eski",
+    "err_future": "'from' tarihi gelecekte",
+    "empty_personal": "<i>Bu dönemde henüz hiçbir şey toplamadınız — bir kod yayınlayın, burada görünecek. 🚀</i>",
+    "empty_other": "<i>Bu dönemde kayıtlı toplama yok.</i>",
+    "updated_suffix": "\n\n🕐 Az önce güncellendi",
+    "footer": "━━━━━━━━━━━━━━━\n💰 <b>{usd}</b> toplandı  •  📦 <b>{claims}</b> {claim_word}  •  👥 <b>{users}</b> {user_word}",
+    "block_personal": "👤 <b>{uname}</b>\n   💰 <b>{amt}</b>  •  {claims_txt}",
+    "block_ranked": "{rank}  <b>{uname}</b>\n      💰 <b>{amt}</b>  •  {claims_txt}",
+    "part_header": "<b>{title} — Bölüm {idx}/{total}</b>\n━━━━━━━━━━━━━━━\n",
+    "word_claim_one": "toplama",
+    "word_claim_other": "toplama",
+    "word_account_one": "hesap",
+    "word_account_other": "hesap",
+    "claims_count_one": "{n} toplama",
+    "claims_count_other": "{n} toplama"
+  },
+  "install": {
+    "setup": "📥 <b>Kurulum Kılavuzu</b>\n<i>Yaklaşık 2 dakika sürer — adım adım izleyin.</i>\n━━━━━━━━━━━━━━━\n\n<b>1️⃣ Tampermonkey'i yükleyin</b>\nTarayıcınızın mağazasından <b>Tampermonkey</b> uzantısını ekleyin (Chrome, Brave, Edge veya herhangi bir Chromium tarayıcı). Ardından geliştirici erişimini etkinleştirin:\n• <b>Uzantıları Yönet</b> öğesini açın\n• <b>Tampermonkey → Ayrıntılar</b> öğesini açın\n• <b>Kullanıcı Betiklerine İzin Ver</b> seçeneğini açın\n\n<b>2️⃣ Kullanıcı betiğini yükleyin</b>\nAşağıdaki <b>📜 Install Userscript</b> öğesine dokunun, ardından açılan Tampermonkey sayfasında <b>Install</b> öğesine tıklayın.\n\n<b>3️⃣ Lisansınızı bağlayın</b>\n• Tarayıcınızda <b>Stake</b> açın\n• Lisans anahtarınızı Tampermonkey açılır penceresine girin\n• Çevrimiçi olduğunuzu onaylamak için /connected çalıştırın\n\n<b>4️⃣ Stake'e giriş yapın</b>\n• Normal oturum girişi → <b>Offers</b> sayfası\n• API girişi → <b>VIP Club</b> sayfası\n<i>(desteklenen herhangi bir Stake aynası da çalışır)</i>",
+    "optimize": "⚙️ <b>Optimizasyon &amp; En İyi Uygulamalar</b>\n<i>Kararlı, 24×7 toplama için önerilir.</i>\n━━━━━━━━━━━━━━━\n\n<b>🚀 Tarayıcı performansı</b>\n<code>chrome://settings/performance</code> (Tarayıcı → Ayarlar → Performans) açın, ardından:\n• Her Stake sekmesini <b>Bu siteleri her zaman etkin tut</b> altına ekleyin\n• Stake sekmeleri için <b>Bellek Tasarrufu</b> özelliğini kapatın\n\n<b>🌐 DNS (önerilir)</b>\n<code>chrome://settings/security</code> (Tarayıcı → Ayarlar → Gizlilik ve güvenlik → Güvenlik) açın, ardından <b>Güvenli DNS kullan</b> altında <b>Cloudflare (1.1.1.1)</b> seçin.\n\n<b>🖥️ Çok sayıda kullanıcı adı çalıştırma</b>\n<b>5</b>'ten fazla kullanıcı adı çalıştırıyorsanız bunları birden fazla tarayıcı profili, PC, dizüstü veya RDP'ye dağıtın. En iyi hız ve kararlılık için <b>tarayıcı profili başına en fazla 3 kullanıcı adı</b> tutun.\n\nYardım mı lazım? İstediğiniz zaman <b>🛟 Support</b> öğesine dokunun."
+  },
+  "commands": {
+    "list": "📋 <b>Komutlar</b>\n━━━━━━━━━━━━━━━\n/start — panelinizi açın\n/drop <code>[code]</code> — Claimer'larınıza kod yayınlayın\n/reload — reload uygunluğunu kontrol edin\n/connected — bağlı tarayıcıları &amp; jetonları görün\n/count — toplama toplamlarınız (son 24 saat)\n/balance — ön ödemeli bakiye &amp; kullanım\n/topup — bakiyenizi yükleyin\n/license — lisansınız &amp; durum\n/language — dilinizi değiştirin\n\n<i>İpucu: çoğu işlem /start üzerinden bir dokunuş uzaklıkta.</i>"
+  },
+  "language": {
+    "header": "🌐 <b>Dil</b>\n━━━━━━━━━━━━━━━\nGeçerli: <b>{current}</b>\n\nDilinizi seçin:",
+    "saved": "✅ <b>Dil güncellendi</b>\nMesajlar artık <b>{name}</b> dilinde olacak.",
+    "error": "⚠️ Diliniz şu anda kaydedilemedi. Lütfen birazdan tekrar deneyin."
+  },
+  "cmd_desc": {
+    "start": "Panelinizi açın",
+    "drop": "Claimer'larınıza kod yayınlayın",
+    "reload": "reload uygunluğunu kontrol edin",
+    "connected": "Bağlı tarayıcıları ve jetonları görün",
+    "count": "Toplama toplamlarınız (son 24 saat)",
+    "balance": "Ön ödemeli bakiye ve kullanım",
+    "topup": "Bakiyenizi yükleyin",
+    "license": "Lisansınız ve durum",
+    "language": "Dilinizi değiştirin"
+  },
+  "license_changed": {
+    "body": "🔑 <b>Lisans Anahtarı Güncellendi</b>\n━━━━━━━━━━━━━━━\nEski  <code>{old}</code>\nYeni  <code>{new}</code>\n\nKesintisiz toplamaya devam etmek için Tampermonkey açılır penceresini açın ve anahtarınızı yenisiyle değiştirin."
+  },
+  "balance": {
+    "after_claims": "💰 <b>Bakiyeniz</b>\n━━━━━━━━━━━━━━━\n🔑 <code>{license_key}</code>\n💳 Plan  <b>Toplama Sonrası Ödeme</b>\n📶 Durum  <b>{status}</b>\n\n<i>Toplama-sonrası-ödeme planındasınız, bu yüzden burada takip edilecek ön ödemeli bakiye yok. 🎉</i>",
+    "header": "💰 <b>Bakiyeniz</b>\n━━━━━━━━━━━━━━━\n🔑 <code>{license_key}</code>\n💵 Kullanılabilir  <b>${amount}</b>\n📉 Toplama başına ücret  <b>{pct}%</b>\n📶 Durum  <b>{status}</b>",
+    "claimable": "\n\n🎯 Bu bakiyeyle bonus kodlarında yaklaşık <b>${claimable}</b> daha toplayabilirsiniz.",
+    "below_zero": "\n\n🪫 <b>Bakiye $0'ın altında — lisans duraklatıldı.</b>\nAnında tekrar açmak için <b>💳 Top Up</b> öğesine dokunun.",
+    "running_low": "\n\n⚠️ <b>Azalıyor.</b> Toplamanız asla kesilmesin diye yakında <b>💳 Top Up</b> öğesine dokunun."
+  },
+  "topup": {
+    "prompt": "💳 <b>Bakiye Yükle</b>\n━━━━━━━━━━━━━━━\nNe kadar eklemek istersiniz?\n<b>${min}</b> ile <b>${max}</b> (USD) arasında bir tutar girin.\n\n💡 <i>Örnek:</i> <code>10</code>\n🔒 OxaPay ile kriptoda güvenle ödendi.{fee_line}",
+    "parse_not_number": "Lütfen yalnızca bir sayı gönderin, örn. <code>10</code>.",
+    "parse_invalid": "Bu geçerli bir tutar gibi görünmüyor.",
+    "parse_too_small": "En düşük yükleme <b>${min}</b>.",
+    "parse_too_large": "En yüksek yükleme <b>${max}</b>.",
+    "retry_wrap": "⚠️ {err}\n\n<b>${min}</b> ile <b>${max}</b> arasında bir tutar girin.",
+    "error_wrap": "⚠️ {msg}",
+    "pay_reason": "Ödeme hizmetine ulaşılamadı.",
+    "status_reason": "Ödeme hizmetine ulaşamadık.",
+    "not_found": "⚠️ <b>Bu ödemeyi bulamadık.</b>",
+    "cancelled": "❎ <b>Yükleme iptal edildi.</b> Hazır olduğunuzda /topup çalıştırın.",
+    "reuse": "🧾 <b>Zaten bekleyen bir yüklemeniz var</b>\n━━━━━━━━━━━━━━━\n💵 Tutar  <b>${amount}</b>\n\nAşağıdaki <b>💳 Pay Now</b> ile tamamlayın — veya süresinin dolmasını bekleyip farklı bir tutar için /topup komutunu tekrar çalıştırın.\n\n<i>Onaylandığında bakiyeniz otomatik olarak yüklenir.</i>",
+    "invoice": "🧾 <b>Fatura Hazır</b>\n━━━━━━━━━━━━━━━\n💵 Tutar  <b>${amount}</b>\n\nÖdemeyi kriptoda tamamlamak için <b>💳 Pay Now</b> öğesine dokunun.\nBakiyeniz onaylandığı anda <b>otomatik olarak</b> yüklenir — tam burada bir mesaj alırsınız.\n\n<i>İstediğiniz zaman 🔄 Check Status kullanın.</i>",
+    "confirmed": "✅ <b>Ödeme Onaylandı</b>\n━━━━━━━━━━━━━━━\n💵 <b>${amount}</b> bakiyenize eklendi.\nGüncellenmiş toplamınızı görmek için /balance kontrol edin. 🚀",
+    "expired": "⌛ <b>Fatura Süresi Doldu</b>\n━━━━━━━━━━━━━━━\nBu ödeme penceresi kapandı. Yenisini başlatmak için /topup çalıştırın.",
+    "pay_cancelled": "❌ <b>Ödeme İptal Edildi</b>\n━━━━━━━━━━━━━━━\nHiçbir ücret alınmadı. Tekrar denemek için /topup çalıştırın.",
+    "waiting": "⏳ <b>Ödeme Bekleniyor</b>\n━━━━━━━━━━━━━━━\n💵 Tutar  <b>${amount}</b>\n\nÖdemeyi tamamlayın, ardından yenilemek için <b>🔄 Check Status</b> öğesine dokunun.",
+    "errors": {
+      "amount_not_number": "Bu geçerli bir tutar gibi görünmüyor.",
+      "amount_too_small": "En düşük yükleme <b>${min}</b>.",
+      "amount_too_large": "En yüksek yükleme <b>${max}</b>.",
+      "no_license": "Henüz bir lisansınız yok — önce /start gönderin.",
+      "license_banned": "Bu lisans yüklenemez. Lütfen @adityaofficial96 ile iletişime geçin.",
+      "payments_unavailable": "Yüklemeler geçici olarak kullanılamıyor. Lütfen kısa süre sonra tekrar deneyin.",
+      "invoice_failed": "Ödemeniz şu anda oluşturulamadı. Lütfen birazdan tekrar deneyin.",
+      "db_error": "Bizim tarafımızda bir şeyler ters gitti. Lütfen kısa süre sonra tekrar deneyin.",
+      "backend_unreachable": "Ödeme hizmetine ulaşılamadı. Lütfen kısa süre sonra tekrar deneyin.",
+      "default": "Ödeme başlatılamadı. Lütfen tekrar deneyin."
+    }
+  }
+}

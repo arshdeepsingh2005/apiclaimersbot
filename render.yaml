@@ -1,0 +1,51 @@
+# render.yaml — API-Claimer Slot-Sales Bot + Mini App
+# Deploy this service to Render as a Web Service.
+# Set all environment variables in the Render dashboard.
+# BACKEND_INTERNAL_URL must point at the apiclaimers-backend (e.g.
+# https://apiclaimers.onrender.com) and INTERNAL_API_SECRET must MATCH it.
+
+services:
+  - type: web
+    name: apiclaimers-bot
+    runtime: python
+    buildCommand: pip install -r bot_requirements.txt
+    # --threads 8: the workload is I/O-bound (Telegram + backend calls). Threads
+    # (not workers) give concurrency while keeping the in-process state single-copy;
+    # workers MUST stay 1 (rate limiter + license cache + flow state are in-process).
+    startCommand: gunicorn --config gunicorn.conf.py --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 60 bot_wsgi:app
+    healthCheckPath: /health
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_WEBHOOK_SECRET
+        sync: false
+      # Admin bot (Bot 2) — same service, second token + webhook. Unset => disabled.
+      - key: ADMIN_BOT_TOKEN
+        sync: false
+      - key: ADMIN_WEBHOOK_SECRET
+        sync: false
+      # Admin allow-list for command access + DM routing (comma/space separated ids).
+      - key: ADMIN_USER_ID
+        sync: false
+      - key: INTERNAL_API_SECRET
+        sync: false
+      - key: BACKEND_INTERNAL_URL
+        sync: false
+      - key: BOT_PUBLIC_URL
+        sync: false
+      # Mini App: signs session JWTs (HS256). Strong random secret; keep private.
+      - key: MINIAPP_SESSION_SECRET
+        generateValue: true
+      # Optional: Mini App base URL override. Defaults to BOT_PUBLIC_URL if unset.
+      - key: MINIAPP_BASE_URL
+        sync: false
+      # Admin alert recipient (slot allocation failures, bad webhook signatures).
+      - key: ADMIN_TELEGRAM_ID
+        sync: false
+      # ── OxaPay (this bot's OWN merchant key + callback) ──────────────────
+      - key: OXAPAY_MERCHANT_KEY
+        sync: false
+      - key: OXAPAY_CALLBACK_URL       # = {BOT_PUBLIC_URL}/pay/oxapay/webhook
+        sync: false
+      - key: OXAPAY_RETURN_URL
+        sync: false

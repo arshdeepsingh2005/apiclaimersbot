@@ -1,0 +1,208 @@
+{
+  "__meta__": {
+    "version": 1,
+    "lang": "ko"
+  },
+  "status": {
+    "active": "🟢 활성",
+    "inactive": "🔴 비활성"
+  },
+  "welcome": {
+    "body": "<b>⚡ The Claimers</b>\n<i>Stake 코드 자동 획득 — 빠르고, 자동이며, 24×7.</i>\n━━━━━━━━━━━━━━━\n👤 사용자 ID  <code>{user_id}</code>\n🔑 라이선스  <code>{license_key}</code>\n📶 상태  <b>{status}</b>\n👥 Claimers  <b>{active_now}/{maximum_usernames}</b>",
+    "inactive_extra": "\n\n<b>🔴 라이선스가 아직 활성화되지 않았습니다.</b>\n<b>💳 Top Up</b> 을 눌러 잔액을 충전하면 즉시 활성화되며, <b>🛟 Support</b> 로 문의할 수도 있습니다.",
+    "active_extra": "\n\n<i>최대 <b>{maximum_usernames}</b> 개의 사용자명을 연결할 수 있습니다. 한도를 늘리려면 🛟 Support 를 누르세요.</i>",
+    "footer": "\n\n👇 <b>아래 옵션을 선택해 시작하세요.</b>"
+  },
+  "rate_limit": {
+    "body": "⏳ <b>천천히 하세요!</b>\n━━━━━━━━━━━━━━━\n<code>/{command}</code> 은(는) <b>{limit_desc}</b> 로 제한됩니다.\n<b>{wait_secs}초</b> 후에 다시 시도하세요.",
+    "limits": {
+      "drop": "분당 5회",
+      "reload": "10초당 1회",
+      "connected": "분당 5회",
+      "license": "분당 5회",
+      "start": "분당 5회",
+      "balance": "분당 5회",
+      "topup": "분당 5회",
+      "default": "제한"
+    }
+  },
+  "license_status": {
+    "inactive": "🔴 <b>라이선스 비활성</b>\n━━━━━━━━━━━━━━━\n라이선스가 아직 활성화되지 않았습니다. <b>💳 Top Up</b> 을 눌러 잔액을 충전하면 즉시 활성화되며, <b>🛟 Support</b> (@adityaofficial96) 로 문의할 수도 있습니다.",
+    "no_license": "👋 <b>환영합니다!</b>\n━━━━━━━━━━━━━━━\n아직 라이선스가 없습니다. /start 를 보내면 몇 초 만에 만들 수 있습니다."
+  },
+  "errors": {
+    "generic": "⚠️ <b>문제가 발생했습니다</b>\n━━━━━━━━━━━━━━━\n{reason}\n잠시 후 다시 시도하세요.",
+    "default_reason": "서비스에 연결할 수 없습니다."
+  },
+  "start": {
+    "create_failed": "라이선스를 만들 수 없습니다. /start 를 다시 시도하세요.",
+    "welcome": "🎰 <b>Welcome to the Stake Code Claimer for .com — Subscription Bot!</b>\n\n📱 <b>Use the Mini App</b>\nFor the easiest setup, tap <b>Open Mini App</b> below. It's your all-in-one dashboard to manage your subscription, change your username, and configure your API keys.\n\n🔒 <b>Security &amp; Setup</b>\nTo activate the system, you must link an active Stake API key. Your credentials are locked safely inside our highly encrypted, restricted-access database.\n\n🛡️ <b>100% Safe Assets</b>\nYour balance stays completely secure. The system can never process any tips or withdrawals without your personal 2FA code.\n\n⚡ <b>Server Status</b>\nWe strictly cap our user limit to guarantee lightning-fast claim speeds and rock-solid stability.\n\n🟢 <b>Only {slots} slots remaining!</b>",
+    "open_prompt": "👇 Please tap the button below to open your dashboard."
+  },
+  "drop": {
+    "prompt": "🎟 <b>코드 배포</b>\n━━━━━━━━━━━━━━━\n이 메시지에 답장하여 배포할 코드를 보내세요.",
+    "invalid_wrap": "❌ {err}",
+    "invalid_empty": "코드는 비워 둘 수 없습니다.",
+    "invalid_too_long": "코드가 너무 깁니다 (최대 64자).",
+    "invalid_reserved": "코드에 예약어가 포함되어 있습니다: <code>{kw}</code>.",
+    "backend_unreachable": "배포 실패 — 백엔드에 연결할 수 없습니다.",
+    "no_claimers": "⚠️ <b>연결된 Claimer 없음</b>\n━━━━━━━━━━━━━━━\nStake 에서 Tampermonkey 스크립트를 실행한 후 다시 시도하세요. /connected 로 온라인 상태를 확인할 수 있습니다.",
+    "success": "⚡ <b>코드 배포 완료</b>\n━━━━━━━━━━━━━━━\n🎟 코드  <code>{code}</code>\n📡 전송 대상  <b>{count}</b> 개 Claimer\n\n<i>결과는 약 5초 후 도착합니다…</i>"
+  },
+  "reload": {
+    "checking": "🔄 <i>reload 상태 확인 중…</i>",
+    "no_response_reason": "Claimer 로부터 응답이 없습니다.",
+    "no_response": "⚠️ <b>응답 없음</b>\n━━━━━━━━━━━━━━━\n어떤 Claimer 도 응답하지 않았습니다. 스크립트가 실행 중인지 확인하세요.",
+    "available": "✅  <code>{username}</code>  ·  {time_left}",
+    "not_yet": "⏳  <code>{username}</code>  ·  아직",
+    "header": "🔄 <b>Reload 상태</b>\n━━━━━━━━━━━━━━━\n{lines}"
+  },
+  "connected": {
+    "fetching": "👥 <i>연결된 Claimer 가져오는 중…</i>",
+    "no_response_reason": "Claimer 로부터 응답이 없습니다.",
+    "no_claimers": "⚠️ <b>연결된 Claimer 없음</b>\n━━━━━━━━━━━━━━━\n라이선스  <code>{license}</code>\nStake 에서 Tampermonkey 스크립트를 실행하여 연결하세요.",
+    "account": "•  <code>{username}</code>  ·  <b>{tokens}</b> 토큰  ·  <b>{claims}</b>/10",
+    "header": "👥 <b>연결된 Claimer</b>\n━━━━━━━━━━━━━━━\n🔑 라이선스  <code>{license}</code>\n🖥️ 브라우저  <b>{browsers}</b>\n\n{accounts}"
+  },
+  "license": {
+    "body": "🔑 <b>내 라이선스</b>\n━━━━━━━━━━━━━━━\n키  <code>{license_key}</code>\n상태  <b>{status}</b>\nClaimers  <b>{active_now}/{maximum_usernames}</b>",
+    "inactive_extra": "\n\n<i>아직 활성화되지 않았습니다 — 💳 Top Up 을 눌러 활성화하거나 🛟 Support 로 도움을 요청하세요.</i>"
+  },
+  "fee": {
+    "notice": "💡 <i>일반 요율은 하루 4%이지만, 매주 토요일에는 획득한 코드에 대해 3.5%만 부과됩니다. 놓치지 마세요!</i>"
+  },
+  "buttons": {
+    "cancel": "❌ 취소",
+    "check_status": "🔄 Check Status",
+    "pay_now": "💳 Pay Now",
+    "open_app": "🚀 앱 열기",
+    "install": "📥 설치",
+    "commands": "📋 명령어",
+    "license": "🔑 라이선스",
+    "my_claims": "📊 내 획득",
+    "balance": "💰 잔액",
+    "topup": "💳 Top Up",
+    "support": "🛟 Support",
+    "channel": "📣 채널",
+    "install_userscript": "📜 Install Userscript",
+    "copy_link": "📋 링크 복사",
+    "stake_offers": "🎁 Stake Offers",
+    "vip_club": "👑 VIP Club",
+    "choose_language": "🌐 언어",
+    "count_stream": "🎬 Stream Special (6:00–9:30)",
+    "count_1d": "📅 1일",
+    "count_7d": "📆 7일",
+    "count_custom": "✏️ 사용자 지정 범위",
+    "by_license": "🔑 라이선스별",
+    "by_username": "👤 사용자명별"
+  },
+  "count": {
+    "rate_limit": "⏳ 조금 빠릅니다. <b>{secs}초</b> 후에 /count 를 다시 시도하세요.",
+    "admin_header": "📊 <b>획득 순위표</b>\n━━━━━━━━━━━━━━━\n누가 얼마나 획득했는지 확인합니다. 어떻게 조회하시겠습니까?\n\n🔑 <b>라이선스별</b> — 하나의 키에 속한 모든 계정\n👤 <b>사용자명별</b> — 단일 Stake 계정\n\n<i>기록은 30일간 보관 · 모든 시간은 IST.</i>",
+    "user_header": "📊 <b>내 획득 합계</b>\n━━━━━━━━━━━━━━━\n얼마나 이전 기록까지 집계할까요?\n\n<i>기록은 30일간 보관 · 모든 시간은 IST.</i>",
+    "cancelled": "❎ 취소되었습니다.",
+    "expired": "⚠️ 이전 /count 요청이 만료되었습니다. /count 를 다시 실행하세요.",
+    "admin_lic_prompt": "🔑 조회할 <b>라이선스 키</b> 를 보내세요.\n<i>(전체 키, 예: THECLAIMERS-…)</i>",
+    "admin_user_prompt": "👤 조회할 <b>Stake 사용자명</b> 을 보내세요.",
+    "range_invalid": "⚠️ <code>2026-05-28 to 2026-06-02</code> 와 같이 두 개의 날짜를 보내세요 (<b>YYYY-MM-DD</b>).",
+    "error_wrap": "⚠️ {error}.\n다시 시도하세요.",
+    "key_empty": "⚠️ 라이선스 키는 비워 둘 수 없습니다.",
+    "key_got": "🔑 확인했습니다: <code>{key}</code>\n\n기간을 선택하세요:",
+    "name_empty": "⚠️ 사용자명은 비워 둘 수 없습니다.",
+    "name_got": "👤 확인했습니다: <code>{name}</code>\n\n기간을 선택하세요:",
+    "server_error": "⚠️ 지금 서버에 연결할 수 없습니다. 잠시 후 /count 를 다시 시도하세요.",
+    "unknown_type": "⚠️ 알 수 없는 조회 유형입니다. /count 를 다시 실행하세요.",
+    "title_user": "📊 내 획득 · {label}",
+    "title_license": "📊 라이선스 획득 · {label}",
+    "title_username": "📊 사용자명 획득 · {label}",
+    "subtitle_license": "🔑 <code>{value}</code>",
+    "subtitle_username": "👤 <code>{value}</code>",
+    "label_custom": "{d_from} → {d_to} (IST)",
+    "win_stream": "Stream Special (06:00–09:30 IST)",
+    "win_1d": "최근 1일",
+    "win_7d": "최근 7일",
+    "custom_prompt": "✏️ <b>사용자 지정 날짜 범위</b>\n━━━━━━━━━━━━━━━\n두 개의 날짜로 범위를 보내세요. 예:\n\n<code>{ex_from} to {ex_to}</code>\n\n• 형식: <b>YYYY-MM-DD to YYYY-MM-DD</b>\n• 최대 <b>{max}일</b> 간격\n• 모든 시간은 <b>IST</b>\n• 기록은 <b>{oldest}</b> 까지 (최근 {retention}일)",
+    "err_date_format": "날짜는 YYYY-MM-DD 형식이어야 합니다",
+    "err_to_before_from": "'to' 날짜가 'from' 보다 이전입니다",
+    "err_range_too_long": "해당 범위는 {gap}일입니다 — 최대는 {max}일입니다",
+    "err_too_old": "'from' 이 {days}일 기록 한도보다 오래되었습니다",
+    "err_future": "'from' 날짜가 미래입니다",
+    "empty_personal": "<i>이 기간에는 아직 획득이 없습니다 — 코드를 배포하면 여기에 표시됩니다. 🚀</i>",
+    "empty_other": "<i>이 기간에 기록된 획득이 없습니다.</i>",
+    "updated_suffix": "\n\n🕐 방금 업데이트됨",
+    "footer": "━━━━━━━━━━━━━━━\n💰 <b>{usd}</b> 획득  •  📦 <b>{claims}</b> {claim_word}  •  👥 <b>{users}</b> {user_word}",
+    "block_personal": "👤 <b>{uname}</b>\n   💰 <b>{amt}</b>  •  {claims_txt}",
+    "block_ranked": "{rank}  <b>{uname}</b>\n      💰 <b>{amt}</b>  •  {claims_txt}",
+    "part_header": "<b>{title} — 파트 {idx}/{total}</b>\n━━━━━━━━━━━━━━━\n",
+    "word_claim_one": "획득",
+    "word_claim_other": "획득",
+    "word_account_one": "계정",
+    "word_account_other": "계정",
+    "claims_count_one": "{n}회 획득",
+    "claims_count_other": "{n}회 획득"
+  },
+  "install": {
+    "setup": "📥 <b>설정 가이드</b>\n<i>약 2분 소요 — 단계별로 따라 하세요.</i>\n━━━━━━━━━━━━━━━\n\n<b>1️⃣ Tampermonkey 설치</b>\n브라우저 스토어에서 <b>Tampermonkey</b> 확장 프로그램을 추가하세요 (Chrome, Brave, Edge 또는 모든 Chromium 브라우저). 그런 다음 개발자 액세스를 활성화하세요:\n• <b>확장 프로그램 관리</b> 열기\n• <b>Tampermonkey → 세부정보</b> 열기\n• <b>사용자 스크립트 허용</b> 켜기\n\n<b>2️⃣ 유저스크립트 설치</b>\n아래의 <b>📜 Install Userscript</b> 를 누른 다음, 열리는 Tampermonkey 페이지에서 <b>Install</b> 을 클릭하세요.\n\n<b>3️⃣ 라이선스 연결</b>\n• 브라우저에서 <b>Stake</b> 열기\n• Tampermonkey 팝업에 라이선스 키 입력\n• /connected 로 온라인 상태 확인\n\n<b>4️⃣ Stake 로그인</b>\n• 일반 세션 로그인 → <b>Offers</b> 페이지\n• API 로그인 → <b>VIP Club</b> 페이지\n<i>(지원되는 Stake 미러도 작동합니다)</i>",
+    "optimize": "⚙️ <b>최적화 &amp; 모범 사례</b>\n<i>안정적인 24×7 획득에 권장됩니다.</i>\n━━━━━━━━━━━━━━━\n\n<b>🚀 브라우저 성능</b>\n<code>chrome://settings/performance</code> (브라우저 → 설정 → 성능) 를 열고:\n• 모든 Stake 탭을 <b>이 사이트를 항상 활성 상태로 유지</b> 에 추가\n• Stake 탭의 <b>메모리 절약</b> 비활성화\n\n<b>🌐 DNS (권장)</b>\n<code>chrome://settings/security</code> (브라우저 → 설정 → 개인정보 및 보안 → 보안) 를 열고, <b>보안 DNS 사용</b> 에서 <b>Cloudflare (1.1.1.1)</b> 을 선택하세요.\n\n<b>🖥️ 여러 사용자명 운영</b>\n<b>5</b> 개를 초과하는 사용자명을 운영하는 경우, 여러 브라우저 프로필, PC, 노트북 또는 RDP 에 분산하세요. 최고의 속도와 안정성을 위해 <b>브라우저 프로필당 최대 3개의 사용자명</b> 을 권장합니다.\n\n도움이 필요하신가요? 언제든지 <b>🛟 Support</b> 를 누르세요."
+  },
+  "commands": {
+    "list": "📋 <b>명령어</b>\n━━━━━━━━━━━━━━━\n/start — 대시보드 열기\n/drop <code>[code]</code> — Claimer 에게 코드 배포\n/reload — reload 가능 여부 확인\n/connected — 연결된 브라우저 &amp; 토큰 보기\n/count — 획득 합계 (최근 24시간)\n/balance — 선불 잔액 &amp; 사용량\n/topup — 잔액 충전\n/license — 라이선스 &amp; 상태\n/language — 언어 변경\n\n<i>팁: 대부분의 작업은 /start 에서 한 번의 탭으로 가능합니다.</i>"
+  },
+  "language": {
+    "header": "🌐 <b>언어</b>\n━━━━━━━━━━━━━━━\n현재: <b>{current}</b>\n\n언어를 선택하세요:",
+    "saved": "✅ <b>언어가 변경되었습니다</b>\n이제 메시지가 <b>{name}</b> 로 표시됩니다.",
+    "error": "⚠️ 지금 언어를 저장할 수 없습니다. 잠시 후 다시 시도하세요."
+  },
+  "cmd_desc": {
+    "start": "대시보드 열기",
+    "drop": "Claimer 에게 코드 배포",
+    "reload": "reload 가능 여부 확인",
+    "connected": "연결된 브라우저 및 토큰 보기",
+    "count": "획득 합계 (최근 24시간)",
+    "balance": "선불 잔액 및 사용량",
+    "topup": "잔액 충전",
+    "license": "라이선스 및 상태",
+    "language": "언어 변경"
+  },
+  "license_changed": {
+    "body": "🔑 <b>라이선스 키가 변경되었습니다</b>\n━━━━━━━━━━━━━━━\n이전  <code>{old}</code>\n신규  <code>{new}</code>\n\n중단 없이 획득을 계속하려면, Tampermonkey 팝업을 열어 키를 새 키로 교체하세요."
+  },
+  "balance": {
+    "after_claims": "💰 <b>내 잔액</b>\n━━━━━━━━━━━━━━━\n🔑 <code>{license_key}</code>\n💳 요금제  <b>획득 후 결제</b>\n📶 상태  <b>{status}</b>\n\n<i>획득 후 결제 요금제를 사용 중이므로 여기에서 추적할 선불 잔액이 없습니다. 🎉</i>",
+    "header": "💰 <b>내 잔액</b>\n━━━━━━━━━━━━━━━\n🔑 <code>{license_key}</code>\n💵 사용 가능  <b>${amount}</b>\n📉 획득당 수수료  <b>{pct}%</b>\n📶 상태  <b>{status}</b>",
+    "claimable": "\n\n🎯 이 잔액으로 보너스 코드를 약 <b>${claimable}</b> 만큼 더 획득할 수 있습니다.",
+    "below_zero": "\n\n🪫 <b>잔액이 $0 미만 — 라이선스가 일시 중지되었습니다.</b>\n<b>💳 Top Up</b> 을 누르면 즉시 다시 활성화됩니다.",
+    "running_low": "\n\n⚠️ <b>잔액 부족.</b> 획득이 중단되지 않도록 곧 <b>💳 Top Up</b> 을 누르세요."
+  },
+  "topup": {
+    "prompt": "💳 <b>잔액 충전</b>\n━━━━━━━━━━━━━━━\n얼마를 추가하시겠습니까?\n<b>${min}</b> 부터 <b>${max}</b> (USD) 사이의 금액을 입력하세요.\n\n💡 <i>예:</i> <code>10</code>\n🔒 OxaPay 를 통해 암호화폐로 안전하게 결제됩니다.{fee_line}",
+    "parse_not_number": "숫자만 보내세요. 예: <code>10</code>.",
+    "parse_invalid": "유효한 금액이 아닌 것 같습니다.",
+    "parse_too_small": "최소 충전액은 <b>${min}</b> 입니다.",
+    "parse_too_large": "최대 충전액은 <b>${max}</b> 입니다.",
+    "retry_wrap": "⚠️ {err}\n\n<b>${min}</b> 부터 <b>${max}</b> 사이의 금액을 입력하세요.",
+    "error_wrap": "⚠️ {msg}",
+    "pay_reason": "결제 서비스에 연결할 수 없습니다.",
+    "status_reason": "결제 서비스에 연결할 수 없습니다.",
+    "not_found": "⚠️ <b>해당 결제를 찾을 수 없습니다.</b>",
+    "cancelled": "❎ <b>충전이 취소되었습니다.</b> 준비되면 언제든지 /topup 을 실행하세요.",
+    "reuse": "🧾 <b>대기 중인 충전이 있습니다</b>\n━━━━━━━━━━━━━━━\n💵 금액  <b>${amount}</b>\n\n아래의 <b>💳 Pay Now</b> 로 완료하거나, 만료될 때까지 기다렸다가 다른 금액으로 /topup 을 다시 실행하세요.\n\n<i>확인되면 잔액이 자동으로 적립됩니다.</i>",
+    "invoice": "🧾 <b>청구서 준비 완료</b>\n━━━━━━━━━━━━━━━\n💵 금액  <b>${amount}</b>\n\n<b>💳 Pay Now</b> 를 눌러 암호화폐로 결제를 완료하세요.\n확인되는 즉시 잔액이 <b>자동으로</b> 적립되며, 여기에서 메시지를 받게 됩니다.\n\n<i>언제든지 🔄 Check Status 를 이용하세요.</i>",
+    "confirmed": "✅ <b>결제 확인됨</b>\n━━━━━━━━━━━━━━━\n💵 <b>${amount}</b> 가 잔액에 추가되었습니다.\n/balance 로 업데이트된 총액을 확인하세요. 🚀",
+    "expired": "⌛ <b>청구서 만료</b>\n━━━━━━━━━━━━━━━\n이 결제 창이 닫혔습니다. /topup 으로 새로 시작하세요.",
+    "pay_cancelled": "❌ <b>결제 취소됨</b>\n━━━━━━━━━━━━━━━\n청구된 금액이 없습니다. /topup 으로 다시 시도하세요.",
+    "waiting": "⏳ <b>결제 대기 중</b>\n━━━━━━━━━━━━━━━\n💵 금액  <b>${amount}</b>\n\n결제를 완료한 다음 <b>🔄 Check Status</b> 를 눌러 새로고침하세요.",
+    "errors": {
+      "amount_not_number": "유효한 금액이 아닌 것 같습니다.",
+      "amount_too_small": "최소 충전액은 <b>${min}</b> 입니다.",
+      "amount_too_large": "최대 충전액은 <b>${max}</b> 입니다.",
+      "no_license": "아직 라이선스가 없습니다 — 먼저 /start 를 보내세요.",
+      "license_banned": "이 라이선스는 충전할 수 없습니다. @adityaofficial96 로 문의하세요.",
+      "payments_unavailable": "충전을 일시적으로 사용할 수 없습니다. 잠시 후 다시 시도하세요.",
+      "invoice_failed": "지금 결제를 생성할 수 없습니다. 잠시 후 다시 시도하세요.",
+      "db_error": "저희 쪽에서 문제가 발생했습니다. 잠시 후 다시 시도하세요.",
+      "backend_unreachable": "결제 서비스에 연결할 수 없습니다. 잠시 후 다시 시도하세요.",
+      "default": "결제를 시작할 수 없습니다. 다시 시도하세요."
+    }
+  }
+}

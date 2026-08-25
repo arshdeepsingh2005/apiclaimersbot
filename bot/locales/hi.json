@@ -1,0 +1,208 @@
+{
+  "__meta__": {
+    "version": 1,
+    "lang": "hi"
+  },
+  "status": {
+    "active": "🟢 सक्रिय",
+    "inactive": "🔴 निष्क्रिय"
+  },
+  "welcome": {
+    "body": "<b>⚡ The Claimers</b>\n<i>Stake कोड का स्वचालित क्लेम — तेज़, हैंड्स-फ्री, 24×7.</i>\n━━━━━━━━━━━━━━━\n👤 यूज़र ID  <code>{user_id}</code>\n🔑 लाइसेंस  <code>{license_key}</code>\n📶 स्थिति  <b>{status}</b>\n👥 Claimers  <b>{active_now}/{maximum_usernames}</b>",
+    "inactive_extra": "\n\n<b>🔴 आपका लाइसेंस अभी सक्रिय नहीं है।</b>\n<b>💳 Top Up</b> पर टैप करके बैलेंस जोड़ें और इसे तुरंत चालू करें, या <b>🛟 Support</b> के ज़रिए संपर्क करें।",
+    "active_extra": "\n\n<i>आप अधिकतम <b>{maximum_usernames}</b> यूनिक यूज़रनेम कनेक्ट कर सकते हैं। और अधिक सीमा चाहिए? 🛟 Support पर टैप करें।</i>",
+    "footer": "\n\n👇 <b>शुरू करने के लिए नीचे कोई विकल्प चुनें।</b>"
+  },
+  "rate_limit": {
+    "body": "⏳ <b>ज़रा धीरे!</b>\n━━━━━━━━━━━━━━━\n<code>/{command}</code> की सीमा <b>{limit_desc}</b> है।\nकृपया <b>{wait_secs}से</b> बाद पुनः प्रयास करें।",
+    "limits": {
+      "drop": "5 प्रति मिनट",
+      "reload": "1 प्रति 10 से",
+      "connected": "5 प्रति मिनट",
+      "license": "5 प्रति मिनट",
+      "start": "5 प्रति मिनट",
+      "balance": "5 प्रति मिनट",
+      "topup": "5 प्रति मिनट",
+      "default": "सीमा"
+    }
+  },
+  "license_status": {
+    "inactive": "🔴 <b>लाइसेंस निष्क्रिय</b>\n━━━━━━━━━━━━━━━\nआपका लाइसेंस अभी सक्रिय नहीं है। <b>💳 Top Up</b> पर टैप करके बैलेंस जोड़ें और इसे तुरंत चालू करें, या <b>🛟 Support</b> (@adityaofficial96) के ज़रिए संपर्क करें।",
+    "no_license": "👋 <b>स्वागत है!</b>\n━━━━━━━━━━━━━━━\nआपके पास अभी कोई लाइसेंस नहीं है। कुछ ही सेकंड में एक बनाने के लिए /start भेजें।"
+  },
+  "errors": {
+    "generic": "⚠️ <b>कुछ गड़बड़ हो गई</b>\n━━━━━━━━━━━━━━━\n{reason}\nकृपया थोड़ी देर बाद पुनः प्रयास करें।",
+    "default_reason": "हम सेवा तक नहीं पहुँच सके।"
+  },
+  "start": {
+    "create_failed": "आपका लाइसेंस नहीं बनाया जा सका। /start पुनः आज़माएँ।",
+    "welcome": "🎰 <b>Welcome to the Stake Code Claimer for .com — Subscription Bot!</b>\n\n📱 <b>Use the Mini App</b>\nFor the easiest setup, tap <b>Open Mini App</b> below. It's your all-in-one dashboard to manage your subscription, change your username, and configure your API keys.\n\n🔒 <b>Security &amp; Setup</b>\nTo activate the system, you must link an active Stake API key. Your credentials are locked safely inside our highly encrypted, restricted-access database.\n\n🛡️ <b>100% Safe Assets</b>\nYour balance stays completely secure. The system can never process any tips or withdrawals without your personal 2FA code.\n\n⚡ <b>Server Status</b>\nWe strictly cap our user limit to guarantee lightning-fast claim speeds and rock-solid stability.\n\n🟢 <b>Only {slots} slots remaining!</b>",
+    "open_prompt": "👇 Please tap the button below to open your dashboard."
+  },
+  "drop": {
+    "prompt": "🎟 <b>कोड ड्रॉप करें</b>\n━━━━━━━━━━━━━━━\nइस संदेश का उत्तर देकर वह कोड भेजें जिसे आप ब्रॉडकास्ट करना चाहते हैं।",
+    "invalid_wrap": "❌ {err}",
+    "invalid_empty": "कोड खाली नहीं हो सकता।",
+    "invalid_too_long": "कोड बहुत लंबा है (अधिकतम 64 अक्षर)।",
+    "invalid_reserved": "कोड में आरक्षित शब्द है: <code>{kw}</code>।",
+    "backend_unreachable": "ड्रॉप विफल — बैकएंड तक नहीं पहुँच सके।",
+    "no_claimers": "⚠️ <b>कोई Claimer कनेक्ट नहीं है</b>\n━━━━━━━━━━━━━━━\nStake पर Tampermonkey स्क्रिप्ट शुरू करें, फिर पुनः प्रयास करें। कौन ऑनलाइन है यह देखने के लिए /connected चलाएँ।",
+    "success": "⚡ <b>कोड ड्रॉप हो गया</b>\n━━━━━━━━━━━━━━━\n🎟 कोड  <code>{code}</code>\n📡 भेजा गया  <b>{count}</b> Claimer को\n\n<i>परिणाम लगभग 5 सेकंड में आएँगे…</i>"
+  },
+  "reload": {
+    "checking": "🔄 <i>reload स्थिति जाँच रहे हैं…</i>",
+    "no_response_reason": "आपके Claimers से कोई उत्तर नहीं मिला।",
+    "no_response": "⚠️ <b>कोई उत्तर नहीं</b>\n━━━━━━━━━━━━━━━\nआपके किसी भी Claimer ने उत्तर नहीं दिया। सुनिश्चित करें कि स्क्रिप्ट चल रही है।",
+    "available": "✅  <code>{username}</code>  ·  {time_left}",
+    "not_yet": "⏳  <code>{username}</code>  ·  अभी नहीं",
+    "header": "🔄 <b>Reload स्थिति</b>\n━━━━━━━━━━━━━━━\n{lines}"
+  },
+  "connected": {
+    "fetching": "👥 <i>कनेक्टेड Claimers ला रहे हैं…</i>",
+    "no_response_reason": "Claimers से कोई उत्तर नहीं मिला।",
+    "no_claimers": "⚠️ <b>कोई Claimer कनेक्ट नहीं है</b>\n━━━━━━━━━━━━━━━\nलाइसेंस  <code>{license}</code>\nकनेक्ट करने के लिए Stake पर Tampermonkey स्क्रिप्ट शुरू करें।",
+    "account": "•  <code>{username}</code>  ·  <b>{tokens}</b> टोकन  ·  <b>{claims}</b>/10",
+    "header": "👥 <b>कनेक्टेड Claimers</b>\n━━━━━━━━━━━━━━━\n🔑 लाइसेंस  <code>{license}</code>\n🖥️ ब्राउज़र  <b>{browsers}</b>\n\n{accounts}"
+  },
+  "license": {
+    "body": "🔑 <b>आपका लाइसेंस</b>\n━━━━━━━━━━━━━━━\nकुंजी  <code>{license_key}</code>\nस्थिति  <b>{status}</b>\nClaimers  <b>{active_now}/{maximum_usernames}</b>",
+    "inactive_extra": "\n\n<i>अभी सक्रिय नहीं — इसे चालू करने के लिए 💳 Top Up पर टैप करें, या मदद के लिए 🛟 Support।</i>"
+  },
+  "fee": {
+    "notice": "💡 <i>हमारी सामान्य दर रोज़ाना 4% है, लेकिन हर शनिवार आप क्लेम किए गए कोड पर केवल 3.5% चुकाते हैं। चूकें नहीं!</i>"
+  },
+  "buttons": {
+    "cancel": "❌ रद्द करें",
+    "check_status": "🔄 Check Status",
+    "pay_now": "💳 Pay Now",
+    "open_app": "🚀 ऐप खोलें",
+    "install": "📥 इंस्टॉल करें",
+    "commands": "📋 कमांड",
+    "license": "🔑 लाइसेंस",
+    "my_claims": "📊 मेरे क्लेम",
+    "balance": "💰 बैलेंस",
+    "topup": "💳 Top Up",
+    "support": "🛟 Support",
+    "channel": "📣 चैनल",
+    "install_userscript": "📜 Install Userscript",
+    "copy_link": "📋 लिंक कॉपी करें",
+    "stake_offers": "🎁 Stake Offers",
+    "vip_club": "👑 VIP Club",
+    "choose_language": "🌐 भाषा",
+    "count_stream": "🎬 Stream Special (6:00–9:30)",
+    "count_1d": "📅 1 दिन",
+    "count_7d": "📆 7 दिन",
+    "count_custom": "✏️ कस्टम रेंज",
+    "by_license": "🔑 लाइसेंस से",
+    "by_username": "👤 यूज़रनेम से"
+  },
+  "count": {
+    "rate_limit": "⏳ आप थोड़ा तेज़ जा रहे हैं। <b>{secs}से</b> बाद /count पुनः आज़माएँ।",
+    "admin_header": "📊 <b>क्लेम लीडरबोर्ड</b>\n━━━━━━━━━━━━━━━\nदेखें किसने कितना क्लेम किया। आप इसे कैसे देखना चाहेंगे?\n\n🔑 <b>लाइसेंस से</b> — एक कुंजी के अंतर्गत सभी अकाउंट\n👤 <b>यूज़रनेम से</b> — एकल Stake अकाउंट\n\n<i>इतिहास 30 दिनों तक रखा जाता है · सभी समय IST।</i>",
+    "user_header": "📊 <b>आपके क्लेम का कुल</b>\n━━━━━━━━━━━━━━━\nमैं कितने पीछे तक आपकी कमाई का हिसाब लगाऊँ?\n\n<i>इतिहास 30 दिनों तक रखा जाता है · सभी समय IST।</i>",
+    "cancelled": "❎ रद्द कर दिया गया।",
+    "expired": "⚠️ आपका पिछला /count अनुरोध समाप्त हो गया। कृपया /count पुनः चलाएँ।",
+    "admin_lic_prompt": "🔑 जिसे क्वेरी करना है वह <b>लाइसेंस कुंजी</b> भेजें।\n<i>(पूरी कुंजी, जैसे THECLAIMERS-…)</i>",
+    "admin_user_prompt": "👤 जिसे क्वेरी करना है वह <b>Stake यूज़रनेम</b> भेजें।",
+    "range_invalid": "⚠️ कृपया <code>2026-05-28 to 2026-06-02</code> जैसी दो तिथियाँ भेजें (<b>YYYY-MM-DD</b>)।",
+    "error_wrap": "⚠️ {error}।\nकृपया पुनः प्रयास करें।",
+    "key_empty": "⚠️ लाइसेंस कुंजी खाली नहीं हो सकती।",
+    "key_got": "🔑 मिल गया: <code>{key}</code>\n\nएक समय-सीमा चुनें:",
+    "name_empty": "⚠️ यूज़रनेम खाली नहीं हो सकता।",
+    "name_got": "👤 मिल गया: <code>{name}</code>\n\nएक समय-सीमा चुनें:",
+    "server_error": "⚠️ अभी सर्वर तक नहीं पहुँच सके। कृपया थोड़ी देर बाद /count पुनः आज़माएँ।",
+    "unknown_type": "⚠️ अज्ञात क्वेरी प्रकार। कृपया /count पुनः चलाएँ।",
+    "title_user": "📊 आपके क्लेम · {label}",
+    "title_license": "📊 लाइसेंस क्लेम · {label}",
+    "title_username": "📊 यूज़रनेम क्लेम · {label}",
+    "subtitle_license": "🔑 <code>{value}</code>",
+    "subtitle_username": "👤 <code>{value}</code>",
+    "label_custom": "{d_from} → {d_to} (IST)",
+    "win_stream": "Stream Special (06:00–09:30 IST)",
+    "win_1d": "पिछला 1 दिन",
+    "win_7d": "पिछले 7 दिन",
+    "custom_prompt": "✏️ <b>कस्टम तिथि रेंज</b>\n━━━━━━━━━━━━━━━\nदो तिथियों के रूप में अपनी रेंज भेजें, उदाहरण:\n\n<code>{ex_from} to {ex_to}</code>\n\n• प्रारूप: <b>YYYY-MM-DD to YYYY-MM-DD</b>\n• अधिकतम <b>{max} दिन</b> का अंतर\n• सभी समय <b>IST</b> में\n• इतिहास <b>{oldest}</b> तक जाता है (पिछले {retention} दिन)",
+    "err_date_format": "तिथियाँ YYYY-MM-DD प्रारूप में होनी चाहिए",
+    "err_to_before_from": "'to' तिथि 'from' से पहले है",
+    "err_range_too_long": "वह रेंज {gap} दिन की है — अधिकतम {max} दिन है",
+    "err_too_old": "'from' {days}-दिन की इतिहास सीमा से पुराना है",
+    "err_future": "'from' तिथि भविष्य में है",
+    "empty_personal": "<i>इस अवधि में आपने अभी तक कुछ क्लेम नहीं किया — एक कोड ड्रॉप करें और यह यहाँ दिखेगा। 🚀</i>",
+    "empty_other": "<i>इस अवधि में कोई क्लेम दर्ज नहीं है।</i>",
+    "updated_suffix": "\n\n🕐 अभी-अभी अपडेट हुआ",
+    "footer": "━━━━━━━━━━━━━━━\n💰 <b>{usd}</b> क्लेम किया  •  📦 <b>{claims}</b> {claim_word}  •  👥 <b>{users}</b> {user_word}",
+    "block_personal": "👤 <b>{uname}</b>\n   💰 <b>{amt}</b>  •  {claims_txt}",
+    "block_ranked": "{rank}  <b>{uname}</b>\n      💰 <b>{amt}</b>  •  {claims_txt}",
+    "part_header": "<b>{title} — भाग {idx}/{total}</b>\n━━━━━━━━━━━━━━━\n",
+    "word_claim_one": "क्लेम",
+    "word_claim_other": "क्लेम",
+    "word_account_one": "अकाउंट",
+    "word_account_other": "अकाउंट",
+    "claims_count_one": "{n} क्लेम",
+    "claims_count_other": "{n} क्लेम"
+  },
+  "install": {
+    "setup": "📥 <b>सेटअप गाइड</b>\n<i>लगभग 2 मिनट लगते हैं — कदम-दर-कदम साथ चलें।</i>\n━━━━━━━━━━━━━━━\n\n<b>1️⃣ Tampermonkey इंस्टॉल करें</b>\nअपने ब्राउज़र के स्टोर से <b>Tampermonkey</b> एक्सटेंशन जोड़ें (Chrome, Brave, Edge, या कोई भी Chromium ब्राउज़र)। फिर डेवलपर एक्सेस सक्षम करें:\n• <b>Manage Extensions</b> खोलें\n• <b>Tampermonkey → Details</b> खोलें\n• <b>Allow User Scripts</b> चालू करें\n\n<b>2️⃣ यूज़रस्क्रिप्ट इंस्टॉल करें</b>\nनीचे <b>📜 Install Userscript</b> पर टैप करें, फिर खुलने वाले Tampermonkey पेज पर <b>Install</b> पर क्लिक करें।\n\n<b>3️⃣ अपना लाइसेंस कनेक्ट करें</b>\n• अपने ब्राउज़र में <b>Stake</b> खोलें\n• Tampermonkey पॉपअप में अपनी लाइसेंस कुंजी दर्ज करें\n• यह पुष्टि करने के लिए कि आप ऑनलाइन हैं /connected चलाएँ\n\n<b>4️⃣ Stake में लॉग इन करें</b>\n• सामान्य सत्र लॉगिन → <b>Offers</b> पेज\n• API लॉगिन → <b>VIP Club</b> पेज\n<i>(कोई भी समर्थित Stake मिरर भी काम करता है)</i>",
+    "optimize": "⚙️ <b>ऑप्टिमाइज़ेशन &amp; सर्वोत्तम अभ्यास</b>\n<i>स्थिर, 24×7 क्लेमिंग के लिए अनुशंसित।</i>\n━━━━━━━━━━━━━━━\n\n<b>🚀 ब्राउज़र प्रदर्शन</b>\n<code>chrome://settings/performance</code> (Browser → Settings → Performance) खोलें, फिर:\n• हर Stake टैब को <b>Always keep these sites active</b> में जोड़ें\n• Stake टैब के लिए <b>Memory Saver</b> अक्षम करें\n\n<b>🌐 DNS (अनुशंसित)</b>\n<code>chrome://settings/security</code> (Browser → Settings → Privacy &amp; Security → Security) खोलें, फिर <b>Use secure DNS</b> के अंतर्गत <b>Cloudflare (1.1.1.1)</b> चुनें।\n\n<b>🖥️ कई यूज़रनेम चलाना</b>\nयदि आप <b>5</b> से अधिक यूज़रनेम चलाते हैं, तो उन्हें कई ब्राउज़र प्रोफ़ाइल, PC, लैपटॉप, या RDP में फैलाएँ। सर्वोत्तम गति और स्थिरता के लिए, <b>प्रति ब्राउज़र प्रोफ़ाइल अधिकतम 3 यूज़रनेम</b> रखें।\n\nमदद चाहिए? कभी भी <b>🛟 Support</b> पर टैप करें।"
+  },
+  "commands": {
+    "list": "📋 <b>कमांड</b>\n━━━━━━━━━━━━━━━\n/start — अपना डैशबोर्ड खोलें\n/drop <code>[code]</code> — अपने Claimers को कोड ब्रॉडकास्ट करें\n/reload — reload उपलब्धता जाँचें\n/connected — कनेक्टेड ब्राउज़र &amp; टोकन देखें\n/count — आपके क्लेम का कुल (पिछले 24 घंटे)\n/balance — प्रीपेड बैलेंस &amp; उपयोग\n/topup — अपना बैलेंस रिचार्ज करें\n/license — आपका लाइसेंस &amp; स्थिति\n/language — अपनी भाषा बदलें\n\n<i>सुझाव: अधिकांश क्रियाएँ /start से एक टैप दूर हैं।</i>"
+  },
+  "language": {
+    "header": "🌐 <b>भाषा</b>\n━━━━━━━━━━━━━━━\nवर्तमान: <b>{current}</b>\n\nअपनी भाषा चुनें:",
+    "saved": "✅ <b>भाषा अपडेट हो गई</b>\nसंदेश अब <b>{name}</b> में दिखेंगे।",
+    "error": "⚠️ अभी आपकी भाषा सहेजी नहीं जा सकी। कृपया थोड़ी देर बाद पुनः प्रयास करें।"
+  },
+  "cmd_desc": {
+    "start": "अपना डैशबोर्ड खोलें",
+    "drop": "अपने Claimers को कोड ब्रॉडकास्ट करें",
+    "reload": "reload उपलब्धता जाँचें",
+    "connected": "कनेक्टेड ब्राउज़र और टोकन देखें",
+    "count": "आपके क्लेम का कुल (पिछले 24 घंटे)",
+    "balance": "प्रीपेड बैलेंस और उपयोग",
+    "topup": "अपना बैलेंस रिचार्ज करें",
+    "license": "आपका लाइसेंस और स्थिति",
+    "language": "अपनी भाषा बदलें"
+  },
+  "license_changed": {
+    "body": "🔑 <b>लाइसेंस कुंजी अपडेट हुई</b>\n━━━━━━━━━━━━━━━\nपुरानी  <code>{old}</code>\nनई  <code>{new}</code>\n\nबिना रुकावट क्लेमिंग जारी रखने के लिए, Tampermonkey पॉपअप खोलें और अपनी कुंजी को नई कुंजी से बदलें।"
+  },
+  "balance": {
+    "after_claims": "💰 <b>आपका बैलेंस</b>\n━━━━━━━━━━━━━━━\n🔑 <code>{license_key}</code>\n💳 प्लान  <b>क्लेम के बाद भुगतान</b>\n📶 स्थिति  <b>{status}</b>\n\n<i>आप क्लेम-के-बाद-भुगतान प्लान पर हैं, इसलिए यहाँ ट्रैक करने के लिए कोई प्रीपेड बैलेंस नहीं है। 🎉</i>",
+    "header": "💰 <b>आपका बैलेंस</b>\n━━━━━━━━━━━━━━━\n🔑 <code>{license_key}</code>\n💵 उपलब्ध  <b>${amount}</b>\n📉 प्रति-क्लेम शुल्क  <b>{pct}%</b>\n📶 स्थिति  <b>{status}</b>",
+    "claimable": "\n\n🎯 इस बैलेंस से आप बोनस कोड में लगभग <b>${claimable}</b> और क्लेम कर सकते हैं।",
+    "below_zero": "\n\n🪫 <b>बैलेंस $0 से नीचे — लाइसेंस रुका हुआ है।</b>\nइसे तुरंत वापस चालू करने के लिए <b>💳 Top Up</b> पर टैप करें।",
+    "running_low": "\n\n⚠️ <b>कम हो रहा है।</b> जल्द ही <b>💳 Top Up</b> पर टैप करें ताकि आपकी क्लेमिंग कभी बाधित न हो।"
+  },
+  "topup": {
+    "prompt": "💳 <b>बैलेंस टॉप अप करें</b>\n━━━━━━━━━━━━━━━\nआप कितना जोड़ना चाहेंगे?\n<b>${min}</b> से <b>${max}</b> (USD) तक की राशि दर्ज करें।\n\n💡 <i>उदाहरण:</i> <code>10</code>\n🔒 OxaPay के माध्यम से क्रिप्टो में सुरक्षित रूप से भुगतान किया गया।{fee_line}",
+    "parse_not_number": "कृपया केवल एक संख्या भेजें, जैसे <code>10</code>।",
+    "parse_invalid": "यह एक मान्य राशि नहीं लगती।",
+    "parse_too_small": "न्यूनतम टॉप-अप <b>${min}</b> है।",
+    "parse_too_large": "अधिकतम टॉप-अप <b>${max}</b> है।",
+    "retry_wrap": "⚠️ {err}\n\n<b>${min}</b> से <b>${max}</b> तक की राशि दर्ज करें।",
+    "error_wrap": "⚠️ {msg}",
+    "pay_reason": "भुगतान सेवा तक नहीं पहुँच सके।",
+    "status_reason": "हम भुगतान सेवा तक नहीं पहुँच सके।",
+    "not_found": "⚠️ <b>वह भुगतान नहीं मिला।</b>",
+    "cancelled": "❎ <b>टॉप-अप रद्द कर दिया गया।</b> जब भी तैयार हों /topup चलाएँ।",
+    "reuse": "🧾 <b>आपके पास पहले से एक लंबित टॉप-अप है</b>\n━━━━━━━━━━━━━━━\n💵 राशि  <b>${amount}</b>\n\nइसे नीचे <b>💳 Pay Now</b> से पूरा करें — या इसे समाप्त होने दें, फिर किसी अलग राशि के लिए /topup पुनः चलाएँ।\n\n<i>पुष्टि होते ही आपका बैलेंस स्वचालित रूप से जमा हो जाता है।</i>",
+    "invoice": "🧾 <b>इनवॉइस तैयार है</b>\n━━━━━━━━━━━━━━━\n💵 राशि  <b>${amount}</b>\n\nक्रिप्टो में भुगतान पूरा करने के लिए <b>💳 Pay Now</b> पर टैप करें।\nपुष्टि होते ही आपका बैलेंस <b>स्वचालित रूप से</b> जमा हो जाएगा — आपको यहीं एक संदेश मिलेगा।\n\n<i>कभी भी 🔄 Check Status का उपयोग करें।</i>",
+    "confirmed": "✅ <b>भुगतान की पुष्टि हुई</b>\n━━━━━━━━━━━━━━━\n💵 <b>${amount}</b> आपके बैलेंस में जोड़ दिया गया है।\nअपना अपडेटेड कुल देखने के लिए /balance जाँचें। 🚀",
+    "expired": "⌛ <b>इनवॉइस समाप्त</b>\n━━━━━━━━━━━━━━━\nयह भुगतान विंडो बंद हो गई है। नया शुरू करने के लिए /topup चलाएँ।",
+    "pay_cancelled": "❌ <b>भुगतान रद्द</b>\n━━━━━━━━━━━━━━━\nकोई शुल्क नहीं लिया गया। पुनः प्रयास करने के लिए /topup चलाएँ।",
+    "waiting": "⏳ <b>भुगतान की प्रतीक्षा है</b>\n━━━━━━━━━━━━━━━\n💵 राशि  <b>${amount}</b>\n\nभुगतान पूरा करें, फिर रीफ्रेश करने के लिए <b>🔄 Check Status</b> पर टैप करें।",
+    "errors": {
+      "amount_not_number": "यह एक मान्य राशि नहीं लगती।",
+      "amount_too_small": "न्यूनतम टॉप-अप <b>${min}</b> है।",
+      "amount_too_large": "अधिकतम टॉप-अप <b>${max}</b> है।",
+      "no_license": "आपके पास अभी कोई लाइसेंस नहीं है — पहले /start भेजें।",
+      "license_banned": "इस लाइसेंस को टॉप अप नहीं किया जा सकता। कृपया @adityaofficial96 से संपर्क करें।",
+      "payments_unavailable": "टॉप-अप अस्थायी रूप से अनुपलब्ध है। कृपया थोड़ी देर बाद प्रयास करें।",
+      "invoice_failed": "अभी आपका भुगतान नहीं बनाया जा सका। कृपया थोड़ी देर बाद प्रयास करें।",
+      "db_error": "हमारी ओर से कुछ गड़बड़ हो गई। कृपया थोड़ी देर बाद प्रयास करें।",
+      "backend_unreachable": "भुगतान सेवा तक नहीं पहुँच सके। कृपया थोड़ी देर बाद प्रयास करें।",
+      "default": "भुगतान शुरू नहीं किया जा सका। कृपया पुनः प्रयास करें।"
+    }
+  }
+}

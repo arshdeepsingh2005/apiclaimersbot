@@ -1,0 +1,208 @@
+{
+  "__meta__": {
+    "version": 1,
+    "lang": "vi"
+  },
+  "status": {
+    "active": "🟢 Đang hoạt động",
+    "inactive": "🔴 Không hoạt động"
+  },
+  "welcome": {
+    "body": "<b>⚡ The Claimers</b>\n<i>Tự động nhận mã Stake — nhanh, rảnh tay, 24×7.</i>\n━━━━━━━━━━━━━━━\n👤 ID người dùng  <code>{user_id}</code>\n🔑 Giấy phép  <code>{license_key}</code>\n📶 Trạng thái  <b>{status}</b>\n👥 Claimers  <b>{active_now}/{maximum_usernames}</b>",
+    "inactive_extra": "\n\n<b>🔴 Giấy phép của bạn chưa được kích hoạt.</b>\nNhấn <b>💳 Top Up</b> để nạp số dư và kích hoạt ngay, hoặc liên hệ qua <b>🛟 Support</b>.",
+    "active_extra": "\n\n<i>Bạn có thể kết nối tối đa <b>{maximum_usernames}</b> tên người dùng duy nhất. Cần giới hạn cao hơn? Nhấn 🛟 Support.</i>",
+    "footer": "\n\n👇 <b>Chọn một tùy chọn bên dưới để bắt đầu.</b>"
+  },
+  "rate_limit": {
+    "body": "⏳ <b>Từ từ thôi!</b>\n━━━━━━━━━━━━━━━\n<code>/{command}</code> bị giới hạn <b>{limit_desc}</b>.\nVui lòng thử lại sau <b>{wait_secs}giây</b>.",
+    "limits": {
+      "drop": "5 mỗi phút",
+      "reload": "1 mỗi 10 giây",
+      "connected": "5 mỗi phút",
+      "license": "5 mỗi phút",
+      "start": "5 mỗi phút",
+      "balance": "5 mỗi phút",
+      "topup": "5 mỗi phút",
+      "default": "giới hạn"
+    }
+  },
+  "license_status": {
+    "inactive": "🔴 <b>Giấy phép không hoạt động</b>\n━━━━━━━━━━━━━━━\nGiấy phép của bạn chưa được kích hoạt. Nhấn <b>💳 Top Up</b> để nạp số dư và kích hoạt ngay, hoặc liên hệ qua <b>🛟 Support</b> (@adityaofficial96).",
+    "no_license": "👋 <b>Chào mừng!</b>\n━━━━━━━━━━━━━━━\nBạn chưa có giấy phép. Gửi /start để tạo trong vài giây."
+  },
+  "errors": {
+    "generic": "⚠️ <b>Đã xảy ra lỗi</b>\n━━━━━━━━━━━━━━━\n{reason}\nVui lòng thử lại sau giây lát.",
+    "default_reason": "Không thể kết nối tới dịch vụ."
+  },
+  "start": {
+    "create_failed": "Không thể tạo giấy phép của bạn. Hãy thử /start lại.",
+    "welcome": "🎰 <b>Welcome to the Stake Code Claimer for .com — Subscription Bot!</b>\n\n📱 <b>Use the Mini App</b>\nFor the easiest setup, tap <b>Open Mini App</b> below. It's your all-in-one dashboard to manage your subscription, change your username, and configure your API keys.\n\n🔒 <b>Security &amp; Setup</b>\nTo activate the system, you must link an active Stake API key. Your credentials are locked safely inside our highly encrypted, restricted-access database.\n\n🛡️ <b>100% Safe Assets</b>\nYour balance stays completely secure. The system can never process any tips or withdrawals without your personal 2FA code.\n\n⚡ <b>Server Status</b>\nWe strictly cap our user limit to guarantee lightning-fast claim speeds and rock-solid stability.\n\n🟢 <b>Only {slots} slots remaining!</b>",
+    "open_prompt": "👇 Please tap the button below to open your dashboard."
+  },
+  "drop": {
+    "prompt": "🎟 <b>Gửi mã</b>\n━━━━━━━━━━━━━━━\nTrả lời tin nhắn này bằng mã bạn muốn phát.",
+    "invalid_wrap": "❌ {err}",
+    "invalid_empty": "Mã không được để trống.",
+    "invalid_too_long": "Mã quá dài (tối đa 64 ký tự).",
+    "invalid_reserved": "Mã chứa từ dành riêng: <code>{kw}</code>.",
+    "backend_unreachable": "Gửi thất bại — không kết nối được backend.",
+    "no_claimers": "⚠️ <b>Không có Claimer nào được kết nối</b>\n━━━━━━━━━━━━━━━\nHãy khởi động script Tampermonkey trên Stake, rồi thử lại. Chạy /connected để xem ai đang trực tuyến.",
+    "success": "⚡ <b>Đã gửi mã</b>\n━━━━━━━━━━━━━━━\n🎟 Mã  <code>{code}</code>\n📡 Đã gửi tới  <b>{count}</b> Claimer\n\n<i>Kết quả sẽ đến sau khoảng 5 giây…</i>"
+  },
+  "reload": {
+    "checking": "🔄 <i>Đang kiểm tra trạng thái reload…</i>",
+    "no_response_reason": "Không có phản hồi từ các Claimer của bạn.",
+    "no_response": "⚠️ <b>Không có phản hồi</b>\n━━━━━━━━━━━━━━━\nKhông có Claimer nào phản hồi. Hãy đảm bảo script đang chạy.",
+    "available": "✅  <code>{username}</code>  ·  {time_left}",
+    "not_yet": "⏳  <code>{username}</code>  ·  chưa",
+    "header": "🔄 <b>Trạng thái reload</b>\n━━━━━━━━━━━━━━━\n{lines}"
+  },
+  "connected": {
+    "fetching": "👥 <i>Đang lấy các Claimer đã kết nối…</i>",
+    "no_response_reason": "Không có phản hồi từ các Claimer.",
+    "no_claimers": "⚠️ <b>Không có Claimer nào được kết nối</b>\n━━━━━━━━━━━━━━━\nGiấy phép  <code>{license}</code>\nHãy khởi động script Tampermonkey trên Stake để kết nối.",
+    "account": "•  <code>{username}</code>  ·  <b>{tokens}</b> token  ·  <b>{claims}</b>/10",
+    "header": "👥 <b>Các Claimer đã kết nối</b>\n━━━━━━━━━━━━━━━\n🔑 Giấy phép  <code>{license}</code>\n🖥️ Trình duyệt  <b>{browsers}</b>\n\n{accounts}"
+  },
+  "license": {
+    "body": "🔑 <b>Giấy phép của bạn</b>\n━━━━━━━━━━━━━━━\nKhóa  <code>{license_key}</code>\nTrạng thái  <b>{status}</b>\nClaimers  <b>{active_now}/{maximum_usernames}</b>",
+    "inactive_extra": "\n\n<i>Chưa hoạt động — nhấn 💳 Top Up để kích hoạt, hoặc 🛟 Support để được trợ giúp.</i>"
+  },
+  "fee": {
+    "notice": "💡 <i>Mức thông thường của chúng tôi là 4% mỗi ngày, nhưng mỗi thứ Bảy bạn chỉ trả 3,5% trên các mã đã nhận. Đừng bỏ lỡ!</i>"
+  },
+  "buttons": {
+    "cancel": "❌ Hủy",
+    "check_status": "🔄 Check Status",
+    "pay_now": "💳 Pay Now",
+    "open_app": "🚀 Mở ứng dụng",
+    "install": "📥 Cài đặt",
+    "commands": "📋 Lệnh",
+    "license": "🔑 Giấy phép",
+    "my_claims": "📊 Nhận của tôi",
+    "balance": "💰 Số dư",
+    "topup": "💳 Top Up",
+    "support": "🛟 Support",
+    "channel": "📣 Kênh",
+    "install_userscript": "📜 Install Userscript",
+    "copy_link": "📋 Sao chép liên kết",
+    "stake_offers": "🎁 Stake Offers",
+    "vip_club": "👑 VIP Club",
+    "choose_language": "🌐 Ngôn ngữ",
+    "count_stream": "🎬 Stream Special (6:00–9:30)",
+    "count_1d": "📅 1 ngày",
+    "count_7d": "📆 7 ngày",
+    "count_custom": "✏️ Khoảng tùy chỉnh",
+    "by_license": "🔑 Theo giấy phép",
+    "by_username": "👤 Theo tên người dùng"
+  },
+  "count": {
+    "rate_limit": "⏳ Bạn hơi nhanh rồi. Hãy thử /count lại sau <b>{secs}giây</b>.",
+    "admin_header": "📊 <b>Bảng xếp hạng nhận</b>\n━━━━━━━━━━━━━━━\nXem ai đã nhận bao nhiêu. Bạn muốn tra cứu thế nào?\n\n🔑 <b>Theo giấy phép</b> — mọi tài khoản dưới một khóa\n👤 <b>Theo tên người dùng</b> — một tài khoản Stake duy nhất\n\n<i>Lịch sử được lưu 30 ngày · mọi thời gian theo IST.</i>",
+    "user_header": "📊 <b>Tổng nhận của bạn</b>\n━━━━━━━━━━━━━━━\nBạn muốn tính lại bao xa về trước?\n\n<i>Lịch sử được lưu 30 ngày · mọi thời gian theo IST.</i>",
+    "cancelled": "❎ Đã hủy.",
+    "expired": "⚠️ Yêu cầu /count trước đó của bạn đã hết hạn. Vui lòng chạy /count lại.",
+    "admin_lic_prompt": "🔑 Gửi cho tôi <b>khóa giấy phép</b> cần tra cứu.\n<i>(Khóa đầy đủ, ví dụ THECLAIMERS-…)</i>",
+    "admin_user_prompt": "👤 Gửi cho tôi <b>tên người dùng Stake</b> cần tra cứu.",
+    "range_invalid": "⚠️ Vui lòng gửi hai ngày như <code>2026-05-28 to 2026-06-02</code> (<b>YYYY-MM-DD</b>).",
+    "error_wrap": "⚠️ {error}.\nVui lòng thử lại.",
+    "key_empty": "⚠️ Khóa giấy phép không được để trống.",
+    "key_got": "🔑 Đã nhận: <code>{key}</code>\n\nChọn khoảng thời gian:",
+    "name_empty": "⚠️ Tên người dùng không được để trống.",
+    "name_got": "👤 Đã nhận: <code>{name}</code>\n\nChọn khoảng thời gian:",
+    "server_error": "⚠️ Hiện không thể kết nối tới máy chủ. Vui lòng thử /count lại sau giây lát.",
+    "unknown_type": "⚠️ Loại truy vấn không xác định. Vui lòng chạy /count lại.",
+    "title_user": "📊 Nhận của bạn · {label}",
+    "title_license": "📊 Nhận theo giấy phép · {label}",
+    "title_username": "📊 Nhận theo tên người dùng · {label}",
+    "subtitle_license": "🔑 <code>{value}</code>",
+    "subtitle_username": "👤 <code>{value}</code>",
+    "label_custom": "{d_from} → {d_to} (IST)",
+    "win_stream": "Stream Special (06:00–09:30 IST)",
+    "win_1d": "1 ngày qua",
+    "win_7d": "7 ngày qua",
+    "custom_prompt": "✏️ <b>Khoảng ngày tùy chỉnh</b>\n━━━━━━━━━━━━━━━\nGửi khoảng của bạn dưới dạng hai ngày, ví dụ:\n\n<code>{ex_from} to {ex_to}</code>\n\n• Định dạng: <b>YYYY-MM-DD to YYYY-MM-DD</b>\n• Cách nhau tối đa <b>{max} ngày</b>\n• Mọi thời gian theo <b>IST</b>\n• Lịch sử truy về đến <b>{oldest}</b> ({retention} ngày qua)",
+    "err_date_format": "ngày phải theo định dạng YYYY-MM-DD",
+    "err_to_before_from": "ngày 'to' trước ngày 'from'",
+    "err_range_too_long": "khoảng đó là {gap} ngày — tối đa là {max} ngày",
+    "err_too_old": "'from' cũ hơn giới hạn lịch sử {days} ngày",
+    "err_future": "ngày 'from' ở tương lai",
+    "empty_personal": "<i>Bạn chưa nhận gì trong khoảng này — hãy gửi một mã và nó sẽ hiện ở đây. 🚀</i>",
+    "empty_other": "<i>Không có lượt nhận nào được ghi trong khoảng này.</i>",
+    "updated_suffix": "\n\n🕐 Vừa cập nhật",
+    "footer": "━━━━━━━━━━━━━━━\n💰 đã nhận <b>{usd}</b>  •  📦 <b>{claims}</b> {claim_word}  •  👥 <b>{users}</b> {user_word}",
+    "block_personal": "👤 <b>{uname}</b>\n   💰 <b>{amt}</b>  •  {claims_txt}",
+    "block_ranked": "{rank}  <b>{uname}</b>\n      💰 <b>{amt}</b>  •  {claims_txt}",
+    "part_header": "<b>{title} — Phần {idx}/{total}</b>\n━━━━━━━━━━━━━━━\n",
+    "word_claim_one": "lượt nhận",
+    "word_claim_other": "lượt nhận",
+    "word_account_one": "tài khoản",
+    "word_account_other": "tài khoản",
+    "claims_count_one": "{n} lượt nhận",
+    "claims_count_other": "{n} lượt nhận"
+  },
+  "install": {
+    "setup": "📥 <b>Hướng dẫn cài đặt</b>\n<i>Mất khoảng 2 phút — làm theo từng bước.</i>\n━━━━━━━━━━━━━━━\n\n<b>1️⃣ Cài đặt Tampermonkey</b>\nThêm tiện ích <b>Tampermonkey</b> từ cửa hàng của trình duyệt (Chrome, Brave, Edge, hoặc bất kỳ trình duyệt Chromium nào). Sau đó bật quyền nhà phát triển:\n• Mở <b>Quản lý tiện ích</b>\n• Mở <b>Tampermonkey → Chi tiết</b>\n• Bật <b>Cho phép User Scripts</b>\n\n<b>2️⃣ Cài đặt userscript</b>\nNhấn <b>📜 Install Userscript</b> bên dưới, rồi nhấp <b>Install</b> trên trang Tampermonkey vừa mở.\n\n<b>3️⃣ Kết nối giấy phép của bạn</b>\n• Mở <b>Stake</b> trong trình duyệt\n• Nhập khóa giấy phép vào cửa sổ Tampermonkey\n• Chạy /connected để xác nhận bạn đang trực tuyến\n\n<b>4️⃣ Đăng nhập Stake</b>\n• Đăng nhập phiên thông thường → trang <b>Offers</b>\n• Đăng nhập API → trang <b>VIP Club</b>\n<i>(mọi mirror Stake được hỗ trợ đều hoạt động)</i>",
+    "optimize": "⚙️ <b>Tối ưu hóa &amp; thực hành tốt nhất</b>\n<i>Khuyến nghị để nhận ổn định 24×7.</i>\n━━━━━━━━━━━━━━━\n\n<b>🚀 Hiệu suất trình duyệt</b>\nMở <code>chrome://settings/performance</code> (Trình duyệt → Cài đặt → Hiệu suất), rồi:\n• Thêm mọi tab Stake vào <b>Luôn giữ các trang này hoạt động</b>\n• Tắt <b>Trình tiết kiệm bộ nhớ</b> cho các tab Stake\n\n<b>🌐 DNS (khuyến nghị)</b>\nMở <code>chrome://settings/security</code> (Trình duyệt → Cài đặt → Quyền riêng tư và bảo mật → Bảo mật), rồi trong <b>Dùng DNS an toàn</b> chọn <b>Cloudflare (1.1.1.1)</b>.\n\n<b>🖥️ Chạy nhiều tên người dùng</b>\nNếu bạn chạy hơn <b>5</b> tên người dùng, hãy phân bổ chúng trên nhiều hồ sơ trình duyệt, PC, laptop, hoặc RDP. Để có tốc độ và độ ổn định tốt nhất, giữ <b>tối đa 3 tên người dùng trên mỗi hồ sơ trình duyệt</b>.\n\nCần trợ giúp? Nhấn <b>🛟 Support</b> bất cứ lúc nào."
+  },
+  "commands": {
+    "list": "📋 <b>Lệnh</b>\n━━━━━━━━━━━━━━━\n/start — mở bảng điều khiển của bạn\n/drop <code>[code]</code> — phát mã cho các Claimer của bạn\n/reload — kiểm tra khả dụng reload\n/connected — xem trình duyệt &amp; token đã kết nối\n/count — tổng nhận của bạn (24 giờ qua)\n/balance — số dư trả trước &amp; sử dụng\n/topup — nạp số dư\n/license — giấy phép &amp; trạng thái của bạn\n/language — đổi ngôn ngữ\n\n<i>Mẹo: hầu hết thao tác chỉ cách /start một lần nhấn.</i>"
+  },
+  "language": {
+    "header": "🌐 <b>Ngôn ngữ</b>\n━━━━━━━━━━━━━━━\nHiện tại: <b>{current}</b>\n\nChọn ngôn ngữ của bạn:",
+    "saved": "✅ <b>Đã cập nhật ngôn ngữ</b>\nTin nhắn giờ sẽ hiển thị bằng <b>{name}</b>.",
+    "error": "⚠️ Hiện không thể lưu ngôn ngữ của bạn. Vui lòng thử lại sau giây lát."
+  },
+  "cmd_desc": {
+    "start": "Mở bảng điều khiển của bạn",
+    "drop": "Phát mã cho các Claimer của bạn",
+    "reload": "Kiểm tra khả dụng reload",
+    "connected": "Xem trình duyệt và token đã kết nối",
+    "count": "Tổng nhận của bạn (24 giờ qua)",
+    "balance": "Số dư trả trước và sử dụng",
+    "topup": "Nạp số dư",
+    "license": "Giấy phép và trạng thái của bạn",
+    "language": "Đổi ngôn ngữ"
+  },
+  "license_changed": {
+    "body": "🔑 <b>Đã cập nhật khóa giấy phép</b>\n━━━━━━━━━━━━━━━\nCũ  <code>{old}</code>\nMới  <code>{new}</code>\n\nMở cửa sổ Tampermonkey và thay khóa của bạn bằng khóa mới để tiếp tục nhận mà không bị gián đoạn."
+  },
+  "balance": {
+    "after_claims": "💰 <b>Số dư của bạn</b>\n━━━━━━━━━━━━━━━\n🔑 <code>{license_key}</code>\n💳 Gói  <b>Trả sau khi nhận</b>\n📶 Trạng thái  <b>{status}</b>\n\n<i>Bạn đang dùng gói trả-sau-khi-nhận, nên không có số dư trả trước nào cần theo dõi ở đây. 🎉</i>",
+    "header": "💰 <b>Số dư của bạn</b>\n━━━━━━━━━━━━━━━\n🔑 <code>{license_key}</code>\n💵 Khả dụng  <b>${amount}</b>\n📉 Phí mỗi lượt nhận  <b>{pct}%</b>\n📶 Trạng thái  <b>{status}</b>",
+    "claimable": "\n\n🎯 Với số dư này, bạn có thể nhận thêm khoảng <b>${claimable}</b> mã thưởng.",
+    "below_zero": "\n\n🪫 <b>Số dư dưới $0 — giấy phép đã tạm dừng.</b>\nNhấn <b>💳 Top Up</b> để bật lại ngay lập tức.",
+    "running_low": "\n\n⚠️ <b>Sắp hết.</b> Hãy sớm nhấn <b>💳 Top Up</b> để việc nhận của bạn không bao giờ bị gián đoạn."
+  },
+  "topup": {
+    "prompt": "💳 <b>Nạp số dư</b>\n━━━━━━━━━━━━━━━\nBạn muốn thêm bao nhiêu?\nNhập một số tiền từ <b>${min}</b> đến <b>${max}</b> (USD).\n\n💡 <i>Ví dụ:</i> <code>10</code>\n🔒 Thanh toán an toàn bằng crypto qua OxaPay.{fee_line}",
+    "parse_not_number": "Vui lòng chỉ gửi một con số, ví dụ <code>10</code>.",
+    "parse_invalid": "Đó không giống một số tiền hợp lệ.",
+    "parse_too_small": "Mức nạp tối thiểu là <b>${min}</b>.",
+    "parse_too_large": "Mức nạp tối đa là <b>${max}</b>.",
+    "retry_wrap": "⚠️ {err}\n\nNhập một số tiền từ <b>${min}</b> đến <b>${max}</b>.",
+    "error_wrap": "⚠️ {msg}",
+    "pay_reason": "Không thể kết nối tới dịch vụ thanh toán.",
+    "status_reason": "Không thể kết nối tới dịch vụ thanh toán.",
+    "not_found": "⚠️ <b>Không tìm thấy khoản thanh toán đó.</b>",
+    "cancelled": "❎ <b>Đã hủy nạp tiền.</b> Chạy /topup bất cứ khi nào bạn sẵn sàng.",
+    "reuse": "🧾 <b>Bạn đã có một lần nạp đang chờ</b>\n━━━━━━━━━━━━━━━\n💵 Số tiền  <b>${amount}</b>\n\nHoàn tất bằng <b>💳 Pay Now</b> bên dưới — hoặc để nó hết hạn, rồi chạy /topup lại cho một số tiền khác.\n\n<i>Số dư của bạn được cộng tự động khi xác nhận.</i>",
+    "invoice": "🧾 <b>Hóa đơn đã sẵn sàng</b>\n━━━━━━━━━━━━━━━\n💵 Số tiền  <b>${amount}</b>\n\nNhấn <b>💳 Pay Now</b> để hoàn tất thanh toán bằng crypto.\nSố dư của bạn được cộng <b>tự động</b> ngay khi xác nhận — bạn sẽ nhận tin nhắn ngay tại đây.\n\n<i>Dùng 🔄 Check Status bất cứ lúc nào.</i>",
+    "confirmed": "✅ <b>Đã xác nhận thanh toán</b>\n━━━━━━━━━━━━━━━\n💵 <b>${amount}</b> đã được thêm vào số dư của bạn.\nKiểm tra /balance để xem tổng đã cập nhật. 🚀",
+    "expired": "⌛ <b>Hóa đơn đã hết hạn</b>\n━━━━━━━━━━━━━━━\nCửa sổ thanh toán này đã đóng. Chạy /topup để bắt đầu lại.",
+    "pay_cancelled": "❌ <b>Đã hủy thanh toán</b>\n━━━━━━━━━━━━━━━\nKhông có khoản phí nào được tính. Chạy /topup để thử lại.",
+    "waiting": "⏳ <b>Đang chờ thanh toán</b>\n━━━━━━━━━━━━━━━\n💵 Số tiền  <b>${amount}</b>\n\nHoàn tất thanh toán, rồi nhấn <b>🔄 Check Status</b> để làm mới.",
+    "errors": {
+      "amount_not_number": "Đó không giống một số tiền hợp lệ.",
+      "amount_too_small": "Mức nạp tối thiểu là <b>${min}</b>.",
+      "amount_too_large": "Mức nạp tối đa là <b>${max}</b>.",
+      "no_license": "Bạn chưa có giấy phép — hãy gửi /start trước.",
+      "license_banned": "Giấy phép này không thể nạp tiền. Vui lòng liên hệ @adityaofficial96.",
+      "payments_unavailable": "Nạp tiền tạm thời không khả dụng. Vui lòng thử lại sau ít phút.",
+      "invoice_failed": "Hiện không thể tạo thanh toán của bạn. Vui lòng thử lại sau giây lát.",
+      "db_error": "Đã có lỗi ở phía chúng tôi. Vui lòng thử lại sau ít phút.",
+      "backend_unreachable": "Không thể kết nối tới dịch vụ thanh toán. Vui lòng thử lại sau ít phút.",
+      "default": "Không thể bắt đầu thanh toán. Vui lòng thử lại."
+    }
+  }
+}

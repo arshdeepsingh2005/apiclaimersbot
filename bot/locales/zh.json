@@ -1,0 +1,208 @@
+{
+  "__meta__": {
+    "version": 1,
+    "lang": "zh"
+  },
+  "status": {
+    "active": "🟢 已激活",
+    "inactive": "🔴 未激活"
+  },
+  "welcome": {
+    "body": "<b>⚡ The Claimers</b>\n<i>自动领取 Stake 代码 — 快速、免手动、全天候。</i>\n━━━━━━━━━━━━━━━\n👤 用户 ID  <code>{user_id}</code>\n🔑 许可证  <code>{license_key}</code>\n📶 状态  <b>{status}</b>\n👥 Claimers  <b>{active_now}/{maximum_usernames}</b>",
+    "inactive_extra": "\n\n<b>🔴 您的许可证尚未激活。</b>\n点击 <b>💳 Top Up</b> 充值余额即可立即激活，或通过 <b>🛟 Support</b> 联系我们。",
+    "active_extra": "\n\n<i>您最多可连接 <b>{maximum_usernames}</b> 个用户名。需要更高上限？点击 🛟 Support。</i>",
+    "footer": "\n\n👇 <b>请选择下方选项开始使用。</b>"
+  },
+  "rate_limit": {
+    "body": "⏳ <b>别急！</b>\n━━━━━━━━━━━━━━━\n<code>/{command}</code> 的使用上限为 <b>{limit_desc}</b>。\n请在 <b>{wait_secs}秒</b> 后重试。",
+    "limits": {
+      "drop": "每分钟5次",
+      "reload": "每10秒1次",
+      "connected": "每分钟5次",
+      "license": "每分钟5次",
+      "start": "每分钟5次",
+      "balance": "每分钟5次",
+      "topup": "每分钟5次",
+      "default": "上限"
+    }
+  },
+  "license_status": {
+    "inactive": "🔴 <b>许可证未激活</b>\n━━━━━━━━━━━━━━━\n您的许可证尚未激活。点击 <b>💳 Top Up</b> 充值余额即可立即激活，或通过 <b>🛟 Support</b> (@adityaofficial96) 联系我们。",
+    "no_license": "👋 <b>欢迎！</b>\n━━━━━━━━━━━━━━━\n您还没有许可证。发送 /start 即可在几秒内创建。"
+  },
+  "errors": {
+    "generic": "⚠️ <b>出现问题</b>\n━━━━━━━━━━━━━━━\n{reason}\n请稍后重试。",
+    "default_reason": "无法连接到服务。"
+  },
+  "start": {
+    "create_failed": "无法创建您的许可证。请重新发送 /start。",
+    "welcome": "🎰 <b>Welcome to the Stake Code Claimer for .com — Subscription Bot!</b>\n\n📱 <b>Use the Mini App</b>\nFor the easiest setup, tap <b>Open Mini App</b> below. It's your all-in-one dashboard to manage your subscription, change your username, and configure your API keys.\n\n🔒 <b>Security &amp; Setup</b>\nTo activate the system, you must link an active Stake API key. Your credentials are locked safely inside our highly encrypted, restricted-access database.\n\n🛡️ <b>100% Safe Assets</b>\nYour balance stays completely secure. The system can never process any tips or withdrawals without your personal 2FA code.\n\n⚡ <b>Server Status</b>\nWe strictly cap our user limit to guarantee lightning-fast claim speeds and rock-solid stability.\n\n🟢 <b>Only {slots} slots remaining!</b>",
+    "open_prompt": "👇 Please tap the button below to open your dashboard."
+  },
+  "drop": {
+    "prompt": "🎟 <b>发布代码</b>\n━━━━━━━━━━━━━━━\n回复此消息，发送您要广播的代码。",
+    "invalid_wrap": "❌ {err}",
+    "invalid_empty": "代码不能为空。",
+    "invalid_too_long": "代码过长（最多64个字符）。",
+    "invalid_reserved": "代码包含保留字：<code>{kw}</code>。",
+    "backend_unreachable": "发布失败 — 无法连接后端。",
+    "no_claimers": "⚠️ <b>没有已连接的 Claimer</b>\n━━━━━━━━━━━━━━━\n请在 Stake 上启动 Tampermonkey 脚本，然后重试。使用 /connected 查看谁在线。",
+    "success": "⚡ <b>代码已发布</b>\n━━━━━━━━━━━━━━━\n🎟 代码  <code>{code}</code>\n📡 已发送至  <b>{count}</b> 个 Claimer\n\n<i>结果约5秒后送达…</i>"
+  },
+  "reload": {
+    "checking": "🔄 <i>正在检查 reload 状态…</i>",
+    "no_response_reason": "您的 Claimer 没有响应。",
+    "no_response": "⚠️ <b>无响应</b>\n━━━━━━━━━━━━━━━\n没有任何 Claimer 响应。请确认脚本正在运行。",
+    "available": "✅  <code>{username}</code>  ·  {time_left}",
+    "not_yet": "⏳  <code>{username}</code>  ·  暂不可用",
+    "header": "🔄 <b>Reload 状态</b>\n━━━━━━━━━━━━━━━\n{lines}"
+  },
+  "connected": {
+    "fetching": "👥 <i>正在获取已连接的 Claimer…</i>",
+    "no_response_reason": "Claimer 没有响应。",
+    "no_claimers": "⚠️ <b>没有已连接的 Claimer</b>\n━━━━━━━━━━━━━━━\n许可证  <code>{license}</code>\n请在 Stake 上启动 Tampermonkey 脚本以进行连接。",
+    "account": "•  <code>{username}</code>  ·  <b>{tokens}</b> 代币  ·  <b>{claims}</b>/10",
+    "header": "👥 <b>已连接的 Claimer</b>\n━━━━━━━━━━━━━━━\n🔑 许可证  <code>{license}</code>\n🖥️ 浏览器  <b>{browsers}</b>\n\n{accounts}"
+  },
+  "license": {
+    "body": "🔑 <b>您的许可证</b>\n━━━━━━━━━━━━━━━\n密钥  <code>{license_key}</code>\n状态  <b>{status}</b>\nClaimers  <b>{active_now}/{maximum_usernames}</b>",
+    "inactive_extra": "\n\n<i>尚未激活 — 点击 💳 Top Up 激活，或通过 🛟 Support 获取帮助。</i>"
+  },
+  "fee": {
+    "notice": "💡 <i>常规费率为每日 4%，但每周六仅按已领取代码收取 3.5%。不要错过！</i>"
+  },
+  "buttons": {
+    "cancel": "❌ 取消",
+    "check_status": "🔄 Check Status",
+    "pay_now": "💳 Pay Now",
+    "open_app": "🚀 打开应用",
+    "install": "📥 安装",
+    "commands": "📋 命令",
+    "license": "🔑 许可证",
+    "my_claims": "📊 我的领取",
+    "balance": "💰 余额",
+    "topup": "💳 Top Up",
+    "support": "🛟 Support",
+    "channel": "📣 频道",
+    "install_userscript": "📜 Install Userscript",
+    "copy_link": "📋 复制链接",
+    "stake_offers": "🎁 Stake Offers",
+    "vip_club": "👑 VIP Club",
+    "choose_language": "🌐 语言",
+    "count_stream": "🎬 Stream Special (6:00–9:30)",
+    "count_1d": "📅 1 天",
+    "count_7d": "📆 7 天",
+    "count_custom": "✏️ 自定义范围",
+    "by_license": "🔑 按许可证",
+    "by_username": "👤 按用户名"
+  },
+  "count": {
+    "rate_limit": "⏳ 您操作太快了。请在 <b>{secs}秒</b> 后再次使用 /count。",
+    "admin_header": "📊 <b>领取排行榜</b>\n━━━━━━━━━━━━━━━\n查看谁领取了多少。您想如何查询？\n\n🔑 <b>按许可证</b> — 一个密钥下的所有账户\n👤 <b>按用户名</b> — 单个 Stake 账户\n\n<i>历史记录保留30天 · 所有时间均为 IST。</i>",
+    "user_header": "📊 <b>您的领取合计</b>\n━━━━━━━━━━━━━━━\n您想统计多久以前的记录？\n\n<i>历史记录保留30天 · 所有时间均为 IST。</i>",
+    "cancelled": "❎ 已取消。",
+    "expired": "⚠️ 您上次的 /count 请求已过期。请重新运行 /count。",
+    "admin_lic_prompt": "🔑 请发送要查询的 <b>许可证密钥</b>。\n<i>(完整密钥，例如 THECLAIMERS-…)</i>",
+    "admin_user_prompt": "👤 请发送要查询的 <b>Stake 用户名</b>。",
+    "range_invalid": "⚠️ 请发送两个日期，例如 <code>2026-05-28 to 2026-06-02</code>（<b>YYYY-MM-DD</b>）。",
+    "error_wrap": "⚠️ {error}。\n请重试。",
+    "key_empty": "⚠️ 许可证密钥不能为空。",
+    "key_got": "🔑 已收到：<code>{key}</code>\n\n请选择时间范围：",
+    "name_empty": "⚠️ 用户名不能为空。",
+    "name_got": "👤 已收到：<code>{name}</code>\n\n请选择时间范围：",
+    "server_error": "⚠️ 目前无法连接服务器。请稍后重新运行 /count。",
+    "unknown_type": "⚠️ 未知的查询类型。请重新运行 /count。",
+    "title_user": "📊 您的领取 · {label}",
+    "title_license": "📊 许可证领取 · {label}",
+    "title_username": "📊 用户名领取 · {label}",
+    "subtitle_license": "🔑 <code>{value}</code>",
+    "subtitle_username": "👤 <code>{value}</code>",
+    "label_custom": "{d_from} → {d_to} (IST)",
+    "win_stream": "Stream Special (06:00–09:30 IST)",
+    "win_1d": "最近1天",
+    "win_7d": "最近7天",
+    "custom_prompt": "✏️ <b>自定义日期范围</b>\n━━━━━━━━━━━━━━━\n请以两个日期发送范围，例如：\n\n<code>{ex_from} to {ex_to}</code>\n\n• 格式：<b>YYYY-MM-DD to YYYY-MM-DD</b>\n• 最多相隔 <b>{max} 天</b>\n• 所有时间均为 <b>IST</b>\n• 历史记录可追溯至 <b>{oldest}</b>（最近 {retention} 天）",
+    "err_date_format": "日期必须为 YYYY-MM-DD 格式",
+    "err_to_before_from": "“to”日期早于“from”日期",
+    "err_range_too_long": "该范围为 {gap} 天 — 最多为 {max} 天",
+    "err_too_old": "“from”早于 {days} 天的历史记录上限",
+    "err_future": "“from”日期在未来",
+    "empty_personal": "<i>此时间段内您还没有任何领取 — 发布一个代码，它就会显示在这里。🚀</i>",
+    "empty_other": "<i>此时间段内没有领取记录。</i>",
+    "updated_suffix": "\n\n🕐 刚刚更新",
+    "footer": "━━━━━━━━━━━━━━━\n💰 已领取 <b>{usd}</b>  •  📦 <b>{claims}</b> {claim_word}  •  👥 <b>{users}</b> {user_word}",
+    "block_personal": "👤 <b>{uname}</b>\n   💰 <b>{amt}</b>  •  {claims_txt}",
+    "block_ranked": "{rank}  <b>{uname}</b>\n      💰 <b>{amt}</b>  •  {claims_txt}",
+    "part_header": "<b>{title} — 第 {idx}/{total} 部分</b>\n━━━━━━━━━━━━━━━\n",
+    "word_claim_one": "次领取",
+    "word_claim_other": "次领取",
+    "word_account_one": "个账户",
+    "word_account_other": "个账户",
+    "claims_count_one": "{n} 次领取",
+    "claims_count_other": "{n} 次领取"
+  },
+  "install": {
+    "setup": "📥 <b>设置指南</b>\n<i>大约2分钟 — 请按步骤操作。</i>\n━━━━━━━━━━━━━━━\n\n<b>1️⃣ 安装 Tampermonkey</b>\n从您浏览器的商店添加 <b>Tampermonkey</b> 扩展（Chrome、Brave、Edge 或任何 Chromium 浏览器）。然后启用开发者访问权限：\n• 打开 <b>管理扩展程序</b>\n• 打开 <b>Tampermonkey → 详情</b>\n• 开启 <b>允许用户脚本</b>\n\n<b>2️⃣ 安装用户脚本</b>\n点击下方的 <b>📜 Install Userscript</b>，然后在打开的 Tampermonkey 页面上点击 <b>Install</b>。\n\n<b>3️⃣ 连接您的许可证</b>\n• 在浏览器中打开 <b>Stake</b>\n• 在 Tampermonkey 弹窗中输入您的许可证密钥\n• 运行 /connected 确认您已在线\n\n<b>4️⃣ 登录 Stake</b>\n• 普通会话登录 → <b>Offers</b> 页面\n• API 登录 → <b>VIP Club</b> 页面\n<i>（任何受支持的 Stake 镜像也可以）</i>",
+    "optimize": "⚙️ <b>优化 &amp; 最佳实践</b>\n<i>推荐用于稳定的全天候领取。</i>\n━━━━━━━━━━━━━━━\n\n<b>🚀 浏览器性能</b>\n打开 <code>chrome://settings/performance</code>（浏览器 → 设置 → 性能），然后：\n• 将每个 Stake 标签页添加到 <b>始终使这些网站保持活动</b>\n• 为 Stake 标签页禁用 <b>内存节省程序</b>\n\n<b>🌐 DNS（推荐）</b>\n打开 <code>chrome://settings/security</code>（浏览器 → 设置 → 隐私和安全 → 安全），然后在 <b>使用安全 DNS</b> 中选择 <b>Cloudflare (1.1.1.1)</b>。\n\n<b>🖥️ 运行多个用户名</b>\n如果您运行超过 <b>5</b> 个用户名，请将它们分散到多个浏览器配置文件、PC、笔记本电脑或 RDP 上。为获得最佳速度和稳定性，建议 <b>每个浏览器配置文件最多3个用户名</b>。\n\n需要帮助？随时点击 <b>🛟 Support</b>。"
+  },
+  "commands": {
+    "list": "📋 <b>命令</b>\n━━━━━━━━━━━━━━━\n/start — 打开您的仪表板\n/drop <code>[code]</code> — 向您的 Claimer 广播代码\n/reload — 检查 reload 可用性\n/connected — 查看已连接的浏览器 &amp; 代币\n/count — 您的领取合计（最近24小时）\n/balance — 预付余额 &amp; 使用情况\n/topup — 充值余额\n/license — 您的许可证 &amp; 状态\n/language — 更改语言\n\n<i>提示：大多数操作只需从 /start 点击一次。</i>"
+  },
+  "language": {
+    "header": "🌐 <b>语言</b>\n━━━━━━━━━━━━━━━\n当前：<b>{current}</b>\n\n请选择您的语言：",
+    "saved": "✅ <b>语言已更新</b>\n消息现在将以 <b>{name}</b> 显示。",
+    "error": "⚠️ 目前无法保存您的语言。请稍后重试。"
+  },
+  "cmd_desc": {
+    "start": "打开您的仪表板",
+    "drop": "向您的 Claimer 广播代码",
+    "reload": "检查 reload 可用性",
+    "connected": "查看已连接的浏览器和代币",
+    "count": "您的领取合计（最近24小时）",
+    "balance": "预付余额和使用情况",
+    "topup": "充值余额",
+    "license": "您的许可证和状态",
+    "language": "更改语言"
+  },
+  "license_changed": {
+    "body": "🔑 <b>许可证密钥已更新</b>\n━━━━━━━━━━━━━━━\n旧  <code>{old}</code>\n新  <code>{new}</code>\n\n打开 Tampermonkey 弹窗，将您的密钥替换为新密钥，即可不中断地继续领取。"
+  },
+  "balance": {
+    "after_claims": "💰 <b>您的余额</b>\n━━━━━━━━━━━━━━━\n🔑 <code>{license_key}</code>\n💳 方案  <b>领取后付费</b>\n📶 状态  <b>{status}</b>\n\n<i>您使用的是领取后付费方案，因此这里没有需要跟踪的预付余额。🎉</i>",
+    "header": "💰 <b>您的余额</b>\n━━━━━━━━━━━━━━━\n🔑 <code>{license_key}</code>\n💵 可用  <b>${amount}</b>\n📉 每次领取费率  <b>{pct}%</b>\n📶 状态  <b>{status}</b>",
+    "claimable": "\n\n🎯 使用此余额，您还可以领取大约 <b>${claimable}</b> 的奖励代码。",
+    "below_zero": "\n\n🪫 <b>余额低于 $0 — 许可证已暂停。</b>\n点击 <b>💳 Top Up</b> 即可立即恢复。",
+    "running_low": "\n\n⚠️ <b>余额不足。</b> 请尽快点击 <b>💳 Top Up</b>，以免领取中断。"
+  },
+  "topup": {
+    "prompt": "💳 <b>充值余额</b>\n━━━━━━━━━━━━━━━\n您想充值多少？\n请输入 <b>${min}</b> 至 <b>${max}</b>（USD）的金额。\n\n💡 <i>示例：</i> <code>10</code>\n🔒 通过 OxaPay 以加密货币安全支付。{fee_line}",
+    "parse_not_number": "请只发送数字，例如 <code>10</code>。",
+    "parse_invalid": "这看起来不是有效金额。",
+    "parse_too_small": "最低充值金额为 <b>${min}</b>。",
+    "parse_too_large": "最高充值金额为 <b>${max}</b>。",
+    "retry_wrap": "⚠️ {err}\n\n请输入 <b>${min}</b> 至 <b>${max}</b> 的金额。",
+    "error_wrap": "⚠️ {msg}",
+    "pay_reason": "无法连接支付服务。",
+    "status_reason": "无法连接支付服务。",
+    "not_found": "⚠️ <b>未找到该笔支付。</b>",
+    "cancelled": "❎ <b>充值已取消。</b> 准备好后随时运行 /topup。",
+    "reuse": "🧾 <b>您有一笔待处理的充值</b>\n━━━━━━━━━━━━━━━\n💵 金额  <b>${amount}</b>\n\n请用下方的 <b>💳 Pay Now</b> 完成它 — 或等待其过期，然后以其他金额重新运行 /topup。\n\n<i>确认后，余额将自动到账。</i>",
+    "invoice": "🧾 <b>账单已就绪</b>\n━━━━━━━━━━━━━━━\n💵 金额  <b>${amount}</b>\n\n点击 <b>💳 Pay Now</b> 以加密货币完成支付。\n确认后，余额将 <b>自动</b> 到账，您会在此处收到消息。\n\n<i>随时使用 🔄 Check Status。</i>",
+    "confirmed": "✅ <b>支付已确认</b>\n━━━━━━━━━━━━━━━\n💵 <b>${amount}</b> 已添加到您的余额。\n使用 /balance 查看更新后的总额。🚀",
+    "expired": "⌛ <b>账单已过期</b>\n━━━━━━━━━━━━━━━\n此支付窗口已关闭。运行 /topup 开始新的一笔。",
+    "pay_cancelled": "❌ <b>支付已取消</b>\n━━━━━━━━━━━━━━━\n未产生任何扣款。运行 /topup 重试。",
+    "waiting": "⏳ <b>等待支付</b>\n━━━━━━━━━━━━━━━\n💵 金额  <b>${amount}</b>\n\n完成支付后，点击 <b>🔄 Check Status</b> 刷新。",
+    "errors": {
+      "amount_not_number": "这看起来不是有效金额。",
+      "amount_too_small": "最低充值金额为 <b>${min}</b>。",
+      "amount_too_large": "最高充值金额为 <b>${max}</b>。",
+      "no_license": "您还没有许可证 — 请先发送 /start。",
+      "license_banned": "此许可证无法充值。请联系 @adityaofficial96。",
+      "payments_unavailable": "充值暂时不可用。请稍后重试。",
+      "invoice_failed": "目前无法创建您的支付。请稍后重试。",
+      "db_error": "我们这边出现了问题。请稍后重试。",
+      "backend_unreachable": "无法连接支付服务。请稍后重试。",
+      "default": "无法开始支付。请重试。"
+    }
+  }
+}
