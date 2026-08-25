@@ -30,17 +30,12 @@ def post_worker_init(worker):
     object. start_workers() is idempotent (per-process _started latch), and the
     deployment runs a single worker, so this starts exactly one credit worker +
     one reconciliation loop."""
-    try:
-        from bot import payments
-        payments.start_workers()
-        logger.info(
-            f"post_worker_init: payment workers started in worker pid={os.getpid()}"
-        )
-    except Exception as exc:
-        logger.error(
-            f"post_worker_init: failed to start payment workers: {exc}",
-            exc_info=True,
-        )
+    # NOTE: the LEGACY top-up payment workers (payments.start_workers → credit
+    # worker + reconcile loop that polls /topup/pending) are NOT started here:
+    # the slot-sales product does not use the balance-top-up flow. The
+    # slot_payments worker below handles OxaPay-paid orders, and the backend's
+    # own sweep reconciles missed webhooks. (payments.admin_alert is still used
+    # by the webhook for bad-signature alerts — module import is fine.)
 
     # Slot-sales allocation worker (OxaPay-paid order → allocate slot on backend).
     try:

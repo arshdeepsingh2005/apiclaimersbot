@@ -56,12 +56,41 @@ def order_get(order_id: str, telegram_id: int = None):
     return _get(f"/api/cust/order/{order_id}", params=params)
 
 
+def order_set_track(order_id: str, track_id: str):
+    """Persist the OxaPay track_id on the order (enables missed-webhook recovery)."""
+    return _post("/api/cust/order/track", {"order_id": order_id, "track_id": track_id})
+
+
 def order_allocate(order_id: str, paid_amount=None, paid_currency=None,
                    track_id=None, status=None):
     return _post("/api/cust/order/allocate", {
         "order_id": order_id, "paid_amount": paid_amount,
         "paid_currency": paid_currency, "track_id": track_id, "status": status,
     })
+
+
+def order_allocate_full(order_id: str, paid_amount=None, paid_currency=None,
+                        track_id=None, status=None):
+    """Like order_allocate but returns (http_status, body_dict) so the payment
+    worker can distinguish transient (retry) from terminal (alert) outcomes —
+    _post() swallows the body on non-200, which loses the backend's error code."""
+    import os
+    import requests
+    url = os.environ.get("BACKEND_INTERNAL_URL", "").rstrip("/") + "/api/cust/order/allocate"
+    headers = {"x-internal-token": os.environ.get("INTERNAL_API_SECRET", ""),
+               "Content-Type": "application/json"}
+    body = {"order_id": order_id, "paid_amount": paid_amount,
+            "paid_currency": paid_currency, "track_id": track_id, "status": status}
+    try:
+        r = requests.post(url, headers=headers, json=body, timeout=15)
+        try:
+            j = r.json()
+        except Exception:
+            j = None
+        return r.status_code, j
+    except Exception as exc:
+        logger.error(f"order_allocate_full: {exc}")
+        return None, None
 
 
 def set_next_value(value):

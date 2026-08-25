@@ -66,34 +66,45 @@ def enqueue_allocate(order_id: str, track_id: str = "") -> str:
         return "full"
 
 
+def _call_allocate(order_id, amount=None, currency=None, track_id=None, status=None) -> str:
+    """POST allocate and classify by HTTP status → 'terminal' | 'transient'.
+    Uses order_allocate_full so we can read the backend's error code (a plain
+    non-200 loses the body). Alerts the operator on hard failures of a PAID order."""
+    http, body = apiclaimer_client.order_allocate_full(
+        order_id, paid_amount=amount, paid_currency=currency,
+        track_id=track_id, status=status)
+    if http is None:
+        return 'transient'                      # network/timeout → retry
+    if http == 200:
+        slot = (body or {}).get("slot_id")
+        logger.info(f"ALLOC_DONE | order={order_id} slot={slot} "
+                    f"already={(body or {}).get('already_allocated', False)}")
+        return 'terminal'
+    if http in (502, 503):
+        return 'transient'                      # verify_unavailable / backend busy → retry
+    # 402 not_paid, 409 no_capacity/bad_state, 500 token_lost → terminal.
+    code = (body or {}).get("code")
+    if code in ("no_capacity", "amount_mismatch", "token_lost"):
+        admin_alert(code, f"⚠️ Slot allocation failed for a PAID order "
+                          f"<code>{order_id}</code>: {code}. Manual review/refund needed.")
+    logger.warning(f"ALLOC_REFUSED | order={order_id} http={http} code={code}")
+    return 'terminal'
+
+
 def _process_allocate(order_id: str, track_id: str) -> str:
     """Verify the invoice with OxaPay then call the backend allocate. Returns
     'terminal' | 'transient' for the retry loop."""
     if not track_id:
-        # No track id → ask backend anyway; it will re-verify by its own rules.
-        res = apiclaimer_client.order_allocate(order_id)
-        return 'terminal' if res is not None else 'transient'
+        # No track id → let the backend re-verify by its own rules (it has the
+        # stored track_id + its own OxaPay key).
+        return _call_allocate(order_id)
     info = oxapay.get_payment(track_id)
     if not info.get("ok"):
         return 'transient'          # couldn't reach OxaPay → retry
     status = (info.get("status") or "").lower()
     if status in oxapay.PAID_STATUSES:
-        res = apiclaimer_client.order_allocate(
-            order_id, paid_amount=info.get("amount"),
-            paid_currency=info.get("currency"), track_id=track_id, status=status)
-        if res is None:
-            return 'transient'      # backend unreachable → retry
-        if res.get("ok"):
-            logger.info(f"ALLOC_DONE | order={order_id} slot={res.get('slot_id')}")
-            return 'terminal'
-        # Backend refused (amount mismatch / no capacity / bad state) — terminal,
-        # alert the operator so they can refund / add capacity.
-        code = res.get("code")
-        if code in ("no_capacity", "amount_mismatch", "token_lost"):
-            admin_alert(code, f"⚠️ Slot allocation failed for a PAID order "
-                              f"<code>{order_id}</code>: {code}. Manual review/refund needed.")
-        logger.warning(f"ALLOC_REFUSED | order={order_id} code={code}")
-        return 'terminal'
+        return _call_allocate(order_id, amount=info.get("amount"),
+                              currency=info.get("currency"), track_id=track_id, status=status)
     if status in oxapay.EXPIRED_STATUSES or status in oxapay.FAILED_STATUSES:
         return 'terminal'           # invoice dead → nothing to allocate
     logger.info(f"ALLOC_NOT_PAID_YET | order={order_id} status={status}")

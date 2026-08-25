@@ -328,6 +328,12 @@ def order_pay():
     inv = create_invoice_for_order(order_id, price)
     if not inv.get("ok"):
         return err("BACKEND_UNAVAILABLE", "could not create invoice", 502)
+    # Persist the track_id on the order so a MISSED webhook can be reconciled.
+    try:
+        if inv.get("track_id"):
+            apiclaimer_client.order_set_track(order_id, inv.get("track_id"))
+    except Exception:
+        pass
     logger.info("miniapp order/pay | tg_id=%s order=%s", g.tg_id, order_id)
     return ok({"pay_url": inv.get("pay_url"), "order_id": order_id, "amount": price})
 
