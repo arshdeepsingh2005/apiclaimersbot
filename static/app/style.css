@@ -193,3 +193,6 @@ select.inp { appearance: none; }
 .cue-arrow { transform: rotate(90deg); animation: cuebounce 1s ease-in-out infinite; }
 @keyframes cuebounce { 0%,100% { transform: rotate(90deg) translateX(0); }
   50% { transform: rotate(90deg) translateX(4px); } }
+
+/* Iteration-3: plan duration line (Stream Special 24h) */
+.plan-dur { font-size: 11px; color: var(--blu); font-weight: 700; margin-top: 2px; }
