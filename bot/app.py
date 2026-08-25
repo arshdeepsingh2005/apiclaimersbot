@@ -279,6 +279,12 @@ def _route_update(update: dict, role: str) -> None:
     elif cmd_raw in _ADMIN_CMDS and admin_routing.admin_enabled():
         return  # main bot defers admin commands to the admin bot
 
+    # Slot-product command policy: normal users may use ONLY /start — everything
+    # else (drop, manage, stats, buy, language) lives in the Mini App. Admins keep
+    # /valuefornextcode + the admin command set. This replaces the legacy surface.
+    if not admin_routing.is_admin_id(user_id) and cmd_raw != "start":
+        return  # ignore /drop /reload /connected /balance /topup /count /license …
+
     if cmd_raw == "start":
         handle_start(user_id, chat_id, first_name, last_name, profile_username)
 

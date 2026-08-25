@@ -16,6 +16,53 @@
     ["it", "🇮🇹 Italiano"], ["pt", "🇧🇷 Português"], ["fr", "🇫🇷 Français"], ["tr", "🇹🇷 Türkçe"]
   ];
 
+  // ── i18n (Mini App is localized independently of the bot) ────────────────
+  // English is the complete source; t() falls back to English for any missing
+  // key, so partially-translated languages still render. High-visibility strings
+  // (nav + section titles) are translated for all 12; add more keys any time.
+  var MSG = {
+    en: { nav_accounts: "Accounts", nav_buy: "Buy", nav_manage: "Manage", nav_stats: "Stats", nav_drop: "Drop",
+      language: "Language", acc_subs: "My Subscriptions", buy_title: "Buy a Slot",
+      manage_title: "Manage your slots", stats_title: "Claim Dashboard", drop_title: "Drop a code" },
+    ja: { nav_accounts: "アカウント", nav_buy: "購入", nav_manage: "管理", nav_stats: "統計", nav_drop: "ドロップ",
+      language: "言語", acc_subs: "マイサブスク", buy_title: "スロット購入", manage_title: "スロット管理",
+      stats_title: "クレーム統計", drop_title: "コードをドロップ" },
+    zh: { nav_accounts: "账户", nav_buy: "购买", nav_manage: "管理", nav_stats: "统计", nav_drop: "掉落",
+      language: "语言", acc_subs: "我的订阅", buy_title: "购买槽位", manage_title: "管理槽位",
+      stats_title: "领取面板", drop_title: "投放代码" },
+    ko: { nav_accounts: "계정", nav_buy: "구매", nav_manage: "관리", nav_stats: "통계", nav_drop: "드롭",
+      language: "언어", acc_subs: "내 구독", buy_title: "슬롯 구매", manage_title: "슬롯 관리",
+      stats_title: "클레임 대시보드", drop_title: "코드 드롭" },
+    hi: { nav_accounts: "खाते", nav_buy: "खरीदें", nav_manage: "प्रबंधन", nav_stats: "आँकड़े", nav_drop: "ड्रॉप",
+      language: "भाषा", acc_subs: "मेरी सदस्यताएँ", buy_title: "स्लॉट खरीदें", manage_title: "स्लॉट प्रबंधन",
+      stats_title: "क्लेम डैशबोर्ड", drop_title: "कोड ड्रॉप करें" },
+    pl: { nav_accounts: "Konta", nav_buy: "Kup", nav_manage: "Zarządzaj", nav_stats: "Statystyki", nav_drop: "Drop",
+      language: "Język", acc_subs: "Moje subskrypcje", buy_title: "Kup slot", manage_title: "Zarządzaj slotami",
+      stats_title: "Panel odbioru", drop_title: "Wrzuć kod" },
+    vi: { nav_accounts: "Tài khoản", nav_buy: "Mua", nav_manage: "Quản lý", nav_stats: "Thống kê", nav_drop: "Thả mã",
+      language: "Ngôn ngữ", acc_subs: "Gói của tôi", buy_title: "Mua slot", manage_title: "Quản lý slot",
+      stats_title: "Bảng nhận thưởng", drop_title: "Thả mã" },
+    es: { nav_accounts: "Cuentas", nav_buy: "Comprar", nav_manage: "Gestionar", nav_stats: "Estadísticas", nav_drop: "Soltar",
+      language: "Idioma", acc_subs: "Mis suscripciones", buy_title: "Comprar slot", manage_title: "Gestionar slots",
+      stats_title: "Panel de reclamos", drop_title: "Soltar un código" },
+    it: { nav_accounts: "Account", nav_buy: "Acquista", nav_manage: "Gestisci", nav_stats: "Statistiche", nav_drop: "Drop",
+      language: "Lingua", acc_subs: "I miei abbonamenti", buy_title: "Acquista slot", manage_title: "Gestisci slot",
+      stats_title: "Pannello richieste", drop_title: "Rilascia un codice" },
+    pt: { nav_accounts: "Contas", nav_buy: "Comprar", nav_manage: "Gerir", nav_stats: "Estatísticas", nav_drop: "Soltar",
+      language: "Idioma", acc_subs: "Minhas assinaturas", buy_title: "Comprar slot", manage_title: "Gerir slots",
+      stats_title: "Painel de resgates", drop_title: "Soltar um código" },
+    fr: { nav_accounts: "Comptes", nav_buy: "Acheter", nav_manage: "Gérer", nav_stats: "Stats", nav_drop: "Drop",
+      language: "Langue", acc_subs: "Mes abonnements", buy_title: "Acheter un slot", manage_title: "Gérer les slots",
+      stats_title: "Tableau de réclamations", drop_title: "Larguer un code" },
+    tr: { nav_accounts: "Hesaplar", nav_buy: "Satın Al", nav_manage: "Yönet", nav_stats: "İstatistik", nav_drop: "Drop",
+      language: "Dil", acc_subs: "Aboneliklerim", buy_title: "Slot Satın Al", manage_title: "Slotları Yönet",
+      stats_title: "Talep Paneli", drop_title: "Kod Bırak" }
+  };
+  function t(key) {
+    var l = lang();
+    return (MSG[l] && MSG[l][key]) || MSG.en[key] || key;
+  }
+
   // ── helpers ────────────────────────────────────────────────────────────
   function esc(s) {
     if (s === null || s === undefined) return "";
@@ -124,11 +171,14 @@
       return '<button class="lang-row" data-code="' + l[0] + '" type="button">' + esc(l[1]) +
         (l[0] === lang() ? ' <span class="lang-cur">' + icon("check") + '</span>' : '') + '</button>';
     }).join("");
-    openSheet("Language", '<div class="lang-list">' + rows + '</div>');
+    openSheet(t("language"), '<div class="lang-list">' + rows + '</div>');
     Array.prototype.forEach.call(document.querySelectorAll(".lang-row"), function (b) {
       b.addEventListener("click", function () {
         try { localStorage.setItem("scc_lang", b.getAttribute("data-code")); } catch (e) {}
-        closeSheet(); renderHeader(); toast("Language set");
+        closeSheet();
+        // Re-render the WHOLE Mini App in the new language (nav + current view).
+        renderHeader(); renderNav(); markNav(); go(current);
+        toast("Language set");
       });
     });
   }
@@ -146,13 +196,13 @@
 
   // ── bottom navigation ─────────────────────────────────────────────────────
   var TABS = [
-    ["accounts", "home", "Accounts"], ["buy", "wallet", "Buy"],
-    ["manage", "key", "Manage"], ["stats", "chart", "Stats"], ["drop", "ticket", "Drop"]
+    ["accounts", "home"], ["buy", "wallet"],
+    ["manage", "key"], ["stats", "chart"], ["drop", "ticket"]
   ];
   function renderNav() {
-    el("bottomnav").innerHTML = TABS.map(function (t) {
-      return '<button class="navbtn" data-tab="' + t[0] + '" type="button">' + icon(t[1]) +
-        '<span>' + esc(t[2]) + '</span></button>';
+    el("bottomnav").innerHTML = TABS.map(function (tb) {
+      return '<button class="navbtn" data-tab="' + tb[0] + '" type="button">' + icon(tb[1]) +
+        '<span>' + esc(t("nav_" + tb[0])) + '</span></button>';
     }).join("");
     Array.prototype.forEach.call(document.querySelectorAll(".navbtn"), function (b) {
       b.addEventListener("click", function () { go(b.getAttribute("data-tab")); });
@@ -177,7 +227,10 @@
   function planTiles(plans, onPick) {
     return (plans || []).map(function (p, i) {
       var price = p.price_usd != null ? ("$" + p.price_usd) : "Soon";
-      var per = p.per_day_usd != null ? ("≈$" + p.per_day_usd + " / day") : "Pricing soon";
+      // Show ≈/day only when the plan HAS a per-day rate. A priced plan without one
+      // (e.g. Stream Special) shows nothing — not a misleading "$0.86/day" or "soon".
+      var per = p.per_day_usd != null ? ("≈$" + p.per_day_usd + " / day")
+        : (p.price_usd != null ? (p.features && p.features[0] ? p.features[0] : "") : "Pricing soon");
       return '<button class="plan" data-i="' + i + '" type="button"' + (p.price_usd == null ? ' disabled' : '') + '>' +
         '<div class="plan-badge">' + esc(p.badge || "") + '</div>' +
         '<div class="plan-name">' + esc(p.label) + '</div>' +
@@ -200,7 +253,7 @@
         var html = '<section class="cap"><div class="cap-dot"></div><div class="cap-main"><div class="cap-lbl">SLOT POOL AVAILABILITY</div>' +
           '<div class="cap-val">' + esc(avail) + ' slots available</div></div>' + icon("shield", "cap-ic") + '</section>';
         if (priceRow) html += '<div class="prices">' + priceRow + '</div>';
-        html += '<h2 class="sec">My Subscriptions</h2>';
+        html += '<h2 class="sec">'+esc(t("acc_subs"))+'</h2>';
         if (!slots.length) {
           html += '<div class="empty"><div class="empty-t">No subscriptions yet</div>' +
             '<div class="empty-s">Automate your Stake claims with one of our plans.</div>' +
@@ -238,7 +291,7 @@
     }).catch(function () { if (!stale(seq)) fatal("Could not load plans."); });
   }
   function renderBuyStep1(cap) {
-    var html = '<h2 class="sec">Buy a Slot</h2>' +
+    var html = '<h2 class="sec">'+esc(t("buy_title"))+'</h2>' +
       '<div class="cap-mini">🟢 ' + esc(cap.available != null ? cap.available : "—") + ' slots available</div>' +
       '<div class="card"><label class="lab">1 · Your Stake API key</label>' +
       '<input class="inp" id="buyKey" type="password" placeholder="Paste your Stake API key" autocomplete="off">' +
@@ -258,9 +311,14 @@
       el("verifyBtn").disabled = false;
       if (d.valid) {
         buyState.token = key; buyState.username = d.username || null;
-        out.innerHTML = icon("check") + " Verified: <b>" + esc(d.username || "account") + "</b>";
+        out.innerHTML = icon("check") + " Verified: <b>" + esc(d.username || "account") + "</b>" +
+          '<div class="scrollcue">' + icon("chevron", "cue-arrow") + " Scroll down to choose your plan</div>";
         out.className = "verify-out good"; haptic("success");
         renderBuyStep2();
+        // Nudge the buyer to the plan section that just appeared below.
+        setTimeout(function () {
+          try { var pr = el("buyRest"); if (pr) pr.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) {}
+        }, 120);
       } else {
         buyState.token = null;
         out.textContent = d.reason === "unavailable"
@@ -283,8 +341,11 @@
       });
     });
   }
+  // Full currency set — mirrors the userscript's AVAILABLE_CURRENCIES (17).
+  var CURRENCIES = ["usdt", "btc", "eth", "ltc", "sol", "doge", "xrp", "trx", "eos",
+                    "bnb", "usdc", "dai", "link", "shib", "uni", "pol", "trump"];
   function currencyOptions(sel) {
-    return ["usdt", "btc", "eth", "ltc", "trx", "sol", "usdc", "doge"].map(function (c) {
+    return CURRENCIES.map(function (c) {
       return '<option value="' + c + '"' + (c === sel ? " selected" : "") + '>' + c.toUpperCase() + '</option>';
     }).join("");
   }
@@ -294,6 +355,7 @@
       cfgFields({}) +
       '<button class="btn primary" id="payBtn" type="button">Continue to payment · ' +
       (buyState.plan ? "$" + esc(buyState.plan.price_usd) : "") + '</button></div>';
+    wireToggles(s3);   // FIX: Buy-flow toggles were never wired (Manage/Drop were)
     el("payBtn").addEventListener("click", doBuyPay);
   }
   function cfgFields(v) {
@@ -383,7 +445,7 @@
           '<div class="empty-s">Buy a slot first, then configure it here.</div></div>');
         return;
       }
-      view('<h2 class="sec">Manage your slots</h2><div class="subs">' + slots.map(function (s) {
+      view('<h2 class="sec">'+esc(t("manage_title"))+'</h2><div class="subs">' + slots.map(function (s) {
         return '<button class="sub tap" data-id="' + s.slot_id + '" type="button">' +
           '<div class="sub-top"><div class="sub-name">' + esc(s.stake_username || "—") + '</div>' +
           '<span class="sub-status">' + (s.expired ? "Expired" : "Active") + '</span>' + icon("chevron", "chev") + '</div>' +
@@ -445,7 +507,7 @@
           '<div class="rc-amt">' + (r.amount != null ? esc(r.amount) + " " + esc((r.currency || "").toUpperCase()) : "") + '</div></div>';
       }).join("") : '<div class="empty-s pad">No codes in the last 7 days.</div>';
 
-      view('<h2 class="sec">Claim Dashboard</h2>' +
+      view('<h2 class="sec">'+esc(t("stats_title"))+'</h2>' +
         '<div class="stat-tabs">' + tabs + '</div>' +
         '<div class="chips">' + typeBtns + '</div>' +
         '<section class="earn"><div class="earn-lbl">TOTAL EARNED</div><div class="earn-vals">' + earnedRows + '</div>' +
@@ -463,11 +525,14 @@
 
   // ── Drop ─────────────────────────────────────────────────────────────────
   function viewDrop() {
-    view('<h2 class="sec">Drop a code</h2>' +
-      '<div class="note">' + icon("shield") + ' Your code is dropped <b>only to your own Stake API slots / IDs</b> — never to anyone else.</div>' +
+    view('<h2 class="sec">'+esc(t("drop_title"))+'</h2>' +
+      '<div class="note">' + icon("shield") +
+      ' This code is sent <b>ONLY to your own Stake API keys</b> (your slots) — it is never shared with anyone else.</div>' +
       '<div class="card"><label class="lab">Code</label>' +
       '<input class="inp" id="dropCode" type="text" placeholder="e.g. abc123" maxlength="64" autocomplete="off">' +
-      '<div class="tog" data-id="dropBonus" data-on="0"><span>Bonus code</span><span class="sw"><span class="knob"></span></span></div>' +
+      '<div class="hint">A <b>drop</b> is a normal Stake bonus-drop code. We instantly claim it on every one of your slots.</div>' +
+      '<div class="tog" data-id="dropBonus" data-on="0"><span>This is a bonus code</span><span class="sw"><span class="knob"></span></span></div>' +
+      '<div class="hint">Turn this on <b>only</b> for weekly / monthly stream &amp; bonus-reward codes — they are claimed through Stake’s bonus flow instead of the drop flow.</div>' +
       '<button class="btn primary" id="dropBtn" type="button">Drop to my slots</button></div>');
     wireToggles();
     el("dropBtn").addEventListener("click", function () {

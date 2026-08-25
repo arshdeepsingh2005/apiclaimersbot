@@ -179,8 +179,8 @@ def _startup() -> None:
     # Validate the locale catalog once at boot — non-fatal (logs only).
     log_validation()
 
-    _USER_CMDS = ["start", "drop", "reload", "connected", "count",
-                  "balance", "topup", "license", "language"]
+    # Slot product: normal users only ever need /start (the Mini App is the app).
+    _USER_CMDS = ["start"]
 
     def _commands_for(lc: str) -> list:
         return [{"command": c, "description": t(f"cmd_desc.{c}", lang=lc)}
