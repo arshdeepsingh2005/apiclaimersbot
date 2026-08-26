@@ -34,21 +34,42 @@ _rl = RateLimiter()
 
 # ── Response envelope (always {ok, data} / {ok, error, code}) ────────────────
 def ok(data=None, status: int = 200):
-    return jsonify({"ok": True, "data": data if data is not None else {}}), status
+    body = {"ok": True, "data": data if data is not None else {}}
+    # Proactive nudge: if this user is nearing a rate limit, tell the client to
+    # show a "slow down" panel BEFORE they ever hit the (opaque) hard limit.
+    # Envelope-only + no numbers/window → helps a genuine user without handing an
+    # attacker a precise gauge.
+    if getattr(g, "slow_down", False):
+        body["warn"] = "slow_down"
+    return jsonify(body), status
 
 
 def err(code: str, message: str = "", status: int = 400):
     return jsonify({"ok": False, "error": message or code, "code": code}), status
 
 
+def _busy():
+    """Opaque throttle response — indistinguishable from a transient backend
+    hiccup. Reveals NOTHING about the rate limit (no code, no window, no 429)."""
+    return err("BACKEND_UNAVAILABLE", "Please try again in a moment.", 503)
+
+
 # ── Rate limiting (string keys hashed to ints for the int-keyed limiter) ─────
+_WARN_RATIO = 0.75   # flag g.slow_down once a window is >=75% full
+
+
 def _rl_int(key: str) -> int:
     return int.from_bytes(hashlib.blake2b(key.encode(), digest_size=7).digest(), "big")
 
 
-def _rate_ok(key, command: str) -> tuple[bool, int]:
+def _gate(key, command: str) -> bool:
+    """Per-user/per-key rate check that ALSO flags ``g.slow_down`` when nearing
+    the cap. Returns True if allowed; on denial the caller returns ``_busy()``."""
     uid = key if isinstance(key, int) else _rl_int(str(key))
-    return _rl.check(uid, command)
+    allowed, _wait, near = _rl.check(uid, command, warn_ratio=_WARN_RATIO)
+    if near:
+        g.slow_down = True
+    return allowed
 
 
 def _client_ip() -> str:
@@ -131,9 +152,8 @@ def ensure_writable():
 @miniapp_bp.post("/auth")
 def auth_login():
     """Validate Telegram initData → issue a session token. Per-IP rate limited."""
-    allowed, wait = _rate_ok(_client_ip(), "app_auth")
-    if not allowed:
-        return err("RATE_LIMITED", f"try again in {wait}s", 429)
+    if not _gate(_client_ip(), "app_auth"):
+        return _busy()
 
     body = request.get_json(force=True, silent=True) or {}
     init_data = body.get("initData") or ""
@@ -202,9 +222,8 @@ def capacity():
 @miniapp_bp.post("/verify-token")
 @require_session
 def verify_token():
-    ok1, w1 = _rate_ok(g.tg_id, "app_verify")
-    if not ok1:
-        return err("RATE_LIMITED", f"try again in {w1}s", 429)
+    if not _gate(g.tg_id, "app_verify"):
+        return _busy()
     body = request.get_json(force=True, silent=True) or {}
     token = (body.get("token") or "").strip()
     if not token:
@@ -230,9 +249,8 @@ def slots():
 @miniapp_bp.post("/slots/<int:slot_id>/config")
 @require_session
 def slot_config(slot_id):
-    ok1, w1 = _rate_ok(g.tg_id, "app_config")
-    if not ok1:
-        return err("RATE_LIMITED", f"try again in {w1}s", 429)
+    if not _gate(g.tg_id, "app_config"):
+        return _busy()
     body = request.get_json(force=True, silent=True) or {}
     allowed = {"withdrawal_currency", "reload_currency", "value_filter",
                "auto_vault", "auto_bonus", "auto_reload", "stake_access_token"}
@@ -262,12 +280,8 @@ def stats():
 @miniapp_bp.post("/drop")
 @require_session
 def drop():
-    ok1, w1 = _rate_ok(g.tg_id, "app_drop")
-    if not ok1:
-        return err("RATE_LIMITED", f"try again in {w1}s", 429)
-    ok2, w2 = _rate_ok(g.jti, "app_drop")
-    if not ok2:
-        return err("RATE_LIMITED", f"try again in {w2}s", 429)
+    if not _gate(g.tg_id, "app_drop") or not _gate(g.jti, "app_drop"):
+        return _busy()
     body = request.get_json(force=True, silent=True) or {}
     code = (body.get("code") or "").strip()
     from bot.handlers import _validate_drop_code
@@ -287,9 +301,8 @@ def drop():
 @miniapp_bp.post("/order/begin")
 @require_session
 def order_begin():
-    ok1, w1 = _rate_ok(g.tg_id, "app_order")
-    if not ok1:
-        return err("RATE_LIMITED", f"try again in {w1}s", 429)
+    if not _gate(g.tg_id, "app_order"):
+        return _busy()
     body = request.get_json(force=True, silent=True) or {}
     plan_code = (body.get("plan_code") or "").strip()
     token = (body.get("token") or "").strip()
@@ -307,9 +320,8 @@ def order_begin():
 @miniapp_bp.post("/order/pay")
 @require_session
 def order_pay():
-    ok1, w1 = _rate_ok(g.tg_id, "app_order")
-    if not ok1:
-        return err("RATE_LIMITED", f"try again in {w1}s", 429)
+    if not _gate(g.tg_id, "app_order"):
+        return _busy()
     body = request.get_json(force=True, silent=True) or {}
     order_id = (body.get("order_id") or "").strip()
     if not order_id:
@@ -356,11 +368,25 @@ _MAX_BODY_BYTES = 8 * 1024   # API bodies are tiny (one code or one amount)
 
 @miniapp_bp.before_request
 def _api_guard():
-    # Coarse per-IP request cap (fine per-user / per-JWT limits live in the write
-    # endpoints). Cheap in-memory check; generous so legit use never trips it.
-    allowed, wait = _rate_ok(_client_ip(), "app_req")
+    g.slow_down = False
+    # Coarse cap keyed PER-USER when a valid session is present (immune to shared
+    # carrier-grade NAT, where many real users share one mobile IP); only pre-auth
+    # traffic (/auth) falls back to per-IP. The fine per-user limits in the write
+    # endpoints do the real fairness work. Generous so legit use never trips it.
+    tok = _bearer()
+    subject = None
+    if tok:
+        try:
+            subject = "u:%d" % int(auth.verify_session(tok)["tg_id"])
+        except auth.AuthError:
+            subject = None
+    if subject is None:
+        subject = "ip:" + _client_ip()
+    allowed, _wait, near = _rl.check(_rl_int(subject), "app_req", warn_ratio=_WARN_RATIO)
+    if near:
+        g.slow_down = True
     if not allowed:
-        return err("RATE_LIMITED", f"try again in {wait}s", 429)
+        return _busy()
     # DoS guard: reject oversized bodies (API payloads are a few bytes).
     if (request.content_length or 0) > _MAX_BODY_BYTES:
         return err("INVALID_INPUT", "request body too large", 413)
@@ -382,7 +408,7 @@ def _api_error(e):
     if isinstance(e, HTTPException):
         code = e.code or 500
         tax = {400: "INVALID_INPUT", 404: "NOT_FOUND", 405: "NOT_FOUND",
-               413: "INVALID_INPUT", 429: "RATE_LIMITED"}.get(code, "BACKEND_UNAVAILABLE")
+               413: "INVALID_INPUT", 429: "BACKEND_UNAVAILABLE"}.get(code, "BACKEND_UNAVAILABLE")
         return err(tax, "request failed", code)
     logger.exception("miniapp unhandled error")   # stack stays server-side only
     return err("BACKEND_UNAVAILABLE", "internal error", 500)

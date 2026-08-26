@@ -646,8 +646,10 @@ def create_app() -> Flask:
     @app.route("/app/static/<path:fname>")
     def miniapp_asset(fname):
         # Assets carry ?v= for cache-busting; ETag/conditional handled by Flask.
+        # Short max-age so clients pick up a redeploy within minutes even if a
+        # cached index.html briefly points at an old ?v=.
         resp = send_from_directory(_APP_DIR, fname)
-        resp.headers["Cache-Control"] = "public, max-age=3600"
+        resp.headers["Cache-Control"] = "public, max-age=300"
         return _spa_security_headers(resp)
 
     return app

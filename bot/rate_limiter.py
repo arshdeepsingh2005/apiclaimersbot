@@ -24,7 +24,6 @@ is ever required, migrate this to Redis with atomic ZADD/ZCOUNT.
 import threading
 import time
 from collections import deque
-from typing import Tuple
 
 # (max_calls, window_seconds) per command
 _LIMITS: dict[str, tuple[int, int]] = {
@@ -38,11 +37,17 @@ _LIMITS: dict[str, tuple[int, int]] = {
     "topup": (5, 60),
     # Mini App surface (separate budgets from the bot commands, used by a
     # dedicated RateLimiter instance in miniapp_api.py; keys are hashed to ints).
-    "app_auth": (30, 60),      # per-IP: auth + silent refresh
-    "app_drop": (5, 60),       # per-tg_id AND per-jti
-    "app_topup": (5, 60),      # per-tg_id AND per-jti
-    "app_reload": (1, 10),     # per-tg_id AND per-jti
-    "app_req": (120, 60),      # per-IP coarse cap on ALL Mini App API requests
+    # All per-user budgets are keyed by tg_id/jti (immune to shared carrier NAT)
+    # and set FAR above any human's UI rate — normal use, incl. a 100-slot owner
+    # and a 10-min payment poll, never reaches them; only scripted abuse does.
+    "app_auth": (60, 60),      # per-IP, pre-auth only (initData is the real gate)
+    "app_verify": (20, 60),    # per-tg_id — was UNLIMITED (missing key)
+    "app_config": (30, 60),    # per-tg_id — was UNLIMITED (missing key)
+    "app_order": (15, 60),     # per-tg_id — was UNLIMITED (missing key); mints invoices
+    "app_drop": (20, 60),      # per-tg_id AND per-jti
+    "app_topup": (15, 60),     # per-tg_id AND per-jti
+    "app_reload": (3, 10),     # per-tg_id AND per-jti
+    "app_req": (240, 60),      # coarse cap — keyed PER-USER in _api_guard (NAT-safe)
 }
 
 # Cleanup stale keys every N checks (amortised O(1) per call)
@@ -62,18 +67,22 @@ class RateLimiter:
     # Public
     # ------------------------------------------------------------------
 
-    def check(self, user_id: int, command: str) -> Tuple[bool, int]:
+    def check(self, user_id: int, command: str, warn_ratio: float = None):
         """Check and, if allowed, record a command attempt.
 
-        Returns:
-            (allowed, wait_seconds)
-            - allowed=True  → request is permitted; attempt has been recorded.
-            - allowed=False → request is denied; wait_seconds > 0.
+        Returns (backward compatible):
+            warn_ratio is None → (allowed, wait_seconds)
+            warn_ratio set     → (allowed, wait_seconds, near) where ``near`` is
+                                 True once the window is >= max_calls*warn_ratio
+                                 full (used to proactively warn a user BEFORE the
+                                 hard limit). Existing 2-tuple callers pass no
+                                 warn_ratio and are unaffected.
         """
+        want_near = warn_ratio is not None
         command = command.lower()
         if command not in _LIMITS:
             # Not rate-limited (e.g. /start, /license)
-            return True, 0
+            return (True, 0, False) if want_near else (True, 0)
 
         max_calls, window_secs = _LIMITS[command]
         now = time.monotonic()
@@ -97,16 +106,18 @@ class RateLimiter:
                 # Oldest timestamp + window = when that slot expires
                 oldest = dq[0]
                 wait_secs = int(oldest + window_secs - now) + 1
-                return False, max(1, wait_secs)
+                wait_secs = max(1, wait_secs)
+                return (False, wait_secs, True) if want_near else (False, wait_secs)
 
             # Allowed — record this attempt
             dq.append(now)
+            near = want_near and (len(dq) >= max_calls * warn_ratio)
 
             # Amortised cleanup of stale keys
             if self._call_count % _CLEANUP_EVERY == 0:
                 self._cleanup_locked(now)
 
-            return True, 0
+            return (True, 0, near) if want_near else (True, 0)
 
     # ------------------------------------------------------------------
     # Internal

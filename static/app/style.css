@@ -148,6 +148,14 @@ select.inp { appearance: none; }
 .rc-res { font-size: 12px; font-weight: 700; }
 .rc-res.ok { color: var(--grn); } .rc-res.no { color: var(--tx3); }
 .rc-amt { font-size: 12px; color: var(--tx2); min-width: 60px; text-align: right; }
+/* username in front of each code + per-username earnings + truncation note */
+.rc-user { font-family: inherit; font-size: 11px; color: var(--blu); font-weight: 600; }
+.rc-trunc { text-align: center; color: var(--tx3); font-size: 11px; margin-top: 8px; }
+.euser-list { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px;
+  display: flex; flex-direction: column; gap: 6px; }
+.euser { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; }
+.euser-name { color: var(--tx2); font-weight: 600; }
+.euser-amt { color: var(--grn); font-weight: 700; }
 
 /* Note + empty */
 .note { display: flex; gap: 9px; align-items: flex-start; background: #0d1b2a; border: 1px solid #1c3550;
@@ -208,6 +216,19 @@ select.inp { appearance: none; }
 .pay-url { font-size: 11px; color: var(--tx2); word-break: break-all; user-select: all;
   -webkit-user-select: all; background: var(--bg2); border: 1px solid var(--line);
   border-radius: 8px; padding: 8px 10px; margin: 8px 0; }
+
+/* Proactive "slow down" warning panel — dismissible, below the header */
+#warnbar { position: fixed; top: 56px; left: 10px; right: 10px; z-index: 55;
+  background: #3a2a0a; border: 1px solid #6b4e12; color: #ffd479; border-radius: 10px;
+  padding: 10px 12px; display: flex; align-items: flex-start; gap: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.4); font-size: 12.5px; line-height: 1.4; }
+.warn-msg { flex: 1; }
+.warn-x { background: transparent; border: 0; color: #ffd479; font-size: 15px;
+  cursor: pointer; padding: 0 2px; line-height: 1; }
+
+/* Per-slot reload status line (next-reload time / unavailable) */
+.reload-note { color: var(--tx2); font-size: 11px; margin-top: 6px; }
+.reload-note.bad { color: #ffb3b3; }
 
 /* Iteration-3: plan duration line (Stream Special 24h) */
 .plan-dur { font-size: 11px; color: var(--blu); font-weight: 700; margin-top: 2px; }
