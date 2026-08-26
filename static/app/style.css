@@ -195,5 +195,19 @@ select.inp { appearance: none; }
 @keyframes cuebounce { 0%,100% { transform: rotate(90deg) translateX(0); }
   50% { transform: rotate(90deg) translateX(4px); } }
 
+/* Floating scroll-down cue — fixed bottom-centre, above the nav (66px) + safe area */
+#scrolldown { position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%);
+  z-index: 40; width: 34px; height: 34px; border-radius: 999px; cursor: pointer;
+  background: var(--bg2); border: 1px solid var(--line); color: var(--blu);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,.35); }
+#scrolldown .ic { width: 18px; height: 18px; }
+
+/* Payment link fallback (shown on the waiting screen if the OxaPay page can't open) */
+.pay-fallback { width: 100%; max-width: 340px; margin: 16px auto 0; }
+.pay-url { font-size: 11px; color: var(--tx2); word-break: break-all; user-select: all;
+  -webkit-user-select: all; background: var(--bg2); border: 1px solid var(--line);
+  border-radius: 8px; padding: 8px 10px; margin: 8px 0; }
+
 /* Iteration-3: plan duration line (Stream Special 24h) */
 .plan-dur { font-size: 11px; color: var(--blu); font-weight: 700; margin-top: 2px; }
