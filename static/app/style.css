@@ -80,6 +80,7 @@ button.sub { cursor: pointer; }
 .sub-gear { background: transparent; border: 0; color: var(--tx2); cursor: pointer; padding: 4px; }
 .chev { color: var(--tx3); margin-left: auto; }
 .sub-meta { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 9px; }
+.sub-exp { color: var(--tx3); font-size: 11px; margin-top: 6px; }
 .tag { background: var(--pill); border: 1px solid var(--pill-b); color: var(--grn);
   border-radius: 999px; padding: 3px 10px; font-size: 11px; font-weight: 600; }
 .tag.alt { background: #172233; border-color: #26364a; color: var(--blu); }
