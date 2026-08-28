@@ -357,18 +357,13 @@
         view(html);
         startExpiryTick();
         var gs = el("getStarted"); if (gs) gs.addEventListener("click", function () { go("buy"); });
-        // Whole username + gear are tappable: active slot → Manage, expired → renew.
-        Array.prototype.forEach.call(document.querySelectorAll(".sub"), function (card) {
+        // The WHOLE Accounts card is tappable: active slot → Manage, expired → renew.
+        Array.prototype.forEach.call(document.querySelectorAll(".sub[data-username]"), function (card) {
           var uname = card.getAttribute("data-username") || "";
           var expired = card.getAttribute("data-expired") === "1";
           var route = function () { if (expired) { openRenew(uname); } else { go("manage"); } };
-          var nameEl = card.querySelector(".sub-name");
-          if (nameEl) {
-            nameEl.addEventListener("click", route);
-            nameEl.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); route(); } });
-          }
-          var gear = card.querySelector(".sub-gear");
-          if (gear) gear.addEventListener("click", route);
+          card.addEventListener("click", route);
+          card.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); route(); } });
         });
       }).catch(function () { if (!stale(seq)) fatal(t("err_dashboard")); });
   }
@@ -376,13 +371,14 @@
     var isExp = s.expired || isExpiredIso(s.expires_at);
     var online = s.online && !isExp;
     var sl = secondLine(s);
-    // data-username + data-expired let ONE delegated handler route a tap on the
-    // whole name/card: active → Manage, expired → renew (see viewAccounts wiring).
-    return '<div class="sub" data-username="' + esc(s.stake_username || "") + '" data-expired="' + (isExp ? "1" : "0") + '">' +
-      '<div class="sub-top"><div class="sub-name tap" role="button" tabindex="0">' + esc(s.stake_username || "—") + '</div>' +
+    // The WHOLE card is the tap target (role=button); data-username + data-expired let
+    // one handler route it: active → Manage, expired → renew (see viewAccounts wiring).
+    // The gear is a decorative <span> (no nested interactive inside the card button).
+    return '<div class="sub tap" data-username="' + esc(s.stake_username || "") + '" data-expired="' + (isExp ? "1" : "0") + '" role="button" tabindex="0">' +
+      '<div class="sub-top"><div class="sub-name">' + esc(s.stake_username || "—") + '</div>' +
       '<span class="dot ' + (online ? "on" : "off") + '"></span>' +
       '<span class="sub-status">' + (isExp ? t("st_expired") : (online ? t("st_online") : t("st_offline"))) + '</span>' +
-      '<button class="sub-gear" type="button" aria-label="Manage">' + icon("key") + '</button></div>' +
+      '<span class="sub-gear" aria-hidden="true">' + icon("key") + '</span></div>' +
       '<div class="sub-meta"><span class="tag">' + esc(s.plan_label || s.plan || "plan") + '</span>' +
       '<span class="tag alt" data-exp="' + esc(s.expires_at || "") + '">' + esc(fmtExpiry(s.expires_at)) + '</span>' +
       '<span class="tag ghost">' + esc(s.worker_label || "Worker") + '</span></div>' +
@@ -661,7 +657,7 @@
         return '<button class="sub tap" data-id="' + s.slot_id + '" type="button">' +
           '<div class="sub-top"><div class="sub-name">' + esc(s.stake_username || "—") + '</div>' +
           '<span class="sub-status">' + (s.expired ? t("st_expired") : t("st_active")) + '</span>' + icon("chevron", "chev") + '</div>' +
-          '<div class="sub-meta"><span class="tag">' + esc(s.plan || "") + '</span><span class="tag alt" data-exp="' + esc(s.expires_at || "") + '">' + esc(fmtExpiry(s.expires_at)) + '</span></div>' +
+          '<div class="sub-meta"><span class="tag">' + esc(s.plan_label || s.plan || "") + '</span><span class="tag alt" data-exp="' + esc(s.expires_at || "") + '">' + esc(fmtExpiry(s.expires_at)) + '</span></div>' +
           reloadNote(s) +
           (sl ? '<div class="sub-exp" data-exp-abs="' + esc(s.expires_at || "") + '">' + esc(sl) + '</div>' : '') +
           '</button>';

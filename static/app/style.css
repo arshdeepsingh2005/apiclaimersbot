@@ -159,9 +159,10 @@ select.inp { appearance: none; }
 /* Standalone per-account earnings panel (its own card below Total Earned). */
 .peracct { text-align: left; margin-top: 12px; }
 .peracct .euser-list { margin-top: 8px; border-top: 0; padding-top: 0; }
-/* Tappable username on the Accounts card (whole name routes to Manage/renew). */
-.sub-name.tap { cursor: pointer; }
-.sub-name.tap:hover { color: var(--blu); }
+/* Tappable Accounts card — the WHOLE panel routes to Manage/renew. */
+.sub.tap { cursor: pointer; }
+.sub.tap:active { transform: scale(0.995); }
+.sub.tap .sub-gear { pointer-events: none; }   /* decorative key icon */
 
 /* Note + empty */
 .note { display: flex; gap: 9px; align-items: flex-start; background: #0d1b2a; border: 1px solid #1c3550;
