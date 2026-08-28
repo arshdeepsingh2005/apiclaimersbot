@@ -156,6 +156,12 @@ select.inp { appearance: none; }
 .euser { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; }
 .euser-name { color: var(--tx2); font-weight: 600; }
 .euser-amt { color: var(--grn); font-weight: 700; }
+/* Standalone per-account earnings panel (its own card below Total Earned). */
+.peracct { text-align: left; margin-top: 12px; }
+.peracct .euser-list { margin-top: 8px; border-top: 0; padding-top: 0; }
+/* Tappable username on the Accounts card (whole name routes to Manage/renew). */
+.sub-name.tap { cursor: pointer; }
+.sub-name.tap:hover { color: var(--blu); }
 
 /* Note + empty */
 .note { display: flex; gap: 9px; align-items: flex-start; background: #0d1b2a; border: 1px solid #1c3550;
