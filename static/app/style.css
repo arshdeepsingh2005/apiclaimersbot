@@ -239,3 +239,27 @@ select.inp { appearance: none; }
 
 /* Iteration-3: plan duration line (Stream Special 24h) */
 .plan-dur { font-size: 11px; color: var(--blu); font-weight: 700; margin-top: 2px; }
+
+/* ── Multi-slot cart: bar (above nav) + sheet ─────────────────────────────── */
+.ctabar { position: fixed; left: 0; right: 0; bottom: 66px; z-index: 40; padding: 8px 12px 10px;
+  background: linear-gradient(to top, var(--bg) 55%, transparent); }
+.ctabar.hidden { display: none; }
+.cta-cart { width: 100%; display: flex; align-items: center; justify-content: space-between;
+  background: var(--blu); color: #fff; border: 0; border-radius: 12px; padding: 12px 16px;
+  font-weight: 700; font-size: 14px; cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,.38); }
+.cta-cart:active { transform: scale(.99); }
+.cta-go { font-size: 12px; opacity: .92; }
+.cart-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.citem { display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+.ci-name { font-weight: 700; font-size: 14px; }
+.ci-plan { color: var(--tx2); font-size: 12.5px; }
+.ci-x { background: transparent; border: 0; color: var(--tx3); font-size: 16px; line-height: 1;
+  cursor: pointer; padding: 4px 8px; }
+.ci-x:hover { color: var(--red); }
+.cart-foot { display: flex; justify-content: space-between; align-items: baseline;
+  padding: 4px 2px 12px; font-size: 14px; color: var(--tx2); }
+.cart-foot b { color: var(--tx); font-size: 18px; }
+/* Activating (paid, waiting on capacity) subscription card */
+.sub.activating { opacity: .9; }
+.sub.activating .sub-status { color: var(--blu); }

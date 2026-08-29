@@ -350,6 +350,78 @@ def order_pay():
     return ok({"pay_url": inv.get("pay_url"), "order_id": order_id, "amount": price})
 
 
+@miniapp_bp.post("/order/cart-begin")
+@require_session
+def order_cart_begin():
+    """Create a multi-slot cart. Body: {items:[{token, plan_code, config}]}. The backend
+    re-verifies every token + computes prices server-side (client prices are ignored)."""
+    if not _gate(g.tg_id, "app_order"):
+        return _busy()
+    body = request.get_json(force=True, silent=True) or {}
+    items = body.get("items")
+    if not isinstance(items, list) or not items:
+        return err("INVALID_INPUT", "items required", 400)
+    # Forward only the fields the server trusts — strip any client price/total/duration.
+    clean = []
+    for it in items:
+        if not isinstance(it, dict):
+            return err("INVALID_INPUT", "bad item", 400)
+        clean.append({"token": (it.get("token") or "").strip(),
+                      "plan_code": (it.get("plan_code") or "").strip(),
+                      "config": it.get("config") if isinstance(it.get("config"), dict) else {}})
+    data = apiclaimer_client.cart_begin(g.tg_id, clean)
+    e = _cust_err(data)
+    if e:
+        return e
+    return ok({"cart_id": data.get("cart_id"), "total_usd": data.get("total_usd"),
+               "items": data.get("items")})
+
+
+@miniapp_bp.post("/order/cart-pay")
+@require_session
+def order_cart_pay():
+    """Create ONE combined OxaPay invoice for a cart. The amount is the SERVER-stored
+    cart total (never the browser's)."""
+    if not _gate(g.tg_id, "app_order"):
+        return _busy()
+    body = request.get_json(force=True, silent=True) or {}
+    cart_id = (body.get("cart_id") or "").strip()
+    if not cart_id:
+        return err("INVALID_INPUT", "cart_id required", 400)
+    summary = apiclaimer_client.cart_get(cart_id, g.tg_id)
+    if summary is None:
+        return err("BACKEND_UNAVAILABLE", "backend unreachable", 502)
+    if not summary.get("ok"):
+        return err("NOT_FOUND", "cart not found", 404)
+    if summary.get("all_allocated"):
+        return ok({"already": True, "status": "allocated"})
+    total = summary.get("total_usd")
+    from bot.slot_payments import create_invoice_for_cart
+    inv = create_invoice_for_cart(cart_id, total)
+    if not inv.get("ok"):
+        return err("BACKEND_UNAVAILABLE", "could not create invoice", 502)
+    try:
+        if inv.get("track_id"):
+            apiclaimer_client.cart_set_track(cart_id, inv.get("track_id"))
+    except Exception:
+        pass
+    logger.info("miniapp order/cart-pay | tg_id=%s cart=%s total=%s", g.tg_id, cart_id, total)
+    return ok({"pay_url": inv.get("pay_url"), "cart_id": cart_id, "amount": total})
+
+
+@miniapp_bp.get("/order/cart/<cart_id>")
+@require_session
+def order_cart_status(cart_id):
+    data = apiclaimer_client.cart_get(cart_id, g.tg_id)
+    if data is None:
+        return err("BACKEND_UNAVAILABLE", "backend unreachable", 502)
+    if not data.get("ok"):
+        return err("NOT_FOUND", "cart not found", 404)
+    return ok({"total_usd": data.get("total_usd"), "count": data.get("count"),
+               "allocated": data.get("allocated"), "activating": data.get("activating"),
+               "all_allocated": data.get("all_allocated"), "settled": data.get("settled")})
+
+
 @miniapp_bp.get("/order/<order_id>")
 @require_session
 def order_status(order_id):

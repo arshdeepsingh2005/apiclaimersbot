@@ -41,6 +41,14 @@ def create_invoice_for_order(order_id: str, price_usd: float, description: str =
                                  description or f"API-Claimer slot ({order_id[:8]})")
 
 
+def create_invoice_for_cart(cart_id: str, total_usd: float, description: str = "") -> dict:
+    """ONE OxaPay invoice for a whole multi-slot cart. The OxaPay reference is the
+    cart_id — the webhook forwards it and the backend allocates EVERY order in the
+    cart under one total-based payment check. Returns {ok, pay_url, track_id}."""
+    return oxapay.create_invoice(float(total_usd), cart_id,
+                                 description or f"API-Claimer cart ({cart_id[:8]})")
+
+
 def enqueue_allocate(order_id: str, track_id: str = "") -> str:
     """Called by the HMAC-verified webhook. Non-blocking; de-dupes; never raises."""
     order_id = (order_id or "").strip()

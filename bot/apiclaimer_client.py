@@ -14,6 +14,14 @@ from bot.backend_client import _get, _post
 
 logger = logging.getLogger(__name__)
 
+# The backend holds the request open while it asks a userscript to verify the key
+# (backend VERIFY_TIMEOUT_S ≈ 8s). This HTTP timeout must be a SAFETY MARGIN above
+# that — not 8+1 — because after the backend's worker-wait there is still response
+# serialization + the return network hop. Too-tight (== 8s) makes the bot time out
+# just as the backend answers → a spurious "Verification failed". Mirrors the
+# 12s _COLLECTOR_TIMEOUT used for other "backend holds the connection open" relays.
+VERIFY_HTTP_TIMEOUT = 12
+
 
 def get_capacity():
     """→ {ok, total, occupied, reserved, available, plans:[...]} or None."""
@@ -22,7 +30,8 @@ def get_capacity():
 
 def verify_token(telegram_id: int, token: str):
     """→ {ok, valid, username?|reason?} — check a key without saving it."""
-    return _post("/api/cust/verify-token", {"telegram_id": int(telegram_id), "token": token})
+    return _post("/api/cust/verify-token", {"telegram_id": int(telegram_id), "token": token},
+                 timeout=VERIFY_HTTP_TIMEOUT)
 
 
 def get_slots(telegram_id: int):
@@ -59,6 +68,27 @@ def order_get(order_id: str, telegram_id: int = None):
 def order_set_track(order_id: str, track_id: str):
     """Persist the OxaPay track_id on the order (enables missed-webhook recovery)."""
     return _post("/api/cust/order/track", {"order_id": order_id, "track_id": track_id})
+
+
+# ── Multi-slot cart ──────────────────────────────────────────────────────────
+def cart_begin(telegram_id: int, items: list):
+    """Create a cart of pending orders (one per item). Each item = {token, plan_code,
+    config}. The backend re-verifies every token + prices server-side; the timeout is
+    longer because it holds the request open for the concurrent worker verifications."""
+    return _post("/api/cust/order/cart-begin",
+                 {"telegram_id": int(telegram_id), "items": items or []},
+                 timeout=VERIFY_HTTP_TIMEOUT)
+
+
+def cart_get(cart_id: str, telegram_id: int = None):
+    """Server-authoritative cart summary {ok, total_usd, count, all_allocated}."""
+    params = {"telegram_id": int(telegram_id)} if telegram_id else None
+    return _get(f"/api/cust/order/cart/{cart_id}", params=params)
+
+
+def cart_set_track(cart_id: str, track_id: str):
+    """Persist the OxaPay track_id on ALL pending orders of the cart."""
+    return _post("/api/cust/order/cart-track", {"cart_id": cart_id, "track_id": track_id})
 
 
 def order_allocate(order_id: str, paid_amount=None, paid_currency=None,
