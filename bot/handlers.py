@@ -34,6 +34,7 @@ from bot.backend_client import (
     get_all_connected,
     get_browsers,
     get_claims_by_license,
+    mark_user_seen,
     get_claims_by_user,
     get_claims_by_username,
     get_code_claim_count,
@@ -303,11 +304,13 @@ def _edit_or_send(chat_id: int, sent_result: dict, text: str) -> None:
 # ---------------------------------------------------------------------------
 
 def _notify_admin_new_user(user_id: int, first_name: str, last_name: str,
-                           profile_username: str, license_key: str) -> None:
-    """Send an admin-only notification when a brand-new user generates a license.
+                           profile_username: str, license_key: str = None) -> None:
+    """Send an admin-only notification when a brand-new user first opens the bot.
 
     Uses the shared allow-list (admin_routing) so it stays consistent with
     _is_admin — a multi-id ADMIN_USER_ID notifies every admin instead of breaking.
+    `license_key` is optional: the slot-sales bot has no auto-generated license, so
+    the License line is only shown when a key is actually passed.
     """
     admins = admin_routing.admin_ids()
     if not admins:
@@ -325,7 +328,8 @@ def _notify_admin_new_user(user_id: int, first_name: str, last_name: str,
     if safe_username:
         lines.append(f"Username: @{safe_username}")
     lines.append(f"User ID: <code>{user_id}</code>")
-    lines.append(f"License: <code>{license_key}</code>")
+    if license_key:
+        lines.append(f"License: <code>{license_key}</code>")
 
     body = "\n".join(lines)
     for admin_id in admins:
@@ -367,6 +371,16 @@ def handle_start(user_id: int, chat_id: int, first_name: str,
         parse_mode="HTML",
         reply_markup=_main_keyboard(),
     )
+
+    # First-start admin alert — AFTER the welcome so the extra backend round-trip
+    # never delays the user. Best-effort: fires exactly once per user (backend PK
+    # dedup), never affects the welcome flow.
+    try:
+        seen = mark_user_seen(user_id)
+        if seen and seen.get("is_new"):
+            _notify_admin_new_user(user_id, first_name, last_name, profile_username)
+    except Exception as exc:
+        logger.warning(f"start new-user alert failed (ignored): {exc}")
 
 
 # ---------------------------------------------------------------------------

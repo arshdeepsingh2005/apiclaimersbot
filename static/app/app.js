@@ -872,8 +872,12 @@
         '<div class="chips">' + typeBtns + '</div>' +
         '<section class="earn"><div class="earn-lbl">'+esc(t("total_earned"))+'</div><div class="earn-vals">' + earnedRows + '</div>' +
         '<div class="earn-sub">' + esc(d.successful_claims || 0) + ' ' + esc(t("successful_claims")) + '</div></section>' +
-        // Separate per-account panel (native currencies) — below Total Earned, kept intact.
-        (byUserRows ? '<section class="earn peracct"><div class="earn-lbl">'+esc(t("per_account_title"))+'</div><div class="euser-list">' + byUserRows + '</div></section>' : '') +
+        // Separate per-account panel (native currencies) — below Total Earned. ALWAYS
+        // rendered so it's never invisible; shows an empty-state line when no per-account
+        // claims exist in the selected window.
+        '<section class="earn peracct"><div class="earn-lbl">'+esc(t("per_account_title"))+'</div><div class="euser-list">' +
+        (byUserRows || '<div class="euser euser-empty"><span class="muted">'+esc(t("no_earnings"))+'</span></div>') +
+        '</div></section>' +
         '<h3 class="sec sm">'+esc(t("recent_codes"))+'</h3><div class="recent">' + recentHtml + '</div>' + truncNote);
 
       Array.prototype.forEach.call(document.querySelectorAll(".stat-tab"), function (b) {

@@ -180,6 +180,17 @@ def get_browsers(license_key: str) -> dict | None:
     )
 
 
+def mark_user_seen(telegram_id: int) -> dict | None:
+    """
+    POST /api/xr9k/user/seen — record a user's FIRST /start.
+
+    Returns {"ok": true, "is_new": bool}: is_new is true exactly once per user
+    (the first time). Used to fire the admin new-user alert without duplicates.
+    Best-effort; None on any backend error (caller simply skips the alert).
+    """
+    return _post("/api/xr9k/user/seen", {"telegram_id": int(telegram_id)})
+
+
 def get_all_connected() -> dict | None:
     """
     GET /api/xr9k/admin/connected
