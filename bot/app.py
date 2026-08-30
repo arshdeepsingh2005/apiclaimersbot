@@ -68,6 +68,7 @@ logger = logging.getLogger(__name__)
 _ADMIN_CMDS = frozenset({
     "api", "valuefornextcode", "maskcode", "claimdelay",
     "licenselivecount", "claimcount", "everycodesame",
+    "connected",
 })
 
 

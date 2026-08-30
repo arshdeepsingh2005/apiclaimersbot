@@ -31,6 +31,7 @@ from bot.backend_client import (
     admin_set_filters,
     admin_set_next_value,
     drop_code,
+    get_all_connected,
     get_browsers,
     get_claims_by_license,
     get_claims_by_user,
@@ -486,18 +487,69 @@ def handle_reload(user_id: int, chat_id: int) -> None:
 # /connected
 # ---------------------------------------------------------------------------
 
+def _format_connected_overview(data: dict) -> list[str]:
+    """Build the admin /connected overview as one or more HTML messages.
+
+    Splits into multiple messages when a single one would approach Telegram's 4096
+    char limit (we flush at ~3800). One license block is kept intact per message
+    where possible; a single license with a huge userscript list still splits safely."""
+    licenses = data.get("licenses") or []
+    totals = data.get("totals") or {}
+
+    header = (
+        f"🖥 <b>Connected overview</b>\n"
+        f"Licenses: <b>{totals.get('licenses', len(licenses))}</b> · "
+        f"Userscripts: <b>{totals.get('userscripts', 0)}</b>\n"
+        f"━━━━━━━━━━━━━━━"
+    )
+
+    chunks: list[str] = []
+    cur = header
+    LIMIT = 3800
+
+    def flush():
+        nonlocal cur
+        if cur.strip():
+            chunks.append(cur)
+        cur = ""
+
+    for lic in licenses:
+        key = html.escape(str(lic.get("license_key", "?")))
+        scripts = lic.get("userscripts") or []
+        connected = lic.get("connected", len(scripts))
+        block_lines = [f"\n🔑 <code>{key}</code>  ·  🖥 {connected} userscript(s)"]
+        if scripts:
+            for u in scripts:
+                uname = html.escape(str(u.get("username", "?")))
+                tokens = u.get("tokens", 0)
+                claims = u.get("claims24h")
+                claims_txt = "" if claims is None else f"  ·  24h: {claims}"
+                block_lines.append(f"• {uname} — {tokens} tokens{claims_txt}")
+        else:
+            block_lines.append("• (no userscript reply)")
+        block = "\n".join(block_lines)
+
+        # If adding this block would overflow, flush first. If the block itself is
+        # larger than the limit, split it line-by-line so we never exceed 4096.
+        if len(cur) + len(block) + 1 > LIMIT:
+            flush()
+        if len(block) > LIMIT:
+            for line in block.split("\n"):
+                if len(cur) + len(line) + 1 > LIMIT:
+                    flush()
+                cur = (cur + "\n" + line) if cur else line
+        else:
+            cur = (cur + "\n" + block) if cur else block
+
+    flush()
+    return chunks or [header + "\n\nNo userscripts connected."]
+
+
 def handle_connected(user_id: int, chat_id: int) -> None:
     logger.info(f"/connected  user_id={user_id}")
 
-    entry = _get_or_fetch_license(user_id)
-    if entry is None:
-        send_message(chat_id, _no_license_text(), parse_mode="HTML")
-        return
-
-    if not entry.active:
-        send_message(chat_id, _inactive_license_text(), parse_mode="HTML")
-        return
-
+    # Admin-only overview across ALL connected licenses. The dispatch already gates
+    # this to admins (app.py), so we do NOT require the CALLER to own a license.
     allowed, wait_secs = rate_limiter.check(user_id, "connected")
     if not allowed:
         send_message(chat_id, _rate_limit_text("connected", wait_secs), parse_mode="HTML")
@@ -505,35 +557,21 @@ def handle_connected(user_id: int, chat_id: int) -> None:
 
     thinking = send_message(chat_id, t("connected.fetching"), parse_mode="HTML")
 
-    result = get_browsers(entry.license_key)
-
+    result = get_all_connected()
     if result is None:
         _edit_or_send(chat_id, thinking, _error_text(t("connected.no_response_reason")))
         return
 
-    accounts: list = result.get("accounts", [])
-    browser_count: int = result.get("browsers", 0)
-
-    if not accounts:
-        _edit_or_send(
-            chat_id, thinking,
-            t("connected.no_claimers", license=shorten_key(entry.license_key)),
-        )
+    licenses = result.get("licenses") or []
+    if not licenses:
+        _edit_or_send(chat_id, thinking, "🖥 <b>Connected overview</b>\n\nNo userscripts connected.")
         return
 
-    acct_lines = "\n".join(
-        t("connected.account",
-          username=html.escape(str(a.get("username", "?"))),
-          tokens=a.get("tokens", 0),
-          claims=(a.get("claims24h") if a.get("claims24h") is not None else "—"))
-        for a in accounts
-    )
-
-    _edit_or_send(
-        chat_id, thinking,
-        t("connected.header", license=shorten_key(entry.license_key),
-          browsers=browser_count, accounts=acct_lines),
-    )
+    messages = _format_connected_overview(result)
+    # First message replaces the "fetching…" placeholder; the rest are sent fresh.
+    _edit_or_send(chat_id, thinking, messages[0])
+    for extra in messages[1:]:
+        send_message(chat_id, extra, parse_mode="HTML")
 
 
 # ---------------------------------------------------------------------------

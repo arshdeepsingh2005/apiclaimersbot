@@ -180,6 +180,27 @@ def get_browsers(license_key: str) -> dict | None:
     )
 
 
+def get_all_connected() -> dict | None:
+    """
+    GET /api/xr9k/admin/connected
+
+    Admin overview across ALL connected licenses. The backend emits getBrowsers to
+    every connected license and holds the connection for ~5 s, so use _COLLECTOR_TIMEOUT.
+    Expected response:
+    {
+      "licenses": [
+        { "license_key": "...", "connected": N,
+          "userscripts": [ { "username": "...", "tokens": N, "claims24h": N|null } ] }
+      ],
+      "totals": { "licenses": N, "userscripts": N }
+    }
+    """
+    return _get(
+        "/api/xr9k/admin/connected",
+        timeout=_COLLECTOR_TIMEOUT,
+    )
+
+
 def get_all_licenses() -> list:
     """
     GET /api/xr9k/lic/list
