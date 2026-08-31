@@ -273,8 +273,8 @@ def stats():
     e = _cust_err(data)
     if e:
         return e
-    return ok({k: data.get(k) for k in ("window", "type", "earned",
-                                        "successful_claims", "recent_codes")})
+    return ok({k: data.get(k) for k in ("window", "type", "earned", "earned_by_user",
+                                        "successful_claims", "recent_codes", "recent_truncated")})
 
 
 @miniapp_bp.post("/drop")
